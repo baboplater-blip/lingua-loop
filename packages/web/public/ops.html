@@ -20,6 +20,10 @@
     .ops select, .ops button { padding: 6px 10px; border-radius: 8px; }
     .ops .gaps { color: var(--muted, #789); font-size: 13px; }
     .ops .k { color: var(--muted, #789); }
+    .ops .tv { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+    .ops .spk { flex: none; }
+    .ops .spk svg { display: block; }
+    .ops .sparkhint { color: var(--muted, #789); font-size: 12px; margin: 2px 0 8px; }
   </style>
 </head>
 <body>
@@ -61,11 +65,12 @@
 
     <div class="card">
       <h2>추이 — Loop Velocity (진화 사이클 스냅샷)</h2>
+      <p class="sparkhint">각 지표의 스냅샷 시퀀스(왼쪽=처음 → 오른쪽=최신). 선 색: 초록=개선 방향, 빨강=악화.</p>
       <div class="metric"><span>누적 스냅샷</span><b id="tr-count">—</b></div>
-      <div class="metric"><span>전체 정확도 Δ(첫→최신)</span><b id="tr-acc">—</b></div>
-      <div class="metric"><span>복습 정확도 Δ</span><b id="tr-review">—</b></div>
-      <div class="metric"><span>숙달까지 응답 Δ<span class="k"> (음수=개선)</span></span><b id="tr-ttm">—</b></div>
-      <div class="metric"><span>숙달 KC Δ</span><b id="tr-kcs">—</b></div>
+      <div class="metric"><span>전체 정확도 Δ(첫→최신)</span><span class="tv"><b id="tr-acc">—</b><span class="spk" id="sp-acc"></span></span></div>
+      <div class="metric"><span>복습 정확도 Δ</span><span class="tv"><b id="tr-review">—</b><span class="spk" id="sp-review"></span></span></div>
+      <div class="metric"><span>숙달까지 응답 Δ<span class="k"> (음수=개선)</span></span><span class="tv"><b id="tr-ttm">—</b><span class="spk" id="sp-ttm"></span></span></div>
+      <div class="metric"><span>숙달 KC Δ</span><span class="tv"><b id="tr-kcs">—</b><span class="spk" id="sp-kcs"></span></span></div>
     </div>
 
     <div class="card">

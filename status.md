@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**추이 스파크라인 — 효능 스냅샷 시퀀스 시각화.** ops 대시보드 추이 카드가 이제 첫↔최신 델타 숫자에 더해 **SVG 꺾은선 스파크라인**을 지표별로 표시(전체 정확도·복습 정확도·숙달까지 응답[하락=개선]·숙달 KC). `/efficacy/history`가 이미 주던 `snapshots[]` 전체 시퀀스를 ops.js 순수 `sparkline(vals, better)`(제로 의존, null=x축 위치 보존, 첫↔최신 방향 색: 초록=개선·빨강=악화·파랑=평탄)로 렌더. 게이트 **310 pass(57파일)** + 라이브 스모크 9/9(스냅샷 3개→kcsMastered 0→2, SVG path·개선색·엣지케이스). 다음: 문법KC 읽기 연결 등.
+
+<details><summary>이전 요약 — 🚀 공개 배포 완료 (v0.1.0)</summary>
+
 **🚀 공개 배포 완료 (v0.1.0).** LinguaLoop 첫 OSS 릴리스를 GitHub 공개 리포로 배포 — <https://github.com/baboplater-blip/lingua-loop> (PUBLIC, main, MIT). git init→초기 커밋(241파일, 비밀·학습자 데이터 유출 0 검증)→태그 `v0.1.0`→push→GitHub Release 발행→검색 토픽 10종. 배포 직전 게이트 그린 **309 pass / 57파일**·릴리스 준비도 그린 재확인. 이전 라운드까지 코드·콘텐츠(7개 언어 A1~B2)·무인 진화 폐루프·운영 런북·북스타 대시보드(CLI+웹+시계열 추이)·읽기 복수·주관식·산출 측정 전부 완결. 다음: 공개 후 점진 개선(추이 스파크라인·문법KC 읽기 연결).
 
 <details><summary>이전 요약 — 생성기 주관식 산출 + 효능 시계열 추이(2건 일괄)</summary>
@@ -13,8 +17,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **추이 스파크라인 — 스냅샷 시퀀스 꺾은선(규칙 1)**: 🟢 ops 대시보드 추이 카드가 첫↔최신 델타에 더해 지표별 **SVG 꺾은선**(`sp-acc`·`sp-review`·`sp-ttm`·`sp-kcs`). `/efficacy/history`가 이미 주던 `snapshots[]` 전체 시퀀스를 ops.js 순수 `sparkline(vals, better)`(제로 의존 SVG path, null=x축 위치 보존, 첫↔최신 방향 색 초록=개선·빨강=악화·파랑=평탄, TTM=better false로 하락이 개선)로 렌더. `.tv` flex·범례 추가. `ops.test`(슬롯 4·함수·`.snapshots`·SVG path·innerHTML·TTM false). 라이브 스모크 9/9(스냅샷 3개→kcsMastered 0→2 상승·정확도/숙달 path 생성·개선색·빈/단일 시퀀스 안전). 게이트 310 pass
 - **공개 리포 첫인상 손질 — README 배지·빠른시작·CI(규칙 13·14)**: 🟢 방문자 5분 온보딩. README 배지 6종(tests 309 passing·code MIT·content CC-BY·Node≥24·zero-dep·release) + 빠른시작에 `git clone`→`cd`→`npm run serve` 단계(`npm install` 불필요 명시·ops.html·evolve:all 안내) + 로드맵/라이선스 문구 배포완료로 갱신. `package.json` version 0.0.1→**0.1.0**(태그 정합)+`repository`/`homepage`/`bugs`. CI `.github/workflows/ci.yml`(gate 실행, Node 24) push 완료 — gh 토큰 `workflow` 스코프 디바이스 플로우 1회 승인 후 워크플로 push+실동작 gate 배지 교체. 실증: 온보딩 스모크 5/5(실 `serve` 부팅→`/`·`/app.js`·`/ops.html`·`/next` 200), 게이트 309 pass·릴리스 준비도 그린
 - **🚀 공개 배포 v0.1.0(규칙 14·18)**: 🟢 명시 승인('배포해')으로 첫 OSS 릴리스 — GitHub 공개 리포 <https://github.com/baboplater-blip/lingua-loop>(PUBLIC·main·MIT). git init(`-b main`)→로컬 identity→`git add -A`(241파일)→**커밋 전 유출 검사 0**(data/·.env·.sqlite·.pem·.key·secrets/·learner-store/ 미포함, `.claude/settings.json`=권한 허용목록뿐)→초기 커밋 `65d3223`→annotated 태그 `v0.1.0`→`gh repo create --public --push`→태그 push→`gh release create v0.1.0`(한/영 릴리스 노트)→토픽 10종(language-learning·spaced-repetition·fsrs·irt·multilingual·self-hosted 등). 배포 직전 게이트 그린 **309 pass / 57파일**·릴리스 준비도 그린 재확인. ⚠️GitHub 라이선스 자동감지는 재스캔 지연(LICENSE=표준 MIT 21줄, 곧 인식). 로컬 main↔origin/main 동기
 - **게이트**: 🟢 통과 — `npm run gate` (문서 5 + 다크패턴 안티 + 검증 스위트 **309 pass / 0 fail**, 57파일). 릴리스 준비도 그린(8종 카드·라이선스·시크릿·self-host 스모크)

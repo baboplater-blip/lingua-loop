@@ -30,6 +30,20 @@ test("ops: 추이(Loop Velocity) — 진화 사이클 스냅샷 델타 렌더", 
   assert.ok(/trend\.delta|trend\.count/.test(js), "추세 델타 렌더");
 });
 
+test("ops: 추이 스파크라인 — 스냅샷 시퀀스를 SVG 꺾은선으로", () => {
+  // html: 지표별 스파크라인 슬롯
+  for (const id of ["sp-acc", "sp-review", "sp-ttm", "sp-kcs"]) {
+    assert.ok(html.includes(`id="${id}"`), "스파크라인 슬롯: " + id);
+  }
+  // js: sparkline 함수가 스냅샷 시퀀스에서 SVG path 를 생성해 슬롯에 주입
+  assert.ok(/function sparkline|const sparkline/.test(js), "sparkline 함수");
+  assert.ok(js.includes(".snapshots"), "스냅샷 시퀀스 소비");
+  assert.ok(js.includes("<svg") && js.includes("<path"), "SVG 꺾은선 생성");
+  assert.ok(js.includes("innerHTML"), "슬롯에 렌더");
+  // 방향(개선/악화) 색을 스냅샷 첫↔최신으로 결정 — TTM 은 하락이 개선(better=false)
+  assert.ok(js.includes("medianResponsesToMastery), false"), "TTM 스파크라인은 하락=개선");
+});
+
 test("ops: 참여도(세션·스트릭) 미노출 + 다크패턴 없음(규칙 1·9)", () => {
   const copy = html + "\n" + js;
   // 북스타는 성과 — 세션수/스트릭 지표를 대시보드에 두지 않는다

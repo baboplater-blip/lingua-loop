@@ -57,18 +57,51 @@ const arrow = (delta, better) => {
 const deltaPct = (d, better) => (d === null || d === undefined ? "—" : `${(d * 100).toFixed(1)}%p  ${arrow(d, better)}`);
 const deltaNum = (d, better) => (d === null || d === undefined ? "—" : `${d > 0 ? "+" : ""}${d.toFixed ? d.toFixed(1) : d}  ${arrow(d, better)}`);
 
+// 스파크라인 — 스냅샷 시퀀스를 SVG 꺾은선으로. null 은 건너뛰되 x축 위치는 보존(간격 유지). 제로 의존.
+// better: 값 상승이 개선이면 true(정확도·숙달), 하락이 개선이면 false(숙달까지 응답 수).
+function sparkline(vals, better = true) {
+  const w = 150, h = 32, pad = 4;
+  const pts = vals.map((v, i) => ({ i, v })).filter((p) => p.v !== null && p.v !== undefined && !Number.isNaN(p.v));
+  if (pts.length === 0) return "";
+  const n = vals.length;
+  const ys = pts.map((p) => p.v);
+  const min = Math.min(...ys), max = Math.max(...ys), span = max - min || 1;
+  const px = (i) => pad + (n <= 1 ? (w - 2 * pad) / 2 : (i / (n - 1)) * (w - 2 * pad));
+  const py = (v) => pad + (1 - (v - min) / span) * (h - 2 * pad);
+  const firstV = pts[0].v, lastP = pts[pts.length - 1], lastV = lastP.v;
+  const flat = pts.length < 2 || lastV === firstV;
+  const improved = better ? lastV >= firstV : lastV <= firstV;
+  const col = flat ? "#6cf" : improved ? "#3ad29a" : "#e06c75";
+  const d = pts.map((p, k) => `${k ? "L" : "M"}${px(p.i).toFixed(1)} ${py(p.v).toFixed(1)}`).join(" ");
+  return `<svg class="spk-svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="추이 스파크라인 ${pts.length}점">`
+    + `<path d="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />`
+    + `<circle cx="${px(lastP.i).toFixed(1)}" cy="${py(lastV).toFixed(1)}" r="2.6" fill="${col}" /></svg>`;
+}
+
 async function loadTrend(lang) {
+  const sparks = ["sp-acc", "sp-review", "sp-ttm", "sp-kcs"];
   try {
     const h = await (await fetch(`/efficacy/history?lang=${lang}`)).json();
     $("tr-count").textContent = num(h.trend.count);
     const d = h.trend.delta;
-    if (!d) { ["tr-acc", "tr-review", "tr-ttm", "tr-kcs"].forEach((id) => ($(id).textContent = "—")); return; }
+    if (!d) {
+      ["tr-acc", "tr-review", "tr-ttm", "tr-kcs"].forEach((id) => ($(id).textContent = "—"));
+      sparks.forEach((id) => ($(id).innerHTML = ""));
+      return;
+    }
     $("tr-acc").textContent = deltaPct(d.overallAccuracy, true);
     $("tr-review").textContent = deltaPct(d.reviewAccuracy, true);
     $("tr-ttm").textContent = deltaNum(d.medianResponsesToMastery, false); // 응답 수는 감소가 개선
     $("tr-kcs").textContent = deltaNum(d.kcsMastered, true);
+    // 스냅샷 시퀀스 → 지표별 꺾은선(첫→최신)
+    const s = Array.isArray(h.snapshots) ? h.snapshots : [];
+    $("sp-acc").innerHTML = sparkline(s.map((x) => x.overallAccuracy), true);
+    $("sp-review").innerHTML = sparkline(s.map((x) => x.reviewAccuracy), true);
+    $("sp-ttm").innerHTML = sparkline(s.map((x) => x.medianResponsesToMastery), false);
+    $("sp-kcs").innerHTML = sparkline(s.map((x) => x.kcsMastered), true);
   } catch {
     $("tr-count").textContent = "—";
+    sparks.forEach((id) => ($(id).innerHTML = ""));
   }
 }
 
