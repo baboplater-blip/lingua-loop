@@ -37,6 +37,14 @@ npm run evolve:demo     # 진화 루프 1사이클 데모
 
 기여 심사·랭킹·동료검증 흐름은 [`community-contribution-workflow`](.claude/skills/community-contribution-workflow/SKILL.md)를 따릅니다.
 
+## 2.5 처음 기여하기 (First contribution)
+
+1. **이슈부터** — [이슈 템플릿](.github/ISSUE_TEMPLATE)으로 버그(🐛)·언어팩(🌍)·콘텐츠/기능(💡)을 여세요. 질문·설계 논의는 이슈가 아니라 [Discussions](https://github.com/baboplater-blip/lingua-loop/discussions).
+2. **쉬운 것부터** — [`good first issue`](https://github.com/baboplater-blip/lingua-loop/labels/good%20first%20issue) 라벨이 붙은 이슈가 진입점입니다. 그중 **언어팩 기여**(🌍)는 코어 코드 0줄로 시작할 수 있어 가장 추천합니다(규칙 11).
+3. **흐름** — 이슈 → (필요시 Discussions 합의) → 작은 PR → **CI 게이트 자동 검증**(모든 push/PR에 `npm run gate`) → 리뷰 → 머지.
+
+**라벨 taxonomy**: `bug` · `enhancement` · `language-pack` · `good first issue` · `content` · `core` · `docs` · `help wanted`. 영역 라벨(core/server/web/packs/adapters/evolution)로 관심 분야를 필터하세요.
+
 ## 3. 절대 지켜야 할 것 (요약)
 
 1. **성과가 진실** — 학습성과(TTM·Gain·리텐션)를 개선하는가? 참여도 지표만 올리는 변경은 반려.

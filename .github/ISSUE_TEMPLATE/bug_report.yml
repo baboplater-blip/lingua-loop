@@ -1,0 +1,65 @@
+name: 🐛 버그 리포트 (Bug report)
+description: 재현 가능한 버그를 신고합니다 / Report a reproducible bug
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        고마워요! 재현 절차가 명확할수록 빨리 고칩니다.
+        ⚠️ **학습자 PII(개인정보)나 시크릿을 붙이지 마세요**(규칙 6·7). 로그는 익명화 후 첨부.
+  - type: textarea
+    id: what
+    attributes:
+      label: 무슨 일이 일어났나요 (What happened)
+      description: 기대한 동작과 실제 동작
+      placeholder: "기대: … / 실제: …"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 재현 절차 (Steps to reproduce)
+      description: 가능하면 `npm run serve` 기준 최소 재현
+      placeholder: |
+        1. `npm run serve`
+        2. GET /next?lang=…
+        3. …
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역 (Area)
+      options:
+        - core (엔진·알고리즘)
+        - server (API·핸들러)
+        - web (학습 앱·ops 대시보드)
+        - packs (언어팩·콘텐츠)
+        - adapters (튜터·생성기)
+        - evolution (진화 루프)
+        - 기타/모름
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: 환경 (Environment)
+      description: Node 버전·OS
+      placeholder: "node v24.x · Windows 11 / macOS / Linux"
+    validations:
+      required: true
+  - type: textarea
+    id: gate
+    attributes:
+      label: 게이트 출력 (선택)
+      description: "`npm run gate` 결과를 붙이면 도움이 됩니다"
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 확인
+      options:
+        - label: 최신 main 에서 재현했습니다
+          required: true
+        - label: 로그에 학습자 PII·시크릿이 없습니다 (규칙 6)
+          required: true

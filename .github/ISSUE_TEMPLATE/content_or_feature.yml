@@ -1,0 +1,50 @@
+name: 💡 콘텐츠·기능 제안 (Content / Feature)
+description: 새 콘텐츠(문항·지문)나 학습 기능을 제안합니다
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        이 프로젝트의 유일한 기준은 **실측 학습성과**입니다(참여도 아님, 규칙 1).
+        "동작한다"가 아니라 **"성과에 이롭다"** 를 보여주면 채택이 빠릅니다(규칙 7).
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 종류 (Kind)
+      options:
+        - 콘텐츠 (문항·지문·발음 데이터)
+        - 학습 기능 (알고리즘·경로·측정)
+        - 어댑터 (튜터·생성기)
+        - 개발자 경험 (문서·도구·CI)
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 어떤 학습 문제를 푸나요 (What learning problem)
+      description: 누가·어떤 상황에서·왜 지금 학습이 막히는지
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안 (Proposal)
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 성과 근거 (How we'd know it helps)
+      description: 어떤 북스타 지표(TTM·리텐션·Coverage 등)가 어떻게 개선될 것으로 보나요
+      placeholder: "예: A2 학습자의 문법 KC 커버리지↑ → 숙달까지 응답 수↓"
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 확인
+      options:
+        - label: 참여도(체류·스트릭)가 아니라 학습성과를 지향합니다 (규칙 1)
+          required: true
+        - label: 다크패턴(손실공포·강제 알림·죄책감)을 넣지 않습니다 (규칙 2·9)
+          required: true

@@ -1,0 +1,9 @@
+# 이슈 선택기 — 빈 이슈는 막고, 보안/토론은 올바른 경로로 유도.
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 보안 취약점 (Security)
+    url: https://github.com/baboplater-blip/lingua-loop/security/advisories/new
+    about: 취약점은 공개 이슈가 아니라 SECURITY.md 절차로 비공개 제보해주세요. 학습자 PII는 절대 붙이지 마세요.
+  - name: 💬 질문·아이디어 (Questions / Ideas)
+    url: https://github.com/baboplater-blip/lingua-loop/discussions
+    about: 사용법 질문·설계 논의는 Discussions 에서. 버그·구체 제안만 이슈로.

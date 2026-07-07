@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**기여 인프라 — 이슈/PR 템플릿·라벨·good first issue.** 공개 리포에 외부 기여를 받을 채비(CI 자동 게이트와 짝). `.github/ISSUE_TEMPLATE/` config+폼 3종(🐛 버그·🌍 언어팩[good first issue·코어 0줄]·💡 콘텐츠/기능[성과 근거 필수]) + `PULL_REQUEST_TEMPLATE.md`(rules 체크리스트: 게이트 그린·성과가 진실·다크패턴 없음·append-only·자가호스팅·erasable TS·DCO) + CONTRIBUTING §2.5 처음 기여 흐름·라벨 taxonomy + 라벨 생성(language-pack·content·core·evolution·help wanted). 게이트 **313 pass(57파일)** 불변. 다음: 생성 지문 상위문법 태깅 등.
+
+<details><summary>이전 요약 — 문법 스킬 읽기 연결</summary>
+
 **문법 스킬 읽기 연결 — 읽기 채점이 문법 숙달에도 기여.** `answerReading`이 이미 지문 `kc` 전체를 크레딧하는데 비라틴 5개 언어 A2 지문에 문법 KC가 없던 구조적 격차를 체계적으로 수정: **A2 문법 KC 5종 신설**(zh 기본문장·ar/sw 현재형·ja ます형·hi 현재습관, en·es는 이미 보유→7개 언어 대칭)+각 flashcard+mcq 콘텐츠+A2 시드 지문 5개 정직 태깅. 생성기(다국어·en·es)도 등급 지문에 기초 문법 KC 배선(재발 방지). 게이트 **313 pass(57파일)**+라이브 HTTP 13/13(읽기 2회 정답→문법 KC 숙달 0.70). 다음: 이슈/PR 템플릿 등.
 
 <details><summary>이전 요약 — 추이 스파크라인</summary>
@@ -25,8 +29,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **기여 인프라 — 이슈/PR 템플릿·라벨·good first issue(규칙 1·9·11)**: 🟢 외부 기여를 받을 채비(CI 자동 게이트와 짝). `.github/ISSUE_TEMPLATE/config.yml`(빈 이슈 차단·보안=advisory·질문=Discussions) + 이슈 폼 3종(🐛 `bug_report`[영역·환경·PII 미포함 체크]·🌍 `language_pack`[문자체계·포함 데이터·코어 0줄 체크·good first issue]·💡 `content_or_feature`[성과 근거 필수·다크패턴 금지 체크]) + `.github/PULL_REQUEST_TEMPLATE.md`(rules 체크리스트: 게이트 그린·성과가 진실·다크패턴 없음·append-only·미검증 미노출·자가호스팅·erasable TS·스키마 마이그레이션·DCO) + CONTRIBUTING §2.5(이슈→Discussions→작은 PR→CI 게이트→머지·라벨 taxonomy). 라벨 생성(language-pack·content·core·evolution·help wanted + 기본 good first issue/bug/enhancement). 한/영 병기·규칙 인용. 게이트 313 pass 불변(문서·yaml)
 - **문법 스킬 읽기 연결 — 읽기 채점이 문법 숙달에 기여(규칙 1·11)**: 🟢 `answerReading`은 이미 지문 `kc` 전체를 크레딧 → 격차는 태깅. 비라틴 5개 언어 A2 지문에 문법 KC가 없던 구조적 결함을 체계 수정: **A2 문법 KC 5종 신설**(`kc.zh.basic_sentence`·`kc.ar.present_tense`·`kc.sw.present_tense`·`kc.ja.masu_form`·`kc.hi.present_habitual`, en·es는 이미 present 문법 보유 → 7개 언어 대칭)+각 `content-seed` flashcard+mcq(학습 가능)+A2 시드 지문 5개 정직 태깅(각 지문이 실제 그 문법 포함). **생성기 systemic**(다국어·en·es 생성기가 등급 vocab.core 지문에 기초 문법 KC 함께 태깅→새 생성 지문도 문법 크레딧, 상위 문법은 템플릿마다 유무 달라 미부착=규칙 4). `reading.test`(모든 지문 문법 KC 7언어·신설 A2 KC 2회 정답→숙달 도달 5언어)·`multilingual-reading.test`(생성 지문 어휘+문법 전등급)·`reading-gen.test`(등급 지문 present_simple). 라이브 HTTP 13/13(`/reading/answer` 2회→`/state` 문법 숙달 0.70·신설 KC 콘텐츠). 게이트 313 pass
 - **추이 스파크라인 — 스냅샷 시퀀스 꺾은선(규칙 1)**: 🟢 ops 대시보드 추이 카드가 첫↔최신 델타에 더해 지표별 **SVG 꺾은선**(`sp-acc`·`sp-review`·`sp-ttm`·`sp-kcs`). `/efficacy/history`가 이미 주던 `snapshots[]` 전체 시퀀스를 ops.js 순수 `sparkline(vals, better)`(제로 의존 SVG path, null=x축 위치 보존, 첫↔최신 방향 색 초록=개선·빨강=악화·파랑=평탄, TTM=better false로 하락이 개선)로 렌더. `.tv` flex·범례 추가. `ops.test`(슬롯 4·함수·`.snapshots`·SVG path·innerHTML·TTM false). 라이브 스모크 9/9(스냅샷 3개→kcsMastered 0→2 상승·정확도/숙달 path 생성·개선색·빈/단일 시퀀스 안전). 게이트 310 pass
 - **공개 리포 첫인상 손질 — README 배지·빠른시작·CI(규칙 13·14)**: 🟢 방문자 5분 온보딩. README 배지 6종(tests 309 passing·code MIT·content CC-BY·Node≥24·zero-dep·release) + 빠른시작에 `git clone`→`cd`→`npm run serve` 단계(`npm install` 불필요 명시·ops.html·evolve:all 안내) + 로드맵/라이선스 문구 배포완료로 갱신. `package.json` version 0.0.1→**0.1.0**(태그 정합)+`repository`/`homepage`/`bugs`. CI `.github/workflows/ci.yml`(gate 실행, Node 24) push 완료 — gh 토큰 `workflow` 스코프 디바이스 플로우 1회 승인 후 워크플로 push+실동작 gate 배지 교체. 실증: 온보딩 스모크 5/5(실 `serve` 부팅→`/`·`/app.js`·`/ops.html`·`/next` 200), 게이트 309 pass·릴리스 준비도 그린

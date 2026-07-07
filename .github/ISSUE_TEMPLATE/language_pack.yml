@@ -1,0 +1,66 @@
+name: 🌍 언어팩 기여 (Language pack)
+description: 새 목표어(또는 화면 언어)를 데이터로 추가 — 코어 코드 0줄(규칙 11)
+labels: ["language-pack", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        LinguaLoop는 **언어 무관 엔진**입니다 — 새 언어는 코드가 아니라 데이터(언어팩)로 추가합니다.
+        먼저 [`language-pack-format`](../blob/main/.claude/skills/language-pack-format/SKILL.md) 규격을 읽어주세요.
+        저자원 언어·비영어 화자 기여를 **우대**합니다.
+  - type: input
+    id: lang
+    attributes:
+      label: 언어 (Language)
+      description: 이름 + BCP-47/ISO 코드
+      placeholder: "베트남어 (vi) / Vietnamese (vi)"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 종류 (Kind)
+      options:
+        - 학습 대상 목표어 (target language — packs/<lang>/)
+        - 화면 언어 로케일 (UI locale — /i18n)
+    validations:
+      required: true
+  - type: dropdown
+    id: script
+    attributes:
+      label: 문자 체계 (Script paradigm)
+      description: 코어는 문자/방향 무관 — 참고용
+      options:
+        - 라틴 알파벳 (Latin)
+        - CJK (한자·가나 등)
+        - RTL / 아랍 문자 (right-to-left)
+        - 아부기다 (데바나가리 등)
+        - 기타
+    validations:
+      required: true
+  - type: checkboxes
+    id: parts
+    attributes:
+      label: 포함할 데이터 (Which parts)
+      description: 처음이면 vocab.core + kc-seed 만으로도 좋습니다
+      options:
+        - label: kc-seed.json (KC 그래프 — canDo·선후관계)
+        - label: content-seed.json (flashcard·mcq, 목표어 문자 보존)
+        - label: reading.json (등급 지문 + 클릭 사전 + 이해 문항)
+        - label: placement.json (배치고사 문항)
+        - label: phonology.json (발음 최소대립쌍)
+        - label: i18n 로케일 (화면 언어일 때)
+  - type: textarea
+    id: notes
+    attributes:
+      label: 언어 특성 메모 (선택)
+      description: 성·격·성조·어순 등 튜터/검증에 필요한 특이사항
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 확인
+      options:
+        - label: 코어/서버/어댑터 코드 변경 없이 데이터만 추가합니다 (규칙 11)
+          required: true
+        - label: 콘텐츠 라이선스는 CC-BY-4.0 이며 정답이 유효합니다 (규칙 4·14)
+          required: true
