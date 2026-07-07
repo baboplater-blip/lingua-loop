@@ -1,9 +1,17 @@
 {
   "name": "lingua-loop",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "데이터로 끝없이 진화하는 오픈소스 언어 마스터리 엔진 (self-evolving open-source language-mastery engine)",
+  "homepage": "https://github.com/baboplater-blip/lingua-loop#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baboplater-blip/lingua-loop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/baboplater-blip/lingua-loop/issues"
+  },
   "workspaces": [
     "packages/core",
     "packages/server",
