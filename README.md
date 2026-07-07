@@ -1,6 +1,6 @@
 # LinguaLoop
 
-[![tests](https://img.shields.io/badge/tests-309%20passing-brightgreen.svg)](scripts/gate.mjs)
+[![gate](https://github.com/baboplater-blip/lingua-loop/actions/workflows/ci.yml/badge.svg)](https://github.com/baboplater-blip/lingua-loop/actions/workflows/ci.yml)
 [![license: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![content: CC-BY-4.0](https://img.shields.io/badge/content-CC--BY--4.0-green.svg)](packages/packs/LICENSE.md)
 [![Node](https://img.shields.io/badge/node-%E2%89%A524-brightgreen.svg)](package.json)

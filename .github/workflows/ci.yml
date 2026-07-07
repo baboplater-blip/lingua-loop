@@ -1,0 +1,20 @@
+# CI — 완료 게이트(문서 정합 + 다크패턴 안티 + 전체 테스트)를 모든 push/PR에 실행.
+# 제로 의존(node_modules 없음)·외부 API 없음 → 체크아웃 + Node 24 + 게이트가 전부.
+name: gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: 완료 게이트
+        run: node scripts/gate.mjs
