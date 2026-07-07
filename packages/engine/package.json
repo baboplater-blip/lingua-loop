@@ -1,0 +1,10 @@
+{
+  "name": "@lingua-loop/engine",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "진화 워커 — 자기개선 폐루프. 분석→제안→실험(가드레일=학습성과)→검증→배포. /evolve·/calibrate.",
+  "scripts": {
+    "test": "node --test test/*.test.ts",
+    "demo": "node scripts/evolve-demo.mjs"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@lingua-loop/core",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "언어 무관 학습 엔진 코어 — 콘텐츠 스키마·FSRS·KC 그래프·학습자 모델·캘리브레이션·평가·품질 게이트",
+  "main": "src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "test": "node --test test/*.test.ts"
+  }
+}

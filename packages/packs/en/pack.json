@@ -1,0 +1,12 @@
+{
+  "lang": "en",
+  "name": "English",
+  "script": "latin",
+  "direction": "ltr",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-SA-4.0",
+  "schemaVersion": 1,
+  "note": "MVP 시드 팩. 효능 입증용 최소 콘텐츠. 확장은 /new-content · 커뮤니티 기여."
+}

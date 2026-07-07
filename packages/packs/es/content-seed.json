@@ -1,0 +1,215 @@
+[
+  {
+    "id": "es.vocab.agua",
+    "lang": "es",
+    "type": "flashcard",
+    "kc": ["kc.es.vocab.core"],
+    "level": "A1",
+    "prompt": "물",
+    "answer": { "value": "agua" },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "i18n": { "ko": { "hint": "마시는 것" } },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "es.ser.soy",
+    "lang": "es",
+    "type": "cloze",
+    "kc": ["kc.es.present_ser"],
+    "level": "A1",
+    "prompt": "Yo ___ estudiante.",
+    "answer": { "value": "soy", "accept": ["soy"] },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "es.gender.la",
+    "lang": "es",
+    "type": "mcq",
+    "kc": ["kc.es.gender"],
+    "level": "A1",
+    "prompt": "___ casa es grande.",
+    "answer": { "value": "La" },
+    "distractors": [{ "value": "El", "errorTag": "gender" }, { "value": "Los", "errorTag": "number" }],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "es.ar.habla",
+    "lang": "es",
+    "type": "mcq",
+    "kc": ["kc.es.present_ar"],
+    "level": "A1",
+    "prompt": "Ella ___ español.",
+    "answer": { "value": "habla" },
+    "distractors": [{ "value": "hablo", "errorTag": "person-1sg" }, { "value": "hablas", "errorTag": "person-2sg" }, { "value": "hablan", "errorTag": "number" }],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "es.phon.perro",
+    "lang": "es",
+    "type": "minimal_pair",
+    "kc": ["kc.es.phon.rr"],
+    "level": "A1",
+    "prompt": "들은 단어를 고르세요: pero / perro",
+    "answer": { "value": "perro" },
+    "distractors": [{ "value": "pero", "errorTag": "tap-vs-trill" }],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.pret.concept",
+    "lang": "es",
+    "type": "flashcard",
+    "kc": [
+      "kc.es.preterite"
+    ],
+    "level": "B1",
+    "prompt": "단순과거(pretérito): ayer yo ___ (comer, 1인칭)",
+    "answer": {
+      "value": "comí",
+      "accept": [
+        "comí",
+        "comi"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "-er/-ir 1인칭 과거 어미 -í"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.pret.fill",
+    "lang": "es",
+    "type": "mcq",
+    "kc": [
+      "kc.es.preterite"
+    ],
+    "level": "B1",
+    "prompt": "\"Ayer yo ___ español.\" (hablar, 1인칭 과거)",
+    "answer": {
+      "value": "hablé"
+    },
+    "distractors": [
+      {
+        "value": "hablo (현재)",
+        "errorTag": "preterite"
+      },
+      {
+        "value": "hablaré (미래)",
+        "errorTag": "preterite"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "-ar 1인칭 과거 어미 -é"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.subj.concept",
+    "lang": "es",
+    "type": "flashcard",
+    "kc": [
+      "kc.es.subjunctive"
+    ],
+    "level": "B2",
+    "prompt": "접속법: Quiero que tú ___ (hablar, 2인칭)",
+    "answer": {
+      "value": "hables",
+      "accept": [
+        "hables"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "querer que + 접속법(hables)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.subj.fill",
+    "lang": "es",
+    "type": "mcq",
+    "kc": [
+      "kc.es.subjunctive"
+    ],
+    "level": "B2",
+    "prompt": "\"Espero que él ___ bien.\" (estar, 접속법)",
+    "answer": {
+      "value": "esté"
+    },
+    "distractors": [
+      {
+        "value": "está (직설법)",
+        "errorTag": "subjunctive"
+      },
+      {
+        "value": "estar (원형)",
+        "errorTag": "subjunctive"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "esperar que + 접속법(esté)"
+      }
+    }
+  }
+]

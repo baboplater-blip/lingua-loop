@@ -1,0 +1,285 @@
+[
+  {
+    "id": "en.vocab.cat",
+    "lang": "en",
+    "type": "flashcard",
+    "kc": ["kc.en.vocab.core"],
+    "level": "A1",
+    "prompt": "고양이 (동물)",
+    "answer": { "value": "cat" },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "i18n": { "ko": { "hint": "반려동물, 야옹" } },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "en.be.am",
+    "lang": "en",
+    "type": "cloze",
+    "kc": ["kc.en.present_be"],
+    "level": "A1",
+    "prompt": "I ___ a student.",
+    "answer": { "value": "am", "accept": ["am"] },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "en.ps.drinks",
+    "lang": "en",
+    "type": "mcq",
+    "kc": ["kc.en.present_simple"],
+    "level": "A1",
+    "prompt": "She ___ coffee every morning.",
+    "answer": { "value": "drinks" },
+    "distractors": [{ "value": "drink", "errorTag": "3sg-omit" }, { "value": "drinking", "errorTag": "aspect" }, { "value": "drank", "errorTag": "tense" }],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "en.art.an",
+    "lang": "en",
+    "type": "mcq",
+    "kc": ["kc.en.articles"],
+    "level": "A1",
+    "prompt": "I saw ___ elephant.",
+    "answer": { "value": "an" },
+    "distractors": [{ "value": "a", "errorTag": "vowel-onset" }, { "value": "the", "errorTag": "definiteness" }],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "en.phon.think",
+    "lang": "en",
+    "type": "minimal_pair",
+    "kc": ["kc.en.phon.th"],
+    "level": "A1",
+    "prompt": "들은 단어를 고르세요: think / sink",
+    "answer": { "value": "think" },
+    "distractors": [{ "value": "sink", "errorTag": "th-fronting" }],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-SA-4.0" },
+    "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.pp.concept",
+    "lang": "en",
+    "type": "flashcard",
+    "kc": [
+      "kc.en.present_perfect"
+    ],
+    "level": "B1",
+    "prompt": "현재완료의 형태 (경험·완료: I have seen it)",
+    "answer": {
+      "value": "have/has + past participle",
+      "accept": [
+        "have + past participle",
+        "past participle"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "have/has + 과거분사: I have gone, She has eaten"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.pp.fill",
+    "lang": "en",
+    "type": "mcq",
+    "kc": [
+      "kc.en.present_perfect"
+    ],
+    "level": "B1",
+    "prompt": "\"I have ___ my keys.\" (lose의 과거분사)",
+    "answer": {
+      "value": "lost"
+    },
+    "distractors": [
+      {
+        "value": "losed",
+        "errorTag": "present-perfect"
+      },
+      {
+        "value": "lose",
+        "errorTag": "present-perfect"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "현재완료: have + 과거분사(lost)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.cond.concept",
+    "lang": "en",
+    "type": "flashcard",
+    "kc": [
+      "kc.en.conditional"
+    ],
+    "level": "B1",
+    "prompt": "제2조건문(비현실 가정): If I ___ rich, I would travel.",
+    "answer": {
+      "value": "were",
+      "accept": [
+        "were"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "가정법에서는 was 대신 were"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.cond.fill",
+    "lang": "en",
+    "type": "mcq",
+    "kc": [
+      "kc.en.conditional"
+    ],
+    "level": "B1",
+    "prompt": "\"If she ___ here, she would help.\" (be)",
+    "answer": {
+      "value": "were"
+    },
+    "distractors": [
+      {
+        "value": "was",
+        "errorTag": "conditional"
+      },
+      {
+        "value": "is",
+        "errorTag": "conditional"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "제2조건문: 주어 무관 were"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.rel.concept",
+    "lang": "en",
+    "type": "flashcard",
+    "kc": [
+      "kc.en.relative"
+    ],
+    "level": "B2",
+    "prompt": "사람을 가리키는 관계대명사 (The man ___ called)",
+    "answer": {
+      "value": "who",
+      "accept": [
+        "who",
+        "that"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "사람=who, 사물=which/that"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.rel.fill",
+    "lang": "en",
+    "type": "mcq",
+    "kc": [
+      "kc.en.relative"
+    ],
+    "level": "B2",
+    "prompt": "\"The book ___ I read was great.\" (사물)",
+    "answer": {
+      "value": "which"
+    },
+    "distractors": [
+      {
+        "value": "who",
+        "errorTag": "relative"
+      },
+      {
+        "value": "whose",
+        "errorTag": "relative"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "사물의 관계대명사 = which(또는 that)"
+      }
+    }
+  }
+]

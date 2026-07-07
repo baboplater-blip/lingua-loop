@@ -1,0 +1,25 @@
+[
+  { "id": "kc.hi.vocab.core", "skill": "reading", "level": "A1", "prereq": [], "canDo": "핵심 힌디어 어휘를 인식한다" },
+  { "id": "kc.hi.script", "skill": "reading", "level": "A1", "prereq": [], "canDo": "데바나가리 자음·모음(마트라)을 소리와 대응한다" },
+  { "id": "kc.hi.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.hi.vocab.core"], "canDo": "1~5 숫자를 읽는다" },
+  { "id": "kc.hi.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.hi.vocab.core"], "canDo": "기본 인사를 한다" },
+  { "id": "kc.hi.gender", "skill": "reading", "level": "A1", "prereq": ["kc.hi.vocab.core"], "canDo": "명사의 성(남성·여성)에 형용사를 일치시킨다" },
+  {
+    "id": "kc.hi.postpositions",
+    "skill": "writing",
+    "level": "B1",
+    "prereq": [
+      "kc.hi.vocab.core"
+    ],
+    "canDo": "후치사 को·में·से 로 격 관계를 표현한다"
+  },
+  {
+    "id": "kc.hi.ergative_ne",
+    "skill": "writing",
+    "level": "B2",
+    "prereq": [
+      "kc.hi.postpositions"
+    ],
+    "canDo": "완료 타동사에서 주어에 능격 후치사 ने를 쓴다"
+  }
+]

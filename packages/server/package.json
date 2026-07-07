@@ -1,0 +1,10 @@
+{
+  "name": "@lingua-loop/server",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "최소 데이터 백엔드 — 이벤트 수집(append-only)·학습자 상태·복습큐·verified 콘텐츠 서빙. node:http, 제로 의존성.",
+  "scripts": {
+    "start": "node src/server.ts",
+    "test": "node --test test/*.test.ts"
+  }
+}

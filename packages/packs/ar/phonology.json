@@ -1,0 +1,414 @@
+{
+  "lang": "ar",
+  "phonemes": [
+    "b",
+    "t",
+    "θ",
+    "dʒ",
+    "ħ",
+    "x",
+    "d",
+    "r",
+    "z",
+    "s",
+    "sˤ",
+    "ʃ",
+    "q",
+    "k",
+    "l",
+    "m",
+    "n",
+    "h",
+    "w",
+    "j",
+    "ʕ",
+    "ʔ",
+    "f",
+    "a",
+    "i",
+    "u"
+  ],
+  "minimalPairs": [
+    {
+      "kc": "kc.ar.sounds",
+      "contrast": "ق(q) vs ك(k)",
+      "hint": "ق는 혀뿌리를 목젖에 대고, ك는 여린입천장에서",
+      "a": {
+        "word": "قلب (qalb, 심장)",
+        "ipa": [
+          "q",
+          "a",
+          "l",
+          "b"
+        ]
+      },
+      "b": {
+        "word": "كلب (kalb, 개)",
+        "ipa": [
+          "k",
+          "a",
+          "l",
+          "b"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ar.sounds",
+      "contrast": "ص(sˤ) vs س(s)",
+      "hint": "ص는 혀를 두툼하게(강세음), س는 얇게",
+      "a": {
+        "word": "صيف (ṣayf, 여름)",
+        "ipa": [
+          "sˤ",
+          "a",
+          "j",
+          "f"
+        ]
+      },
+      "b": {
+        "word": "سيف (sayf, 검)",
+        "ipa": [
+          "s",
+          "a",
+          "j",
+          "f"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ar.sounds",
+      "contrast": "خ(x) vs ح(ħ)",
+      "hint": "خ는 여린입천장에서 긁듯이, ح는 목구멍 깊이서 속삭이듯",
+      "a": {
+        "word": "خال (xāl, 외삼촌)",
+        "ipa": [
+          "x",
+          "a",
+          "l"
+        ]
+      },
+      "b": {
+        "word": "حال (ḥāl, 상태)",
+        "ipa": [
+          "ħ",
+          "a",
+          "l"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ar.sounds",
+      "contrast": "ع(ʕ) vs ء(ʔ)",
+      "hint": "ع는 목을 조이며 울리고, ء는 성문을 딱 끊어요",
+      "a": {
+        "word": "علم (ʿalam, 깃발)",
+        "ipa": [
+          "ʕ",
+          "a",
+          "l",
+          "a",
+          "m"
+        ]
+      },
+      "b": {
+        "word": "ألم (ʾalam, 고통)",
+        "ipa": [
+          "ʔ",
+          "a",
+          "l",
+          "a",
+          "m"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ar.sounds",
+      "contrast": "ز(z) vs س(s)",
+      "hint": "ز는 성대를 울리고(유성), س는 안 울려요(무성)",
+      "a": {
+        "word": "زار (zāra, 방문했다)",
+        "ipa": [
+          "z",
+          "a",
+          "r"
+        ]
+      },
+      "b": {
+        "word": "سار (sāra, 걸었다)",
+        "ipa": [
+          "s",
+          "a",
+          "r"
+        ]
+      }
+    }
+  ],
+  "shadow": [
+    {
+      "kc": "kc.ar.greetings",
+      "word": "مرحبا (marḥaban)",
+      "ipa": [
+        "m",
+        "a",
+        "r",
+        "ħ",
+        "a",
+        "b",
+        "a"
+      ],
+      "gloss": "안녕하세요",
+      "syllables": [
+        "mar",
+        "ḥa",
+        "ban"
+      ],
+      "stress": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ar.vocab.core",
+      "word": "شكرا (shukran)",
+      "ipa": [
+        "ʃ",
+        "u",
+        "k",
+        "r",
+        "a",
+        "n"
+      ],
+      "gloss": "고마워요",
+      "syllables": [
+        "shuk",
+        "ran"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ar.vocab.core",
+      "word": "نعم (naʿam)",
+      "ipa": [
+        "n",
+        "a",
+        "ʕ",
+        "a",
+        "m"
+      ],
+      "gloss": "네",
+      "syllables": [
+        "na",
+        "ʿam"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ar.vocab.core",
+      "word": "بيت (bayt)",
+      "ipa": [
+        "b",
+        "a",
+        "j",
+        "t"
+      ],
+      "gloss": "집",
+      "syllables": [
+        "bayt"
+      ],
+      "stress": [
+        1
+      ]
+    },
+    {
+      "kc": "kc.ar.past_tense",
+      "word": "كتب (kataba)",
+      "ipa": [
+        "k",
+        "a",
+        "t",
+        "a",
+        "b",
+        "a"
+      ],
+      "gloss": "그가 썼다(과거)",
+      "syllables": [
+        "ka",
+        "ta",
+        "ba"
+      ],
+      "stress": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "prosody": [
+    {
+      "kc": "kc.ar.greetings",
+      "word": "السلام عليكم (as-salāmu ʿalaykum)",
+      "ipa": [
+        "a",
+        "s",
+        "a",
+        "l",
+        "a",
+        "m",
+        "u",
+        "ʕ",
+        "a",
+        "l",
+        "a",
+        "j",
+        "k",
+        "u",
+        "m"
+      ],
+      "gloss": "당신에게 평화가",
+      "syllables": [
+        "as",
+        "sa",
+        "lā",
+        "mu",
+        "ʿa",
+        "lay",
+        "kum"
+      ],
+      "stress": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ar.vocab.core",
+      "word": "مع السلامة (maʿa s-salāma)",
+      "ipa": [
+        "m",
+        "a",
+        "ʕ",
+        "a",
+        "s",
+        "a",
+        "l",
+        "a",
+        "m",
+        "a"
+      ],
+      "gloss": "안녕히 가세요",
+      "syllables": [
+        "ma",
+        "ʿas",
+        "sa",
+        "lā",
+        "ma"
+      ],
+      "stress": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ar.greetings",
+      "word": "صباح الخير (ṣabāḥ al-khayr)",
+      "ipa": [
+        "sˤ",
+        "a",
+        "b",
+        "a",
+        "ħ",
+        "a",
+        "l",
+        "x",
+        "a",
+        "j",
+        "r"
+      ],
+      "gloss": "좋은 아침",
+      "syllables": [
+        "ṣa",
+        "bāḥ",
+        "al",
+        "khayr"
+      ],
+      "stress": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "kc": "kc.ar.vocab.core",
+      "word": "شكرا جزيلا (shukran jazīlan)",
+      "ipa": [
+        "ʃ",
+        "u",
+        "k",
+        "r",
+        "a",
+        "n",
+        "dʒ",
+        "a",
+        "z",
+        "i",
+        "l",
+        "a",
+        "n"
+      ],
+      "gloss": "대단히 감사합니다",
+      "syllables": [
+        "shuk",
+        "ran",
+        "ja",
+        "zī",
+        "lan"
+      ],
+      "stress": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ar.past_tense",
+      "word": "ذهب (dhahaba)",
+      "ipa": [
+        "ð",
+        "a",
+        "h",
+        "a",
+        "b",
+        "a"
+      ],
+      "gloss": "그가 갔다(과거)",
+      "syllables": [
+        "dha",
+        "ha",
+        "ba"
+      ],
+      "stress": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "note": "아랍어 — RTL 아랍 문자. 인두음(ح ħ, ع ʕ)·강세음(ص sˤ, ق q)·연구개음(خ x)이 의미 구별의 핵심. 성조는 없고 강세(stress) 위치가 산출 채점용. IPA는 라틴 표기 병기."
+}

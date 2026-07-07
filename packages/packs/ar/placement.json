@@ -1,0 +1,82 @@
+[
+  { "id": "plc.ar.vocab", "kc": ["kc.ar.vocab.core"], "level": "A1", "b": -1.6, "a": 1.1, "type": "mcq", "prompt": "شكرا 의 뜻은?", "answer": { "value": "고맙습니다" }, "options": ["고맙습니다", "안녕", "안녕히"] },
+  { "id": "plc.ar.num", "kc": ["kc.ar.numbers"], "level": "A1", "b": -0.8, "a": 1.1, "type": "mcq", "prompt": "숫자 3은?", "answer": { "value": "ثلاثة" }, "options": ["اثنان", "ثلاثة", "أربعة"] },
+  { "id": "plc.ar.sound", "kc": ["kc.ar.sounds"], "level": "A1", "b": 0.2, "a": 1.1, "type": "mcq", "prompt": "\"개\"를 뜻하는 단어는?", "answer": { "value": "كلب (kalb)" }, "options": ["قلب (qalb)", "كلب (kalb)", "قلم (qalam)"] },
+  { "id": "plc.ar.greet", "kc": ["kc.ar.greetings"], "level": "A2", "b": 1.0, "a": 1.1, "type": "mcq", "prompt": "\"안녕히 가세요\"는?", "answer": { "value": "مع السلامة" }, "options": ["مرحبا", "شكرا", "مع السلامة"] },
+  {
+    "id": "plc.ar.past",
+    "kc": [
+      "kc.ar.past_tense"
+    ],
+    "level": "B1",
+    "b": 1.4,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"나는 썼다\"(كتب 1인칭 과거)는?",
+    "answer": {
+      "value": "كتبتُ"
+    },
+    "options": [
+      "كتبتُ",
+      "أكتب",
+      "سأكتب"
+    ]
+  },
+  {
+    "id": "plc.ar.pastpl",
+    "kc": [
+      "kc.ar.past_tense"
+    ],
+    "level": "B2",
+    "b": 2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"그들은 갔다\"(ذهب 3인칭 복수 남성 과거)는?",
+    "answer": {
+      "value": "ذهبوا"
+    },
+    "options": [
+      "ذهبوا",
+      "ذهبنا",
+      "يذهبون"
+    ]
+  },
+  {
+    "id": "plc.ar.past2",
+    "kc": [
+      "kc.ar.past_tense"
+    ],
+    "level": "B1",
+    "b": 1.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"우리는 먹었다\" (أكل 1인칭 복수 과거)는?",
+    "answer": {
+      "value": "أكلنا"
+    },
+    "options": [
+      "أكلنا",
+      "نأكل",
+      "سنأكل"
+    ]
+  },
+  {
+    "id": "plc.ar.an",
+    "kc": [
+      "kc.ar.subjunctive_an"
+    ],
+    "level": "B2",
+    "b": 2.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"나는 가고 싶다\" 「أريد ___ أذهب」 빈칸은?",
+    "answer": {
+      "value": "أن"
+    },
+    "options": [
+      "أن",
+      "في",
+      "من"
+    ]
+  }
+]

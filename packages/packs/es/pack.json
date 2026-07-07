@@ -1,0 +1,12 @@
+{
+  "lang": "es",
+  "name": "Español",
+  "script": "latin",
+  "direction": "ltr",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-SA-4.0",
+  "schemaVersion": 1,
+  "note": "2번째 언어쌍 — 코어 무변경으로 추가(규칙 11 실증). UI=한국어(ko). 확장은 /new-content·커뮤니티."
+}

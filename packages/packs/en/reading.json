@@ -1,0 +1,144 @@
+{
+  "lang": "en",
+  "passages": [
+    {
+      "id": "en.read.morning",
+      "level": "A1",
+      "kc": ["kc.en.vocab.core", "kc.en.present_simple"],
+      "title": "My Morning",
+      "text": "I wake up at seven. I drink water and eat bread. Then I go to work. I am a teacher. I like my job. My students are kind.",
+      "glossary": { "wake": "(잠에서) 깨다", "drink": "마시다", "bread": "빵", "work": "일; 일하다", "teacher": "교사", "job": "일자리", "students": "학생들", "kind": "친절한" },
+      "questions": [
+        { "q": "What does the writer drink?", "answer": "water", "options": ["water", "coffee", "milk"] },
+        { "q": "What is the writer's job?", "answer": "teacher", "options": ["doctor", "teacher", "driver"] },
+        { "q": "What does the writer eat? (type the word)", "answer": "bread", "accept": ["bread", "the bread"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "en.read.cat",
+      "level": "A1",
+      "kc": ["kc.en.vocab.core", "kc.en.present_be"],
+      "title": "The Cat",
+      "text": "This is my cat. Her name is Luna. She is small and black. She sleeps all day. At night she is awake. She likes fish.",
+      "glossary": { "cat": "고양이", "name": "이름", "small": "작은", "black": "검은", "sleeps": "잔다", "night": "밤", "awake": "깨어 있는", "fish": "물고기; 생선" },
+      "questions": [
+        { "q": "What color is the cat?", "answer": "black", "options": ["white", "black", "brown"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "en.read.market",
+      "level": "A2",
+      "kc": ["kc.en.vocab.core", "kc.en.present_simple"],
+      "title": "A Trip to the Market",
+      "text": "On Saturday, we usually go to the market near our house. It is busy but cheerful. My mother buys fresh vegetables and warm bread. I always look for sweet fruit. Sometimes a musician plays the guitar, and people stop to listen. We carry heavy bags home and cook lunch together.",
+      "glossary": { "usually": "보통", "market": "시장", "busy": "붐비는", "cheerful": "쾌활한", "fresh": "신선한", "vegetables": "채소", "sweet": "달콤한", "fruit": "과일", "musician": "음악가", "guitar": "기타", "heavy": "무거운", "carry": "나르다", "cook": "요리하다" },
+      "questions": [
+        { "q": "When do they go to the market?", "answer": "Saturday", "options": ["Sunday", "Saturday", "Monday"] },
+        { "q": "What does the mother buy?", "answer": "vegetables and bread", "options": ["meat and rice", "vegetables and bread", "milk and eggs"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "en.read.trip",
+      "level": "B1",
+      "kc": [
+        "kc.en.vocab.core",
+        "kc.en.conditional"
+      ],
+      "title": "A Weekend Trip",
+      "text": "Last weekend, my friends and I decided to visit a small town by the sea. Although the weather was cloudy when we left, it cleared up by noon. We walked along the harbor, tried fresh seafood, and talked about our plans for the future. What I enjoyed most was watching the boats return in the evening. If I had more time, I would have stayed another night. I believe short trips like this help us relax and see life from a different angle.",
+      "glossary": {
+        "decided": "결정했다",
+        "although": "비록 ~일지라도",
+        "weather": "날씨",
+        "cloudy": "흐린",
+        "cleared up": "(날이) 개다",
+        "harbor": "항구",
+        "seafood": "해산물",
+        "plans": "계획",
+        "enjoyed": "즐겼다",
+        "return": "돌아오다",
+        "believe": "믿다",
+        "relax": "긴장을 풀다",
+        "angle": "각도, 관점"
+      },
+      "questions": [
+        {
+          "q": "How was the weather when they left?",
+          "answer": "cloudy",
+          "options": [
+            "sunny",
+            "cloudy",
+            "rainy"
+          ]
+        },
+        {
+          "q": "What did the writer enjoy most?",
+          "answer": "watching the boats return",
+          "options": [
+            "eating seafood",
+            "watching the boats return",
+            "walking to work"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
+    },
+    {
+      "id": "en.read.city",
+      "level": "B2",
+      "kc": [
+        "kc.en.vocab.core",
+        "kc.en.relative"
+      ],
+      "title": "Life in the City",
+      "text": "Many people dream of living in a big city, believing that it offers endless opportunities. It is true that cities provide better jobs, cultural events, and services that smaller towns cannot match. However, this convenience comes at a price. The cost of living is high, the streets are crowded, and the constant noise can be exhausting. In my opinion, whether city life suits you depends on what you value most. Those who enjoy a fast pace and variety will thrive, while people who prefer peace and space may feel trapped. What matters is choosing the environment that lets you live the way you truly want.",
+      "glossary": {
+        "endless": "끝없는",
+        "opportunities": "기회",
+        "cultural": "문화적인",
+        "match": "필적하다",
+        "convenience": "편리함",
+        "comes at a price": "대가가 따르다",
+        "cost of living": "생활비",
+        "crowded": "붐비는",
+        "constant": "끊임없는",
+        "exhausting": "진 빠지는",
+        "suits": "맞다·어울리다",
+        "value": "중시하다",
+        "thrive": "번영하다·잘 지내다",
+        "trapped": "갇힌",
+        "environment": "환경"
+      },
+      "questions": [
+        {
+          "q": "According to the writer, what is a drawback of city life?",
+          "answer": "the high cost and noise",
+          "options": [
+            "better jobs",
+            "the high cost and noise",
+            "cultural events"
+          ]
+        },
+        {
+          "q": "What does the writer say city life depends on?",
+          "answer": "what you value most",
+          "options": [
+            "your income",
+            "what you value most",
+            "your age"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+[
+  { "id": "kc.ja.vocab.core", "skill": "reading", "level": "A1", "prereq": [], "canDo": "핵심 일본어 어휘를 인식한다" },
+  { "id": "kc.ja.kana", "skill": "reading", "level": "A1", "prereq": [], "canDo": "히라가나·가타카나 문자와 소리를 대응한다" },
+  { "id": "kc.ja.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.ja.vocab.core"], "canDo": "1~5 숫자를 읽는다" },
+  { "id": "kc.ja.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.ja.vocab.core"], "canDo": "기본 인사를 한다" },
+  { "id": "kc.ja.particles", "skill": "reading", "level": "A1", "prereq": ["kc.ja.vocab.core"], "canDo": "조사 は(주제)·を(목적)·に(장소·시간)를 구별한다" },
+  {
+    "id": "kc.ja.te_form",
+    "skill": "writing",
+    "level": "B1",
+    "prereq": [
+      "kc.ja.vocab.core"
+    ],
+    "canDo": "동사 て형으로 문장을 연결한다"
+  },
+  {
+    "id": "kc.ja.potential",
+    "skill": "writing",
+    "level": "B2",
+    "prereq": [
+      "kc.ja.te_form"
+    ],
+    "canDo": "가능형(られる)으로 능력·가능을 표현한다"
+  }
+]

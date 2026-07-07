@@ -1,0 +1,199 @@
+[
+  {
+    "id": "sw.vocab.jambo", "lang": "sw", "type": "flashcard", "kc": ["kc.sw.vocab.core"], "level": "A1",
+    "prompt": "안녕 (인사)", "answer": { "value": "Jambo", "accept": ["jambo", "habari"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "강세는 JAM-bo" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.vocab.asante", "lang": "sw", "type": "flashcard", "kc": ["kc.sw.vocab.core"], "level": "A1",
+    "prompt": "고맙습니다", "answer": { "value": "Asante", "accept": ["asante", "asante sana"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.phon.baba", "lang": "sw", "type": "minimal_pair", "kc": ["kc.sw.sounds"], "level": "A1",
+    "prompt": "들은 소리를 고르세요: baba (아빠) / papa (상어)", "answer": { "value": "baba" },
+    "distractors": [{ "value": "papa", "errorTag": "b-vs-p" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "b는 유성(성대 울림), p는 무성" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.num.tatu", "lang": "sw", "type": "mcq", "kc": ["kc.sw.numbers"], "level": "A1",
+    "prompt": "숫자 3은?", "answer": { "value": "tatu" },
+    "distractors": [{ "value": "mbili", "errorTag": "number" }, { "value": "nne", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.num.nne", "lang": "sw", "type": "mcq", "kc": ["kc.sw.numbers"], "level": "A1",
+    "prompt": "숫자 4는?", "answer": { "value": "nne" },
+    "distractors": [{ "value": "tatu", "errorTag": "number" }, { "value": "mbili", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.greet.kwaheri", "lang": "sw", "type": "flashcard", "kc": ["kc.sw.greetings"], "level": "A1",
+    "prompt": "안녕히 가세요", "answer": { "value": "Kwaheri", "accept": ["kwaheri"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.greet.karibu", "lang": "sw", "type": "flashcard", "kc": ["kc.sw.greetings"], "level": "A1",
+    "prompt": "환영합니다 / 천만에요", "answer": { "value": "Karibu", "accept": ["karibu"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.nc.mtu", "lang": "sw", "type": "mcq", "kc": ["kc.sw.nounclass"], "level": "A1",
+    "prompt": "\"한 사람\"(단수)은?", "answer": { "value": "mtu" },
+    "distractors": [{ "value": "watu", "errorTag": "plural" }, { "value": "kitu", "errorTag": "class" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "m-=단수, wa-=복수(사람 부류)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "sw.nc.watoto", "lang": "sw", "type": "mcq", "kc": ["kc.sw.nounclass"], "level": "A1",
+    "prompt": "\"아이들\"(복수)은?", "answer": { "value": "watoto" },
+    "distractors": [{ "value": "mtoto", "errorTag": "singular" }, { "value": "vitoto", "errorTag": "class" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "mtoto(단수) → watoto(복수)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "sw.past.nilikula",
+    "lang": "sw",
+    "type": "flashcard",
+    "kc": [
+      "kc.sw.tense_li"
+    ],
+    "level": "B1",
+    "prompt": "\"나는 먹었다\" (kula, 과거)",
+    "answer": {
+      "value": "nilikula",
+      "accept": [
+        "nilikula"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "ni(주어 나)+li(과거)+kula(먹다)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "sw.past.marker",
+    "lang": "sw",
+    "type": "mcq",
+    "kc": [
+      "kc.sw.tense_li"
+    ],
+    "level": "B1",
+    "prompt": "「Juma ___soma kitabu」— 'Juma가 책을 읽었다'(과거). 시제 표지는?",
+    "answer": {
+      "value": "-li- (alisoma)"
+    },
+    "distractors": [
+      {
+        "value": "-na- (anasoma, 현재)",
+        "errorTag": "tense"
+      },
+      {
+        "value": "-ta- (atasoma, 미래)",
+        "errorTag": "tense"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "과거=-li-, 현재=-na-, 미래=-ta-"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "sw.cha.concept",
+    "lang": "sw",
+    "type": "flashcard",
+    "kc": [
+      "kc.sw.association_cha"
+    ],
+    "level": "B2",
+    "prompt": "ki류 명사(kitabu)의 소유·연관 표지",
+    "answer": {
+      "value": "cha (kitabu cha mwalimu)",
+      "accept": [
+        "cha"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "연관 -a는 명사 부류에 일치: ki류→cha, m/wa류→wa"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "sw.cha.fill",
+    "lang": "sw",
+    "type": "mcq",
+    "kc": [
+      "kc.sw.association_cha"
+    ],
+    "level": "B2",
+    "prompt": "「kiti ___ mtoto」(아이의 의자 — ki류). 빈칸은?",
+    "answer": {
+      "value": "cha"
+    },
+    "distractors": [
+      {
+        "value": "ya (기본형)",
+        "errorTag": "association"
+      },
+      {
+        "value": "la (li류)",
+        "errorTag": "association"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "ki류 명사(kiti)의 연관 = cha"
+      }
+    }
+  }
+]

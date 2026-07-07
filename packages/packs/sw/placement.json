@@ -1,0 +1,82 @@
+[
+  { "id": "plc.sw.vocab", "kc": ["kc.sw.vocab.core"], "level": "A1", "b": -1.6, "a": 1.1, "type": "mcq", "prompt": "Asante 의 뜻은?", "answer": { "value": "고맙습니다" }, "options": ["고맙습니다", "안녕", "안녕히"] },
+  { "id": "plc.sw.num", "kc": ["kc.sw.numbers"], "level": "A1", "b": -0.8, "a": 1.1, "type": "mcq", "prompt": "숫자 3은?", "answer": { "value": "tatu" }, "options": ["mbili", "tatu", "nne"] },
+  { "id": "plc.sw.nc", "kc": ["kc.sw.nounclass"], "level": "A1", "b": 0.2, "a": 1.1, "type": "mcq", "prompt": "\"아이들\"(복수)은?", "answer": { "value": "watoto" }, "options": ["mtoto", "watoto", "kitoto"] },
+  { "id": "plc.sw.greet", "kc": ["kc.sw.greetings"], "level": "A2", "b": 1.0, "a": 1.1, "type": "mcq", "prompt": "\"안녕히 가세요\"는?", "answer": { "value": "Kwaheri" }, "options": ["Jambo", "Asante", "Kwaheri"] },
+  {
+    "id": "plc.sw.li",
+    "kc": [
+      "kc.sw.tense_li"
+    ],
+    "level": "B1",
+    "b": 1.4,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"나는 먹었다\"(kula 과거)는?",
+    "answer": {
+      "value": "nilikula"
+    },
+    "options": [
+      "nilikula",
+      "ninakula",
+      "nitakula"
+    ]
+  },
+  {
+    "id": "plc.sw.lipl",
+    "kc": [
+      "kc.sw.tense_li"
+    ],
+    "level": "B2",
+    "b": 2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"그들은 왔다\"(kuja 과거, 3인칭 복수)는?",
+    "answer": {
+      "value": "walikuja"
+    },
+    "options": [
+      "walikuja",
+      "wanakuja",
+      "watakuja"
+    ]
+  },
+  {
+    "id": "plc.sw.li2",
+    "kc": [
+      "kc.sw.tense_li"
+    ],
+    "level": "B1",
+    "b": 1.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"그녀는 왔다\" (kuja 과거, 3인칭 단수)는?",
+    "answer": {
+      "value": "alikuja"
+    },
+    "options": [
+      "alikuja",
+      "anakuja",
+      "atakuja"
+    ]
+  },
+  {
+    "id": "plc.sw.cha",
+    "kc": [
+      "kc.sw.association_cha"
+    ],
+    "level": "B2",
+    "b": 2.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "「kitabu ___ mwalimu」(선생님의 책 — ki류 연관). 빈칸은?",
+    "answer": {
+      "value": "cha"
+    },
+    "options": [
+      "cha",
+      "ya",
+      "wa"
+    ]
+  }
+]

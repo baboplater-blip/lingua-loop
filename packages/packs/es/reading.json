@@ -1,0 +1,144 @@
+{
+  "lang": "es",
+  "passages": [
+    {
+      "id": "es.read.dia",
+      "level": "A1",
+      "kc": ["kc.es.vocab.core", "kc.es.present_ser"],
+      "title": "Mi día",
+      "text": "Me llamo Ana. Soy estudiante. Por la mañana bebo agua y como pan. Mi casa es pequeña pero bonita. Tengo un gato. El gato es negro y muy tranquilo.",
+      "glossary": { "estudiante": "학생", "mañana": "아침", "bebo": "(나는) 마신다", "agua": "물", "como": "(나는) 먹는다", "pan": "빵", "casa": "집", "pequeña": "작은", "bonita": "예쁜", "gato": "고양이", "negro": "검은", "tranquilo": "조용한" },
+      "questions": [
+        { "q": "¿Qué bebe Ana por la mañana?", "answer": "agua", "options": ["café", "agua", "leche"] },
+        { "q": "¿De qué color es el gato?", "answer": "negro", "options": ["blanco", "negro", "gris"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "es.read.parque",
+      "level": "A1",
+      "kc": ["kc.es.vocab.core", "kc.es.present_ar"],
+      "title": "El parque",
+      "text": "Hoy camino en el parque. El sol brilla y los pájaros cantan. Muchas personas hablan y los niños juegan. Yo compro un helado. La tarde es tranquila y feliz.",
+      "glossary": { "camino": "(나는) 걷는다", "parque": "공원", "sol": "해", "brilla": "빛난다", "pájaros": "새들", "cantan": "노래한다", "personas": "사람들", "hablan": "말한다", "niños": "아이들", "juegan": "논다", "compro": "(나는) 산다", "helado": "아이스크림", "tarde": "오후", "feliz": "행복한" },
+      "questions": [
+        { "q": "¿Qué compra la persona?", "answer": "un helado", "options": ["un libro", "un helado", "una flor"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "es.read.finde",
+      "level": "A2",
+      "kc": ["kc.es.vocab.core", "kc.es.present_ar"],
+      "title": "El fin de semana",
+      "text": "Los fines de semana suelo ir al parque con mis amigos. En el parque hay muchos árboles y flores bonitas. Caminamos y hablamos juntos. A veces bebemos café en una cafetería. Me siento muy feliz durante el fin de semana.",
+      "glossary": { "fines": "끝(주말)", "semana": "주", "suelo": "보통 ~한다", "parque": "공원", "amigos": "친구들", "árboles": "나무들", "flores": "꽃들", "bonitas": "예쁜", "caminamos": "(우리는) 걷는다", "hablamos": "(우리는) 말한다", "juntos": "함께", "veces": "번(가끔)", "bebemos": "(우리는) 마신다", "café": "커피", "cafetería": "카페", "feliz": "행복한" },
+      "questions": [
+        { "q": "¿Adónde va los fines de semana?", "answer": "al parque", "options": ["al parque", "a la escuela", "a la tienda"] },
+        { "q": "¿Qué beben a veces?", "answer": "café", "options": ["té", "café", "agua"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "es.read.viaje",
+      "level": "B1",
+      "kc": [
+        "kc.es.vocab.core",
+        "kc.es.preterite"
+      ],
+      "title": "Un viaje de fin de semana",
+      "text": "El fin de semana pasado, mis amigos y yo decidimos visitar un pueblo pequeño junto al mar. Aunque el cielo estaba nublado cuando salimos, mejoró por la tarde. Caminamos por el puerto, probamos pescado fresco y hablamos de nuestros planes para el futuro. Lo que más me gustó fue ver los barcos regresar al atardecer. Si tuviera más tiempo, me quedaría otra noche. Creo que los viajes cortos como este nos ayudan a descansar y a ver la vida de otra manera.",
+      "glossary": {
+        "pasado": "지난",
+        "decidimos": "우리는 결정했다",
+        "pueblo": "마을",
+        "junto al": "~옆의",
+        "mar": "바다",
+        "aunque": "비록",
+        "nublado": "흐린",
+        "mejoró": "나아졌다",
+        "puerto": "항구",
+        "pescado": "생선",
+        "barcos": "배들",
+        "regresar": "돌아오다",
+        "atardecer": "해질녘",
+        "descansar": "쉬다"
+      },
+      "questions": [
+        {
+          "q": "¿Cómo estaba el cielo al salir?",
+          "answer": "nublado",
+          "options": [
+            "soleado",
+            "nublado",
+            "despejado"
+          ]
+        },
+        {
+          "q": "¿Qué le gustó más al autor?",
+          "answer": "ver los barcos regresar",
+          "options": [
+            "comer pescado",
+            "ver los barcos regresar",
+            "caminar al trabajo"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
+    },
+    {
+      "id": "es.read.ciudad",
+      "level": "B2",
+      "kc": [
+        "kc.es.vocab.core",
+        "kc.es.subjunctive"
+      ],
+      "title": "La vida en la ciudad",
+      "text": "Mucha gente sueña con vivir en una gran ciudad, creyendo que ofrece oportunidades infinitas. Es cierto que las ciudades ofrecen mejores trabajos, eventos culturales y servicios que los pueblos pequeños no pueden igualar. Sin embargo, esta comodidad tiene un precio. El coste de vida es alto, las calles están llenas de gente y el ruido constante puede resultar agotador. En mi opinión, que la vida urbana te convenga depende de lo que más valores. Quienes disfrutan de un ritmo rápido prosperarán, mientras que quienes prefieren la paz pueden sentirse atrapados. Lo importante es elegir el entorno que te permita vivir como realmente quieres.",
+      "glossary": {
+        "sueña con": "~를 꿈꾸다",
+        "infinitas": "무한한",
+        "igualar": "필적하다",
+        "comodidad": "편리함",
+        "precio": "대가·값",
+        "coste de vida": "생활비",
+        "llenas de gente": "사람으로 가득한",
+        "ruido": "소음",
+        "agotador": "진 빠지게 하는",
+        "convenga": "맞다(접속법)",
+        "valores": "중시하다(접속법)",
+        "ritmo": "리듬·속도",
+        "prosperarán": "번영할 것이다",
+        "atrapados": "갇힌",
+        "entorno": "환경"
+      },
+      "questions": [
+        {
+          "q": "¿Qué desventaja de la ciudad menciona el autor?",
+          "answer": "el coste alto y el ruido",
+          "options": [
+            "mejores trabajos",
+            "el coste alto y el ruido",
+            "eventos culturales"
+          ]
+        },
+        {
+          "q": "¿De qué depende que la ciudad te convenga?",
+          "answer": "de lo que más valoras",
+          "options": [
+            "de tu edad",
+            "de lo que más valoras",
+            "de tu trabajo"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
+    }
+  ]
+}

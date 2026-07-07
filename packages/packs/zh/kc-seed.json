@@ -1,0 +1,24 @@
+[
+  { "id": "kc.zh.tones", "skill": "listening", "level": "A1", "prereq": [], "canDo": "1~4성 성조를 지각·구별한다" },
+  { "id": "kc.zh.vocab.core", "skill": "reading", "level": "A1", "prereq": [], "canDo": "핵심 병음/한자 어휘를 인식한다" },
+  { "id": "kc.zh.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.zh.vocab.core"], "canDo": "1~10 숫자를 읽는다" },
+  { "id": "kc.zh.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.zh.tones"], "canDo": "기본 인사를 성조에 맞게 말한다" },
+  {
+    "id": "kc.zh.aspect_le",
+    "skill": "writing",
+    "level": "B1",
+    "prereq": [
+      "kc.zh.vocab.core"
+    ],
+    "canDo": "완료·변화를 나타내는 조사 了를 사용한다"
+  },
+  {
+    "id": "kc.zh.de_complement",
+    "skill": "writing",
+    "level": "B2",
+    "prereq": [
+      "kc.zh.aspect_le"
+    ],
+    "canDo": "정도보어 得로 동작의 정도·결과를 표현한다"
+  }
+]

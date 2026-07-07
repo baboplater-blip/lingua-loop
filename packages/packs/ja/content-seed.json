@@ -1,0 +1,201 @@
+[
+  {
+    "id": "ja.vocab.watashi", "lang": "ja", "type": "flashcard", "kc": ["kc.ja.vocab.core"], "level": "A1",
+    "prompt": "나 (1인칭)", "answer": { "value": "私 (わたし, watashi)", "accept": ["私", "わたし", "watashi"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "한자 私 = 히라가나 わたし" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.vocab.arigatou", "lang": "ja", "type": "flashcard", "kc": ["kc.ja.vocab.core"], "level": "A1",
+    "prompt": "고맙습니다", "answer": { "value": "ありがとう (arigatō)", "accept": ["ありがとう", "arigatō", "arigatou"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.kana.a", "lang": "ja", "type": "mcq", "kc": ["kc.ja.kana"], "level": "A1",
+    "prompt": "히라가나 「あ」의 소리는?", "answer": { "value": "a (아)" },
+    "distractors": [{ "value": "i (い)", "errorTag": "kana" }, { "value": "u (う)", "errorTag": "kana" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "あ = 아" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.kana.neko", "lang": "ja", "type": "flashcard", "kc": ["kc.ja.kana"], "level": "A1",
+    "prompt": "고양이 (히라가나로)", "answer": { "value": "ねこ (neko)", "accept": ["ねこ", "neko", "猫"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "ね(ne) + こ(ko)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.num.san", "lang": "ja", "type": "mcq", "kc": ["kc.ja.numbers"], "level": "A1",
+    "prompt": "숫자 3은?", "answer": { "value": "三 (さん, san)" },
+    "distractors": [{ "value": "二 (に, ni)", "errorTag": "number" }, { "value": "四 (よん, yon)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.num.go", "lang": "ja", "type": "mcq", "kc": ["kc.ja.numbers"], "level": "A1",
+    "prompt": "숫자 5는?", "answer": { "value": "五 (ご, go)" },
+    "distractors": [{ "value": "四 (よん, yon)", "errorTag": "number" }, { "value": "六 (ろく, roku)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.greet.konnichiwa", "lang": "ja", "type": "flashcard", "kc": ["kc.ja.greetings"], "level": "A1",
+    "prompt": "안녕하세요 (낮 인사)", "answer": { "value": "こんにちは (konnichiwa)", "accept": ["こんにちは", "konnichiwa", "konnichiha"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "마지막 は는 [wa]로 읽어요(조사)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.greet.sayounara", "lang": "ja", "type": "flashcard", "kc": ["kc.ja.greetings"], "level": "A1",
+    "prompt": "안녕히 가세요", "answer": { "value": "さようなら (sayōnara)", "accept": ["さようなら", "sayōnara", "sayounara"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ja.particle.wo", "lang": "ja", "type": "mcq", "kc": ["kc.ja.particles"], "level": "A1",
+    "prompt": "「みず ___ のむ」(물을 마시다) — 목적어를 나타내는 조사는?", "answer": { "value": "を (o)" },
+    "distractors": [{ "value": "は (wa, 주제)", "errorTag": "particle" }, { "value": "に (ni, 장소·시간)", "errorTag": "particle" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "を는 목적어 표시 전용 조사([o]로 발음)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ja.te.taberu",
+    "lang": "ja",
+    "type": "flashcard",
+    "kc": [
+      "kc.ja.te_form"
+    ],
+    "level": "B1",
+    "prompt": "たべる(먹다)의 て형",
+    "answer": {
+      "value": "たべて (tabete)",
+      "accept": [
+        "たべて",
+        "食べて",
+        "tabete"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "る동사: る를 떼고 て → たべて"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ja.te.iku",
+    "lang": "ja",
+    "type": "mcq",
+    "kc": [
+      "kc.ja.te_form"
+    ],
+    "level": "B1",
+    "prompt": "いく(行く, 가다)의 て형은? (예외 활용)",
+    "answer": {
+      "value": "いって (itte)"
+    },
+    "distractors": [
+      {
+        "value": "いいて (iite)",
+        "errorTag": "te-form"
+      },
+      {
+        "value": "いくて (ikute)",
+        "errorTag": "te-form"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "行く는 예외: いって(촉음 っ)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ja.pot.taberu",
+    "lang": "ja",
+    "type": "flashcard",
+    "kc": [
+      "kc.ja.potential"
+    ],
+    "level": "B2",
+    "prompt": "たべる(먹다)의 가능형(먹을 수 있다)",
+    "answer": {
+      "value": "たべられる (taberareru)",
+      "accept": [
+        "たべられる",
+        "食べられる"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "一段 동사: る→られる (ら 빼면 안 됨)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ja.pot.miru",
+    "lang": "ja",
+    "type": "mcq",
+    "kc": [
+      "kc.ja.potential"
+    ],
+    "level": "B2",
+    "prompt": "みる(보다)의 올바른 가능형은?",
+    "answer": {
+      "value": "みられる"
+    },
+    "distractors": [
+      {
+        "value": "みれる (ら抜き言葉)",
+        "errorTag": "potential"
+      },
+      {
+        "value": "みさせる (사역)",
+        "errorTag": "potential"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "ら抜き(みれる)는 구어체 오류 — 표준은 みられる"
+      }
+    }
+  }
+]

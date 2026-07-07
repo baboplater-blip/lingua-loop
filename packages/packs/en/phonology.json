@@ -1,0 +1,24 @@
+{
+  "lang": "en",
+  "phonemes": ["p", "b", "t", "d", "k", "g", "f", "v", "θ", "ð", "s", "z", "ʃ", "ʒ", "tʃ", "dʒ", "m", "n", "ŋ", "l", "r", "j", "w", "h", "i", "ɪ", "e", "æ", "ʌ", "ɑ", "ɒ", "ɔ", "ʊ", "u", "ə"],
+  "minimalPairs": [
+    { "kc": "kc.en.phon.th", "contrast": "θ vs s", "hint": "혀끝을 윗니 사이로 살짝 내밀어 [θ]", "a": { "word": "think", "ipa": ["θ", "ɪ", "ŋ", "k"] }, "b": { "word": "sink", "ipa": ["s", "ɪ", "ŋ", "k"] } },
+    { "kc": "kc.en.phon.th", "contrast": "θ vs s", "hint": "[θ]는 혀끝-치아, [s]는 혀끝-잇몸", "a": { "word": "thick", "ipa": ["θ", "ɪ", "k"] }, "b": { "word": "sick", "ipa": ["s", "ɪ", "k"] } },
+    { "kc": "kc.en.phon.rl", "contrast": "r vs l", "hint": "[r]는 혀끝을 어디에도 안 대고, [l]은 혀끝을 잇몸에", "a": { "word": "right", "ipa": ["r", "ɑ", "ɪ", "t"] }, "b": { "word": "light", "ipa": ["l", "ɑ", "ɪ", "t"] } },
+    { "kc": "kc.en.phon.rl", "contrast": "r vs l", "hint": "혀끝 위치로 구별", "a": { "word": "road", "ipa": ["r", "ɒ", "ʊ", "d"] }, "b": { "word": "load", "ipa": ["l", "ɒ", "ʊ", "d"] } },
+    { "kc": "kc.en.phon.ii", "contrast": "iː vs ɪ", "hint": "[i]는 길고 팽팽하게, [ɪ]는 짧고 느슨하게", "a": { "word": "sheep", "ipa": ["ʃ", "i", "p"] }, "b": { "word": "ship", "ipa": ["ʃ", "ɪ", "p"] } }
+  ],
+  "shadow": [
+    { "kc": "kc.en.phon.th", "word": "three", "ipa": ["θ", "r", "i"], "gloss": "셋", "syllables": ["three"], "stress": [1] },
+    { "kc": "kc.en.phon.rl", "word": "world", "ipa": ["w", "ə", "r", "l", "d"], "gloss": "세계", "syllables": ["world"], "stress": [1] },
+    { "kc": "kc.en.phon.th", "word": "water", "ipa": ["w", "ɔ", "t", "ə"], "gloss": "물", "syllables": ["wa", "ter"], "stress": [1, 0] },
+    { "kc": "kc.en.phon.rl", "word": "little", "ipa": ["l", "ɪ", "t", "l"], "gloss": "작은", "syllables": ["lit", "tle"], "stress": [1, 0] }
+  ],
+  "prosody": [
+    { "kc": "kc.en.stress", "word": "banana", "ipa": ["b", "ə", "n", "æ", "n", "ə"], "gloss": "바나나", "syllables": ["ba", "na", "na"], "stress": [0, 1, 0] },
+    { "kc": "kc.en.stress", "word": "computer", "ipa": ["k", "ə", "m", "p", "j", "u", "t", "ə"], "gloss": "컴퓨터", "syllables": ["com", "pu", "ter"], "stress": [0, 1, 0] },
+    { "kc": "kc.en.stress", "word": "photograph", "ipa": ["f", "ɒ", "t", "ə", "g", "r", "æ", "f"], "gloss": "사진", "syllables": ["pho", "to", "graph"], "stress": [1, 0, 0] },
+    { "kc": "kc.en.stress", "word": "important", "ipa": ["ɪ", "m", "p", "ɔ", "r", "t", "ə", "n", "t"], "gloss": "중요한", "syllables": ["im", "por", "tant"], "stress": [0, 1, 0] }
+  ],
+  "note": "지각(최소대립쌍)+산출(섀도잉)+운율(prosody: 강세 패턴) 훈련 데이터. IPA는 채점 목표열, stress는 운율 채점·시각화용. 명료도 우선."
+}

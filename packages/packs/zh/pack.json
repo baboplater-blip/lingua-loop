@@ -1,0 +1,12 @@
+{
+  "lang": "zh",
+  "name": "中文 (Mandarin)",
+  "script": "han",
+  "direction": "ltr",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-4.0",
+  "schemaVersion": 1,
+  "note": "성조어(중국어) 시드 팩 — 다국어 범용(CJK·성조) 재실증용. 병음+한자, 성조 지각·산출 훈련."
+}

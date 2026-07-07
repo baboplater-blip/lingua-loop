@@ -1,0 +1,368 @@
+{
+  "lang": "zh",
+  "phonemes": [
+    "m",
+    "n",
+    "l",
+    "h",
+    "s",
+    "ʃ",
+    "tʃ",
+    "ts",
+    "k",
+    "p",
+    "pʰ",
+    "b",
+    "t",
+    "ŋ",
+    "j",
+    "w",
+    "a",
+    "e",
+    "i",
+    "o",
+    "u",
+    "ə"
+  ],
+  "minimalPairs": [
+    {
+      "kc": "kc.zh.tones",
+      "contrast": "1성 vs 3성",
+      "hint": "1성은 높고 평평하게, 3성은 내렸다가 올려요",
+      "a": {
+        "word": "mā (妈, 엄마)",
+        "ipa": [
+          "m",
+          "a"
+        ],
+        "tone": [
+          1
+        ]
+      },
+      "b": {
+        "word": "mǎ (马, 말)",
+        "ipa": [
+          "m",
+          "a"
+        ],
+        "tone": [
+          3
+        ]
+      }
+    },
+    {
+      "kc": "kc.zh.tones",
+      "contrast": "2성 vs 4성",
+      "hint": "2성은 끝을 올리고, 4성은 뚝 떨어뜨려요",
+      "a": {
+        "word": "má (麻, 삼)",
+        "ipa": [
+          "m",
+          "a"
+        ],
+        "tone": [
+          2
+        ]
+      },
+      "b": {
+        "word": "mà (骂, 꾸짖다)",
+        "ipa": [
+          "m",
+          "a"
+        ],
+        "tone": [
+          4
+        ]
+      }
+    },
+    {
+      "kc": "kc.zh.tones",
+      "contrast": "3성 vs 4성",
+      "hint": "3성은 내렸다 올리고(사다 买), 4성은 뚝 떨어뜨려요(팔다 卖)",
+      "a": {
+        "word": "mǎi (买, 사다)",
+        "ipa": [
+          "m",
+          "a",
+          "i"
+        ],
+        "tone": [
+          3
+        ]
+      },
+      "b": {
+        "word": "mài (卖, 팔다)",
+        "ipa": [
+          "m",
+          "a",
+          "i"
+        ],
+        "tone": [
+          4
+        ]
+      }
+    },
+    {
+      "kc": "kc.zh.vocab.core",
+      "contrast": "b(不送气) vs p(送气)",
+      "hint": "b는 숨을 안 터뜨리고, p는 숨을 강하게 터뜨려요",
+      "a": {
+        "word": "bā (八, 여덟)",
+        "ipa": [
+          "p",
+          "a"
+        ],
+        "tone": [
+          1
+        ]
+      },
+      "b": {
+        "word": "pā (趴, 엎드리다)",
+        "ipa": [
+          "pʰ",
+          "a"
+        ],
+        "tone": [
+          1
+        ]
+      }
+    },
+    {
+      "kc": "kc.zh.vocab.core",
+      "contrast": "s vs sh(ʃ)",
+      "hint": "s는 혀끝을 앞니에, sh는 혀를 말아 올려요",
+      "a": {
+        "word": "sì (四, 넷)",
+        "ipa": [
+          "s",
+          "i"
+        ],
+        "tone": [
+          4
+        ]
+      },
+      "b": {
+        "word": "shì (是, ~이다)",
+        "ipa": [
+          "ʃ",
+          "i"
+        ],
+        "tone": [
+          4
+        ]
+      }
+    }
+  ],
+  "shadow": [
+    {
+      "kc": "kc.zh.tones",
+      "word": "你好 (nǐhǎo)",
+      "ipa": [
+        "n",
+        "i",
+        "h",
+        "a",
+        "o"
+      ],
+      "gloss": "안녕",
+      "syllables": [
+        "nǐ",
+        "hǎo"
+      ],
+      "tones": [
+        3,
+        3
+      ]
+    },
+    {
+      "kc": "kc.zh.vocab.core",
+      "word": "谢谢 (xièxie)",
+      "ipa": [
+        "ʃ",
+        "j",
+        "e",
+        "ʃ",
+        "j",
+        "e"
+      ],
+      "gloss": "고마워",
+      "syllables": [
+        "xiè",
+        "xie"
+      ],
+      "tones": [
+        4,
+        0
+      ]
+    },
+    {
+      "kc": "kc.zh.vocab.core",
+      "word": "水 (shuǐ)",
+      "ipa": [
+        "ʃ",
+        "w",
+        "e",
+        "i"
+      ],
+      "gloss": "물",
+      "syllables": [
+        "shuǐ"
+      ],
+      "tones": [
+        3
+      ]
+    },
+    {
+      "kc": "kc.zh.vocab.core",
+      "word": "中文 (Zhōngwén)",
+      "ipa": [
+        "tʃ",
+        "o",
+        "ŋ",
+        "w",
+        "e",
+        "n"
+      ],
+      "gloss": "중국어",
+      "syllables": [
+        "zhōng",
+        "wén"
+      ],
+      "tones": [
+        1,
+        2
+      ]
+    },
+    {
+      "kc": "kc.zh.aspect_le",
+      "word": "来了 (lái le)",
+      "ipa": [
+        "l",
+        "a",
+        "i",
+        "l",
+        "ə"
+      ],
+      "gloss": "왔다(완료)",
+      "syllables": [
+        "lái",
+        "le"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    }
+  ],
+  "prosody": [
+    {
+      "kc": "kc.zh.tones",
+      "word": "中国 (Zhōngguó)",
+      "ipa": [
+        "tʃ",
+        "o",
+        "ŋ",
+        "k",
+        "w",
+        "o"
+      ],
+      "gloss": "중국",
+      "syllables": [
+        "zhōng",
+        "guó"
+      ],
+      "tones": [
+        1,
+        2
+      ]
+    },
+    {
+      "kc": "kc.zh.tones",
+      "word": "老师 (lǎoshī)",
+      "ipa": [
+        "l",
+        "a",
+        "o",
+        "ʃ",
+        "i"
+      ],
+      "gloss": "선생님",
+      "syllables": [
+        "lǎo",
+        "shī"
+      ],
+      "tones": [
+        3,
+        1
+      ]
+    },
+    {
+      "kc": "kc.zh.tones",
+      "word": "再见 (zàijiàn)",
+      "ipa": [
+        "ts",
+        "a",
+        "i",
+        "tʃ",
+        "j",
+        "e",
+        "n"
+      ],
+      "gloss": "안녕히 가세요",
+      "syllables": [
+        "zài",
+        "jiàn"
+      ],
+      "tones": [
+        4,
+        4
+      ]
+    },
+    {
+      "kc": "kc.zh.vocab.core",
+      "word": "谢谢你 (xièxie nǐ)",
+      "ipa": [
+        "ʃ",
+        "j",
+        "e",
+        "ʃ",
+        "j",
+        "e",
+        "n",
+        "i"
+      ],
+      "gloss": "고마워요",
+      "syllables": [
+        "xiè",
+        "xie",
+        "nǐ"
+      ],
+      "tones": [
+        4,
+        0,
+        3
+      ]
+    },
+    {
+      "kc": "kc.zh.aspect_le",
+      "word": "吃了 (chī le)",
+      "ipa": [
+        "ts",
+        "ʰ",
+        "i",
+        "l",
+        "ə"
+      ],
+      "gloss": "먹었다(완료)",
+      "syllables": [
+        "chī",
+        "le"
+      ],
+      "tones": [
+        1,
+        0
+      ]
+    }
+  ],
+  "note": "성조어 — 지각(최소대립쌍: 성조만 다른 단어 + 분절음 b/p·s/sh)+산출(성조 패턴). tones 배열이 성조 채점·시각화용. 성조 오류=다른 단어라 명료도에 치명적. 모든 한자 음절은 성조를 가지므로 분절 대립쌍도 tone 명시."
+}

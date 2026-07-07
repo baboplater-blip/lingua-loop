@@ -1,0 +1,12 @@
+{
+  "lang": "ja",
+  "name": "日本語 (Japanese)",
+  "script": "japanese",
+  "direction": "ltr",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-4.0",
+  "schemaVersion": 1,
+  "note": "일본어 파일럿 팩 — 범용 엔진 재실증(히라가나·가타카나·한자 혼합 문자, 띄어쓰기 없음, 조사 は/を/に, 촉음·장모음 대립, 성조 아닌 피치 액센트). 코드 변경 0. 학습자용 읽기 지문은 토큰화를 위해 단어 띄어쓰기."
+}

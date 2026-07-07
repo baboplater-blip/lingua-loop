@@ -1,0 +1,21 @@
+{
+  "lang": "es",
+  "phonemes": ["p", "b", "t", "d", "k", "g", "f", "θ", "s", "x", "tʃ", "m", "n", "ɲ", "l", "ʎ", "r", "rr", "j", "w", "a", "e", "i", "o", "u"],
+  "minimalPairs": [
+    { "kc": "kc.es.phon.rr", "contrast": "r(탄설) vs rr(전동)", "hint": "[rr]은 혀끝을 여러 번 떨어서(트릴)", "a": { "word": "pero", "ipa": ["p", "e", "r", "o"] }, "b": { "word": "perro", "ipa": ["p", "e", "rr", "o"] } },
+    { "kc": "kc.es.phon.rr", "contrast": "r(탄설) vs rr(전동)", "hint": "[r]은 한 번 튕기고, [rr]은 굴려서 떨어요", "a": { "word": "caro", "ipa": ["k", "a", "r", "o"] }, "b": { "word": "carro", "ipa": ["k", "a", "rr", "o"] } },
+    { "kc": "kc.es.phon.vowel", "contrast": "e vs i", "hint": "스페인어 모음은 짧고 또렷하게 — [e]와 [i]를 섞지 않기", "a": { "word": "peso", "ipa": ["p", "e", "s", "o"] }, "b": { "word": "piso", "ipa": ["p", "i", "s", "o"] } }
+  ],
+  "shadow": [
+    { "kc": "kc.es.phon.rr", "word": "perro", "ipa": ["p", "e", "rr", "o"], "gloss": "개", "syllables": ["pe", "rro"], "stress": [1, 0] },
+    { "kc": "kc.es.phon.rr", "word": "rojo", "ipa": ["rr", "o", "x", "o"], "gloss": "빨강", "syllables": ["ro", "jo"], "stress": [1, 0] },
+    { "kc": "kc.es.phon.vowel", "word": "gato", "ipa": ["g", "a", "t", "o"], "gloss": "고양이", "syllables": ["ga", "to"], "stress": [1, 0] },
+    { "kc": "kc.es.phon.rr", "word": "caballo", "ipa": ["k", "a", "b", "a", "ʎ", "o"], "gloss": "말", "syllables": ["ca", "ba", "llo"], "stress": [0, 1, 0] }
+  ],
+  "prosody": [
+    { "kc": "kc.es.stress", "word": "español", "ipa": ["e", "s", "p", "a", "ɲ", "o", "l"], "gloss": "스페인어", "syllables": ["es", "pa", "ñol"], "stress": [0, 0, 1] },
+    { "kc": "kc.es.stress", "word": "música", "ipa": ["m", "u", "s", "i", "k", "a"], "gloss": "음악", "syllables": ["mú", "si", "ca"], "stress": [1, 0, 0] },
+    { "kc": "kc.es.stress", "word": "teléfono", "ipa": ["t", "e", "l", "e", "f", "o", "n", "o"], "gloss": "전화", "syllables": ["te", "lé", "fo", "no"], "stress": [0, 1, 0, 0] }
+  ],
+  "note": "지각(최소대립쌍)+산출(섀도잉)+운율(prosody: 강세) 훈련 데이터. IPA는 채점 목표열, stress는 운율 채점·시각화용(스페인어는 강세 위치가 의미를 바꿈). 명료도 우선."
+}

@@ -1,0 +1,292 @@
+{
+  "lang": "hi",
+  "phonemes": [
+    "ə",
+    "a",
+    "i",
+    "u",
+    "e",
+    "o",
+    "k",
+    "kʰ",
+    "g",
+    "gʰ",
+    "tʃ",
+    "dʒ",
+    "ʈ",
+    "ɖ",
+    "t̪",
+    "d̪",
+    "d̪ʰ",
+    "n",
+    "p",
+    "pʰ",
+    "b",
+    "bʰ",
+    "m",
+    "j",
+    "r",
+    "l",
+    "v",
+    "ʃ",
+    "s",
+    "h"
+  ],
+  "minimalPairs": [
+    {
+      "kc": "kc.hi.script",
+      "contrast": "치음 त(t̪) vs 권설음 ट(ʈ)",
+      "hint": "त는 혀를 윗니 뒤에, ट는 혀를 말아 입천장에",
+      "a": {
+        "word": "ताल (tāl, 박자)",
+        "ipa": [
+          "t̪",
+          "a",
+          "l"
+        ]
+      },
+      "b": {
+        "word": "टाल (ṭāl, 미루다)",
+        "ipa": [
+          "ʈ",
+          "a",
+          "l"
+        ]
+      }
+    },
+    {
+      "kc": "kc.hi.script",
+      "contrast": "무기음 क(k) vs 유기음 ख(kʰ)",
+      "hint": "क는 숨을 안 터뜨리고, ख는 숨을 강하게 터뜨려요",
+      "a": {
+        "word": "काल (kāl, 시간)",
+        "ipa": [
+          "k",
+          "a",
+          "l"
+        ]
+      },
+      "b": {
+        "word": "खाल (khāl, 가죽)",
+        "ipa": [
+          "kʰ",
+          "a",
+          "l"
+        ]
+      }
+    },
+    {
+      "kc": "kc.hi.script",
+      "contrast": "치음 द(d̪) vs 권설음 ड(ɖ)",
+      "hint": "द는 혀를 윗니 뒤에(유성), ड는 혀를 말아 입천장에(유성)",
+      "a": {
+        "word": "दाल (dāl, 렌틸콩)",
+        "ipa": [
+          "d̪",
+          "a",
+          "l"
+        ]
+      },
+      "b": {
+        "word": "डाल (ḍāl, 가지)",
+        "ipa": [
+          "ɖ",
+          "a",
+          "l"
+        ]
+      }
+    }
+  ],
+  "shadow": [
+    {
+      "kc": "kc.hi.greetings",
+      "word": "नमस्ते (namaste)",
+      "ipa": [
+        "n",
+        "ə",
+        "m",
+        "ə",
+        "s",
+        "t̪",
+        "e"
+      ],
+      "gloss": "안녕하세요",
+      "syllables": [
+        "na",
+        "mas",
+        "te"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.hi.vocab.core",
+      "word": "धन्यवाद (dhanyavād)",
+      "ipa": [
+        "d̪ʰ",
+        "ə",
+        "n",
+        "j",
+        "ə",
+        "v",
+        "a",
+        "d̪"
+      ],
+      "gloss": "고맙습니다",
+      "syllables": [
+        "dha",
+        "nya",
+        "vād"
+      ],
+      "stress": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "kc": "kc.hi.vocab.core",
+      "word": "पानी (pānī)",
+      "ipa": [
+        "p",
+        "a",
+        "n",
+        "i"
+      ],
+      "gloss": "물",
+      "syllables": [
+        "pā",
+        "nī"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.hi.postpositions",
+      "word": "घर में (ghar mein)",
+      "ipa": [
+        "g",
+        "ʰ",
+        "a",
+        "r",
+        "m",
+        "eː",
+        "n"
+      ],
+      "gloss": "집에(처소 में)",
+      "syllables": [
+        "ghar",
+        "mein"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    }
+  ],
+  "prosody": [
+    {
+      "kc": "kc.hi.vocab.core",
+      "word": "आपका नाम (āpkā nām)",
+      "ipa": [
+        "a",
+        "p",
+        "k",
+        "a",
+        "n",
+        "a",
+        "m"
+      ],
+      "gloss": "당신의 이름",
+      "syllables": [
+        "āp",
+        "kā",
+        "nām"
+      ],
+      "stress": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "kc": "kc.hi.greetings",
+      "word": "शुक्रिया (shukriyā)",
+      "ipa": [
+        "ʃ",
+        "u",
+        "k",
+        "r",
+        "i",
+        "j",
+        "a"
+      ],
+      "gloss": "고마워요",
+      "syllables": [
+        "shuk",
+        "ri",
+        "yā"
+      ],
+      "stress": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "kc": "kc.hi.greetings",
+      "word": "नमस्कार (namaskār)",
+      "ipa": [
+        "n",
+        "ə",
+        "m",
+        "ə",
+        "s",
+        "k",
+        "a",
+        "r"
+      ],
+      "gloss": "안녕하세요 (정중)",
+      "syllables": [
+        "na",
+        "mas",
+        "kār"
+      ],
+      "stress": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "kc": "kc.hi.postpositions",
+      "word": "दिल्ली से (dillī se)",
+      "ipa": [
+        "d",
+        "ɪ",
+        "l",
+        "l",
+        "iː",
+        "s",
+        "eː"
+      ],
+      "gloss": "델리로부터(기점 से)",
+      "syllables": [
+        "dil",
+        "lī",
+        "se"
+      ],
+      "stress": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "note": "힌디어 — 데바나가리 abugida. 성조 없음·약강세(stress 배열은 상대적 강세). **권설음(ट ʈ·ड ɖ) vs 치음(त t̪·द d̪)**, **유기음(ख kʰ) vs 무기음(क k)**이 의미 구별의 핵심(한국어·영어에 없는 대립). IPA는 라틴 표기 병기."
+}

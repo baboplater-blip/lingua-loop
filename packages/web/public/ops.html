@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LinguaLoop 운영 · 효능 대시보드</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .ops { max-width: 860px; margin: 0 auto; padding: 24px 16px; }
+    .ops h1 { margin: 0 0 4px; }
+    .ops .sub { color: var(--muted, #789); margin: 0 0 16px; font-size: 14px; }
+    .ops .bar { display: grid; grid-template-columns: 200px 1fr; gap: 12px; align-items: center; margin: 6px 0; }
+    .ops .track { background: #223; border-radius: 6px; height: 14px; overflow: hidden; }
+    .ops .fill { background: linear-gradient(90deg, #3a9, #6cf); height: 100%; width: 0; }
+    .ops .metric { display: grid; grid-template-columns: 200px 1fr; gap: 12px; padding: 3px 0; }
+    .ops .metric b { font-variant-numeric: tabular-nums; }
+    .ops .card { background: var(--card, #1a2233); border: 1px solid #2a3550; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+    .ops .card h2 { margin: 0 0 8px; font-size: 16px; }
+    .ops .row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+    .ops select, .ops button { padding: 6px 10px; border-radius: 8px; }
+    .ops .gaps { color: var(--muted, #789); font-size: 13px; }
+    .ops .k { color: var(--muted, #789); }
+  </style>
+</head>
+<body>
+  <div class="ops">
+    <h1>효능 대시보드</h1>
+    <p class="sub">북스타 지표 — <b>참여도(세션수)가 아니라 학습 성과</b>입니다. 진화 사이클(<span class="k">npm run evolve:all</span>) 전후로 비교해 개선을 확인하세요.</p>
+    <div class="row">
+      <label>언어
+        <select id="lang">
+          <option value="en">en</option><option value="es">es</option><option value="zh">zh</option>
+          <option value="ar">ar</option><option value="sw">sw</option><option value="ja">ja</option><option value="hi">hi</option>
+        </select>
+      </label>
+      <button id="refresh" class="primary">새로고침</button>
+      <span id="status" class="k"></span>
+    </div>
+
+    <div class="card">
+      <h2>TTM — 숙달 도달 (Time-to-Mastery)</h2>
+      <div class="metric"><span>숙달 쌍(학습자×KC)</span><b id="ttm-pairs">—</b></div>
+      <div class="metric"><span>숙달까지 응답(중앙/평균)</span><b id="ttm-resp">—</b></div>
+      <div class="metric"><span>숙달까지 경과(중앙)</span><b id="ttm-elapsed">—</b></div>
+    </div>
+
+    <div class="card">
+      <h2>Retention — 회상 정확도</h2>
+      <div class="bar"><span>전체 정확도</span><div class="track"><div class="fill" id="ret-overall-bar"></div></div></div>
+      <div class="metric"><span class="k">전체</span><b id="ret-overall">—</b></div>
+      <div class="bar"><span>복습(간격반복) 정확도</span><div class="track"><div class="fill" id="ret-review-bar"></div></div></div>
+      <div class="metric"><span class="k">복습</span><b id="ret-review">—</b></div>
+    </div>
+
+    <div class="card">
+      <h2>Coverage — 진척</h2>
+      <div class="metric"><span>학습자</span><b id="cov-learners">—</b></div>
+      <div class="metric"><span>본 KC / 숙달 KC</span><b id="cov-kcs">—</b></div>
+      <div class="metric"><span>학습자당 숙달 KC(평균)</span><b id="cov-per">—</b></div>
+    </div>
+
+    <div class="card">
+      <h2>추이 — Loop Velocity (진화 사이클 스냅샷)</h2>
+      <div class="metric"><span>누적 스냅샷</span><b id="tr-count">—</b></div>
+      <div class="metric"><span>전체 정확도 Δ(첫→최신)</span><b id="tr-acc">—</b></div>
+      <div class="metric"><span>복습 정확도 Δ</span><b id="tr-review">—</b></div>
+      <div class="metric"><span>숙달까지 응답 Δ<span class="k"> (음수=개선)</span></span><b id="tr-ttm">—</b></div>
+      <div class="metric"><span>숙달 KC Δ</span><b id="tr-kcs">—</b></div>
+    </div>
+
+    <div class="card">
+      <h2>Content Health — 콘텐츠 건강</h2>
+      <div class="bar"><span>캘리브레이션 비율</span><div class="track"><div class="fill" id="ch-calib-bar"></div></div></div>
+      <div class="metric"><span class="k">서빙 문항 / 캘리브레이션</span><b id="ch-items">—</b></div>
+      <div class="metric"><span>콘텐츠 보유 KC / 전체</span><b id="ch-kcs">—</b></div>
+      <div class="metric"><span>콘텐츠 격차 KC</span><b id="ch-gaps">—</b></div>
+      <div class="gaps" id="gaps-list"></div>
+    </div>
+  </div>
+  <script src="/ops.js"></script>
+</body>
+</html>

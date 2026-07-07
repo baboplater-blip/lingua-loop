@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>링구아루프 — 언어 마스터리</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">링구아루프 <span class="tag">LinguaLoop</span></div>
+      <div class="head-right">
+        <label class="langsel"><span data-i18n="header.uiLang">화면 언어</span>
+          <select id="uilang">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="zh">中文</option>
+            <option value="ar">العربية</option>
+          </select>
+        </label>
+        <label class="langsel"><span data-i18n="header.learnLang">배우는 언어</span>
+          <select id="lang">
+            <option value="en">영어</option>
+            <option value="es">스페인어</option>
+            <option value="zh">중국어</option>
+            <option value="ar">아랍어</option>
+            <option value="sw">스와힐리어</option>
+            <option value="ja">일본어</option>
+            <option value="hi">힌디어</option>
+          </select>
+        </label>
+        <span class="learner" id="learner"></span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-view="study" data-i18n="tab.study">학습</button>
+      <button class="tab" data-view="place" data-i18n="tab.level">레벨</button>
+      <button class="tab" data-view="read" data-i18n="tab.read">읽기</button>
+      <button class="tab" data-view="tutor" data-i18n="tab.tutor">튜터</button>
+      <button class="tab" data-view="pron" data-i18n="tab.pron">발음</button>
+      <button class="tab" data-view="contrib" data-i18n="tab.contrib">기여</button>
+    </nav>
+
+    <main>
+      <div id="view-study" class="view layout">
+        <section class="card" id="study">
+          <div class="why" id="why"></div>
+          <div class="stage" id="stage" dir="auto" data-i18n="study.loading">불러오는 중…</div>
+          <div class="feedback" id="feedback"></div>
+          <div class="controls" id="controls"></div>
+        </section>
+
+        <aside class="panel">
+          <h2 data-i18n="profile.title">프로필</h2>
+          <div id="profile" class="profile"></div>
+          <h2 data-i18n="panel.progress">진척</h2>
+          <p class="muted" data-i18n="panel.progressHint">지금 무엇을, 왜 배우는지 투명하게 보여줍니다. 서두르지 않아도 괜찮아요.</p>
+          <div id="mastery" class="mastery"></div>
+          <h2 data-i18n="panel.achievements">성취</h2>
+          <div id="achievements"></div>
+          <h2 data-i18n="badge.title">배지</h2>
+          <div id="badges"></div>
+          <div class="privacy">
+            <button id="export" class="link" data-i18n="btn.export">내 데이터 내보내기</button>
+            <button id="reset" class="link danger" data-i18n="btn.reset">학습 기록 삭제</button>
+          </div>
+        </aside>
+      </div>
+
+      <div id="view-place" class="view place hidden">
+        <section class="card">
+          <div id="place-intro">
+            <h2 class="read-title" data-i18n="place.title">레벨 측정 (배치고사)</h2>
+            <p class="muted" data-i18n="place.intro">몇 문항으로 지금 실력을 적응형으로 가늠해요 — 잘 맞히면 더 어려운 문항이, 어려우면 더 쉬운 문항이 나와요. 정답은 서버에서만 채점하고, 결과로 당신에게 딱 맞는 시작점(i+1)을 잡아요. 서두를 필요 없어요.</p>
+            <button id="place-start" class="primary" data-i18n="place.start">시작</button>
+          </div>
+          <div id="place-quiz" class="hidden">
+            <div class="why" id="place-progress"></div>
+            <div class="stage" id="place-stage" dir="auto"></div>
+            <div class="controls" id="place-controls"></div>
+          </div>
+          <div id="place-result" class="hidden">
+            <div class="done">
+              <div class="big">🎯</div>
+              <p><span data-i18n="place.estLevel">추정 레벨:</span> <b id="place-level"></b></p>
+              <p class="muted" id="place-detail"></p>
+              <button id="place-apply" class="primary" data-i18n="place.apply">이 레벨로 학습 시작</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="view-read" class="view read hidden">
+        <section class="card">
+          <div class="why" id="read-why"></div>
+          <h2 class="read-title" id="read-title" dir="auto"></h2>
+          <div class="passage" id="read-passage" dir="auto" data-i18n="read.loading">불러오는 중…</div>
+          <div class="gloss" id="read-gloss"></div>
+          <div id="read-questions"></div>
+          <div class="feedback" id="read-feedback"></div>
+          <div class="controls" id="read-controls"></div>
+          <p class="muted" data-i18n="read.hint">모르는 단어를 눌러 뜻을 보세요. 단어를 다 알 필요는 없어요 — 대략 이해되면 충분합니다(이해가능한 입력 i+1).</p>
+        </section>
+      </div>
+
+      <div id="view-tutor" class="view tutor hidden">
+        <section class="card chat">
+          <div class="scenario-bar">
+            <span class="cue" data-i18n="scenario.title">상황 고르기</span>
+            <div class="scenarios" id="scenarios"></div>
+          </div>
+          <div class="messages" id="messages" dir="auto"></div>
+          <div class="composer">
+            <input id="tutor-input" dir="auto" placeholder="영어로 말해보세요…" autocomplete="off" />
+            <button id="tutor-send" class="primary" data-i18n="tutor.send">보내기</button>
+          </div>
+          <p class="muted" data-i18n="tutor.hint">쓰면 자연스럽게 고쳐주고 대화를 이어가요. 틀려도 괜찮아요 — 교정이 곧 학습이에요.</p>
+        </section>
+      </div>
+
+      <div id="view-pron" class="view pron hidden">
+        <section class="card">
+          <div class="pron-modes">
+            <button class="pron-mode active" data-pron="perceive" data-i18n="pron.perceive">듣고 구별</button>
+            <button class="pron-mode" data-pron="shadow" data-i18n="pron.shadow">따라 말하기</button>
+          </div>
+          <div class="why" id="pron-why"></div>
+          <div class="stage" id="pron-stage" dir="auto" data-i18n="study.loading">불러오는 중…</div>
+          <div class="feedback" id="pron-feedback"></div>
+          <div class="controls" id="pron-controls"></div>
+          <p class="muted" id="pron-note" data-i18n="pron.note">원어민 발음을 듣고 스스로 비교해요. 완벽한 억양보다 알아들을 수 있는 발음이 목표예요(명료도 우선). 목소리는 브라우저에서만 처리되고 서버로 전송되지 않아요.</p>
+        </section>
+      </div>
+      <div id="view-contrib" class="view contrib hidden">
+        <section class="card">
+          <h2 class="read-title" data-i18n="contrib.title">콘텐츠 기여</h2>
+          <p class="muted" data-i18n="contrib.intro">누구나 학습 콘텐츠를 기여할 수 있어요. 자동 품질 게이트 + 동료 검증을 통과하면 모두의 학습에 노출됩니다 — 미검증 콘텐츠는 노출되지 않아요.</p>
+          <div class="contrib-form">
+            <input id="c-prompt" class="answer" dir="auto" placeholder="문제 또는 뜻 (예: apple 뜻은?)" autocomplete="off" />
+            <input id="c-answer" class="answer" dir="auto" placeholder="정답 (예: 사과)" autocomplete="off" />
+            <button id="c-submit" class="primary" data-i18n="contrib.submit">기여 제출</button>
+          </div>
+          <div class="feedback" id="c-feedback"></div>
+          <h3 class="read-title" data-i18n="contrib.reviewQueue">검토 큐</h3>
+          <p class="muted" data-i18n="contrib.reviewHint">다른 학습자의 기여를 검토해 주세요. 정확하면 승인, 아니면 반려. 검토는 이력 기반 신뢰도로 가중돼요 — 정확한 검토를 쌓을수록 표의 무게가 커지고, 조작성 표는 약해집니다.</p>
+          <div id="c-queue"></div>
+          <h3 class="read-title" data-i18n="contrib.leaderboard">효과순 리더보드</h3>
+          <p class="muted" data-i18n="contrib.leaderboardHint">노출된 기여를 인기가 아니라 실제 학습효과(정답률·변별도)로 재평가합니다. 데이터가 쌓이면 잘 가르치는 문항이 위로 올라가고, 망가진 문항은 강등돼요.</p>
+          <div id="c-board"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="foot" data-i18n="footer.text">
+      성과가 목표입니다 — 스트릭도, 재촉도 없습니다. 복습 시점은 기억과학(FSRS)이 정합니다.
+    </footer>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

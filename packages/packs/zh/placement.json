@@ -1,0 +1,82 @@
+[
+  { "id": "plc.zh.vocab", "kc": ["kc.zh.vocab.core"], "level": "A1", "b": -1.6, "a": 1.1, "type": "mcq", "prompt": "你 (nǐ) 의 뜻은?", "answer": { "value": "너" }, "options": ["너", "나", "그"] },
+  { "id": "plc.zh.num", "kc": ["kc.zh.numbers"], "level": "A1", "b": -0.8, "a": 1.1, "type": "mcq", "prompt": "숫자 3은?", "answer": { "value": "三" }, "options": ["二", "三", "四"] },
+  { "id": "plc.zh.tone", "kc": ["kc.zh.tones"], "level": "A1", "b": 0.2, "a": 1.1, "type": "mcq", "prompt": "妈 (엄마)의 성조는?", "answer": { "value": "1성" }, "options": ["1성", "3성", "4성"] },
+  { "id": "plc.zh.greet", "kc": ["kc.zh.greetings"], "level": "A2", "b": 1.0, "a": 1.1, "type": "mcq", "prompt": "\"안녕히 가세요\"는?", "answer": { "value": "再见" }, "options": ["你好", "谢谢", "再见"] },
+  {
+    "id": "plc.zh.le",
+    "kc": [
+      "kc.zh.aspect_le"
+    ],
+    "level": "B1",
+    "b": 1.4,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"나는 밥을 다 먹었다\"에서 완료를 나타내는 조사는?",
+    "answer": {
+      "value": "了"
+    },
+    "options": [
+      "了",
+      "的",
+      "吗"
+    ]
+  },
+  {
+    "id": "plc.zh.guo",
+    "kc": [
+      "kc.zh.aspect_le"
+    ],
+    "level": "B2",
+    "b": 2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"~한 적 있다\"(경험)를 나타내는 조사는?",
+    "answer": {
+      "value": "过"
+    },
+    "options": [
+      "了",
+      "过",
+      "在"
+    ]
+  },
+  {
+    "id": "plc.zh.le2",
+    "kc": [
+      "kc.zh.aspect_le"
+    ],
+    "level": "B1",
+    "b": 1.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "「他去年学___中文」(그는 작년에 중국어를 배웠다). 빈칸은?",
+    "answer": {
+      "value": "了"
+    },
+    "options": [
+      "了",
+      "的",
+      "得"
+    ]
+  },
+  {
+    "id": "plc.zh.de",
+    "kc": [
+      "kc.zh.de_complement"
+    ],
+    "level": "B2",
+    "b": 2.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "「他跑___快」(그는 빨리 달린다 — 정도보어). 빈칸은?",
+    "answer": {
+      "value": "得"
+    },
+    "options": [
+      "得",
+      "的",
+      "地"
+    ]
+  }
+]

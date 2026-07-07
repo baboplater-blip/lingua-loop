@@ -1,0 +1,8 @@
+[
+  { "id": "plc.es.vocab", "kc": ["kc.es.vocab.core"], "level": "A1", "b": -1.8, "a": 1.1, "type": "mcq", "prompt": "\"agua\" 의 뜻은?", "answer": { "value": "물" }, "options": ["물", "불", "책"] },
+  { "id": "plc.es.gender", "kc": ["kc.es.gender"], "level": "A1", "b": -1.0, "a": 1.1, "type": "mcq", "prompt": "___ casa (집)", "answer": { "value": "la" }, "options": ["el", "la", "los"] },
+  { "id": "plc.es.ser", "kc": ["kc.es.present_ser"], "level": "A1", "b": -0.5, "a": 1.1, "type": "mcq", "prompt": "Yo ___ estudiante.", "answer": { "value": "soy" }, "options": ["es", "soy", "eres"] },
+  { "id": "plc.es.ar", "kc": ["kc.es.present_ar"], "level": "A2", "b": 0.2, "a": 1.1, "type": "mcq", "prompt": "Nosotros ___ (hablar) español.", "answer": { "value": "hablamos" }, "options": ["hablo", "hablas", "hablamos"] },
+  { "id": "plc.es.pret", "kc": ["kc.es.preterite"], "level": "B1", "b": 0.9, "a": 1.1, "type": "mcq", "prompt": "Ayer yo ___ (comer) paella.", "answer": { "value": "comí" }, "options": ["como", "comí", "comía"] },
+  { "id": "plc.es.subj", "kc": ["kc.es.subjunctive"], "level": "B2", "b": 1.6, "a": 1.1, "type": "mcq", "prompt": "Espero que él ___ (venir) pronto.", "answer": { "value": "venga" }, "options": ["viene", "venga", "vino"] }
+]

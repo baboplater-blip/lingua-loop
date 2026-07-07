@@ -1,0 +1,25 @@
+[
+  { "id": "kc.ar.script", "skill": "reading", "level": "A1", "prereq": [], "canDo": "아랍 문자를 우→좌(RTL)로 지각·구별한다" },
+  { "id": "kc.ar.vocab.core", "skill": "reading", "level": "A1", "prereq": ["kc.ar.script"], "canDo": "핵심 아랍어 어휘를 인식한다" },
+  { "id": "kc.ar.sounds", "skill": "listening", "level": "A1", "prereq": [], "canDo": "인두음·강세음(q/k, ح/ه, ص/س)을 구별한다" },
+  { "id": "kc.ar.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.ar.vocab.core"], "canDo": "1~4 숫자를 읽는다" },
+  { "id": "kc.ar.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.ar.vocab.core"], "canDo": "기본 인사를 한다" },
+  {
+    "id": "kc.ar.past_tense",
+    "skill": "writing",
+    "level": "B1",
+    "prereq": [
+      "kc.ar.vocab.core"
+    ],
+    "canDo": "과거형 동사(الماضي)를 인칭에 맞게 활용한다"
+  },
+  {
+    "id": "kc.ar.subjunctive_an",
+    "skill": "writing",
+    "level": "B2",
+    "prereq": [
+      "kc.ar.past_tense"
+    ],
+    "canDo": "조동사 뒤 أن + 접속법으로 의도를 표현한다"
+  }
+]

@@ -1,0 +1,384 @@
+{
+  "lang": "sw",
+  "phonemes": [
+    "b",
+    "p",
+    "t",
+    "d",
+    "k",
+    "g",
+    "m",
+    "n",
+    "ŋ",
+    "l",
+    "r",
+    "s",
+    "z",
+    "ʃ",
+    "f",
+    "v",
+    "h",
+    "j",
+    "w",
+    "tʃ",
+    "dʒ",
+    "a",
+    "e",
+    "i",
+    "o",
+    "u"
+  ],
+  "minimalPairs": [
+    {
+      "kc": "kc.sw.sounds",
+      "contrast": "b vs p",
+      "hint": "b는 성대를 울리고(유성), p는 안 울려요(무성)",
+      "a": {
+        "word": "baba (아빠)",
+        "ipa": [
+          "b",
+          "a",
+          "b",
+          "a"
+        ]
+      },
+      "b": {
+        "word": "papa (상어)",
+        "ipa": [
+          "p",
+          "a",
+          "p",
+          "a"
+        ]
+      }
+    },
+    {
+      "kc": "kc.sw.sounds",
+      "contrast": "l vs r",
+      "hint": "스와힐리어는 l과 r을 구별해요",
+      "a": {
+        "word": "kula (먹다)",
+        "ipa": [
+          "k",
+          "u",
+          "l",
+          "a"
+        ]
+      },
+      "b": {
+        "word": "kura (투표)",
+        "ipa": [
+          "k",
+          "u",
+          "r",
+          "a"
+        ]
+      }
+    },
+    {
+      "kc": "kc.sw.sounds",
+      "contrast": "f vs v",
+      "hint": "f는 안 울리고(무성), v는 성대를 울려요(유성)",
+      "a": {
+        "word": "fua (빨래하다)",
+        "ipa": [
+          "f",
+          "u",
+          "a"
+        ]
+      },
+      "b": {
+        "word": "vua (벗다/낚다)",
+        "ipa": [
+          "v",
+          "u",
+          "a"
+        ]
+      }
+    },
+    {
+      "kc": "kc.sw.sounds",
+      "contrast": "t vs d",
+      "hint": "t는 안 울리고(무성), d는 성대를 울려요(유성)",
+      "a": {
+        "word": "toa (꺼내다)",
+        "ipa": [
+          "t",
+          "o",
+          "a"
+        ]
+      },
+      "b": {
+        "word": "doa (얼룩)",
+        "ipa": [
+          "d",
+          "o",
+          "a"
+        ]
+      }
+    },
+    {
+      "kc": "kc.sw.sounds",
+      "contrast": "i vs o (모음)",
+      "hint": "다섯 순수 모음을 또렷이 — i는 앞·높게, o는 뒤·둥글게",
+      "a": {
+        "word": "mti (나무)",
+        "ipa": [
+          "m",
+          "t",
+          "i"
+        ]
+      },
+      "b": {
+        "word": "mto (강/베개)",
+        "ipa": [
+          "m",
+          "t",
+          "o"
+        ]
+      }
+    }
+  ],
+  "shadow": [
+    {
+      "kc": "kc.sw.greetings",
+      "word": "Jambo",
+      "ipa": [
+        "dʒ",
+        "a",
+        "m",
+        "b",
+        "o"
+      ],
+      "gloss": "안녕",
+      "syllables": [
+        "Jam",
+        "bo"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.vocab.core",
+      "word": "Asante",
+      "ipa": [
+        "a",
+        "s",
+        "a",
+        "n",
+        "t",
+        "e"
+      ],
+      "gloss": "고마워요",
+      "syllables": [
+        "a",
+        "san",
+        "te"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.greetings",
+      "word": "Habari",
+      "ipa": [
+        "h",
+        "a",
+        "b",
+        "a",
+        "r",
+        "i"
+      ],
+      "gloss": "안녕하세요 (소식은?)",
+      "syllables": [
+        "ha",
+        "ba",
+        "ri"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.vocab.core",
+      "word": "Maji",
+      "ipa": [
+        "m",
+        "a",
+        "dʒ",
+        "i"
+      ],
+      "gloss": "물",
+      "syllables": [
+        "ma",
+        "ji"
+      ],
+      "stress": [
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.tense_li",
+      "word": "alikula",
+      "ipa": [
+        "a",
+        "l",
+        "i",
+        "k",
+        "u",
+        "l",
+        "a"
+      ],
+      "gloss": "그는 먹었다(과거)",
+      "syllables": [
+        "a",
+        "li",
+        "ku",
+        "la"
+      ],
+      "stress": [
+        0,
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "prosody": [
+    {
+      "kc": "kc.sw.greetings",
+      "word": "Karibu",
+      "ipa": [
+        "k",
+        "a",
+        "r",
+        "i",
+        "b",
+        "u"
+      ],
+      "gloss": "환영합니다",
+      "syllables": [
+        "ka",
+        "ri",
+        "bu"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.greetings",
+      "word": "Kwaheri",
+      "ipa": [
+        "k",
+        "w",
+        "a",
+        "h",
+        "e",
+        "r",
+        "i"
+      ],
+      "gloss": "안녕히 가세요",
+      "syllables": [
+        "kwa",
+        "he",
+        "ri"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.vocab.core",
+      "word": "Asubuhi",
+      "ipa": [
+        "a",
+        "s",
+        "u",
+        "b",
+        "u",
+        "h",
+        "i"
+      ],
+      "gloss": "아침",
+      "syllables": [
+        "a",
+        "su",
+        "bu",
+        "hi"
+      ],
+      "stress": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.nounclass",
+      "word": "Mwalimu",
+      "ipa": [
+        "m",
+        "w",
+        "a",
+        "l",
+        "i",
+        "m",
+        "u"
+      ],
+      "gloss": "선생님",
+      "syllables": [
+        "mwa",
+        "li",
+        "mu"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.sw.tense_li",
+      "word": "nilikwenda",
+      "ipa": [
+        "n",
+        "i",
+        "l",
+        "i",
+        "k",
+        "w",
+        "e",
+        "n",
+        "d",
+        "a"
+      ],
+      "gloss": "나는 갔다(과거)",
+      "syllables": [
+        "ni",
+        "li",
+        "kwe",
+        "nda"
+      ],
+      "stress": [
+        0,
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "note": "스와힐리어 — 라틴 문자·성조 없음. 강세는 **규칙적으로 뒤에서 둘째 음절**(페널티메이트)에 고정 — stress 배열이 그 규칙을 데이터로 표현. b/p·f/v·t/d(유·무성)·l/r·모음 대립이 지각 훈련 대상."
+}

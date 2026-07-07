@@ -1,0 +1,12 @@
+{
+  "lang": "hi",
+  "name": "हिन्दी (Hindi)",
+  "script": "devanagari",
+  "direction": "ltr",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-4.0",
+  "schemaVersion": 1,
+  "note": "힌디어 파일럿 팩 — 범용 엔진 재실증(데바나가리 abugida: 자음+내재모음·마트라, 후치사, 성 일치 m/f, 권설음ट/치음त·유기음ख/무기음क 대립). 성조 없음·약강세. 코드 변경 0. 데바나가리는 단어 사이 공백이 있어 클릭 사전 자연 작동."
+}

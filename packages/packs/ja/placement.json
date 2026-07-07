@@ -1,0 +1,82 @@
+[
+  { "id": "plc.ja.vocab", "kc": ["kc.ja.vocab.core"], "level": "A1", "b": -1.6, "a": 1.1, "type": "mcq", "prompt": "ありがとう 의 뜻은?", "answer": { "value": "고맙습니다" }, "options": ["고맙습니다", "안녕", "네"] },
+  { "id": "plc.ja.kana", "kc": ["kc.ja.kana"], "level": "A1", "b": -0.6, "a": 1.1, "type": "mcq", "prompt": "히라가나 「ね」의 소리는?", "answer": { "value": "ne" }, "options": ["me", "ne", "re"] },
+  { "id": "plc.ja.num", "kc": ["kc.ja.numbers"], "level": "A1", "b": 0.0, "a": 1.1, "type": "mcq", "prompt": "숫자 3은?", "answer": { "value": "三 (さん)" }, "options": ["二 (に)", "三 (さん)", "四 (よん)"] },
+  { "id": "plc.ja.particle", "kc": ["kc.ja.particles"], "level": "A2", "b": 1.0, "a": 1.1, "type": "mcq", "prompt": "「みず を のむ」에서 を 의 역할은?", "answer": { "value": "목적어 표시" }, "options": ["주제 표시", "목적어 표시", "장소 표시"] },
+  {
+    "id": "plc.ja.te",
+    "kc": [
+      "kc.ja.te_form"
+    ],
+    "level": "B1",
+    "b": 1.4,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "たべる의 て형은?",
+    "answer": {
+      "value": "たべて"
+    },
+    "options": [
+      "たべて",
+      "たべた",
+      "たべます"
+    ]
+  },
+  {
+    "id": "plc.ja.teiku",
+    "kc": [
+      "kc.ja.te_form"
+    ],
+    "level": "B2",
+    "b": 2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "いく(行く)의 て형은?",
+    "answer": {
+      "value": "いって"
+    },
+    "options": [
+      "いって",
+      "いいて",
+      "いくて"
+    ]
+  },
+  {
+    "id": "plc.ja.te2",
+    "kc": [
+      "kc.ja.te_form"
+    ],
+    "level": "B1",
+    "b": 1.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "のむ(마시다)의 て형은?",
+    "answer": {
+      "value": "のんで"
+    },
+    "options": [
+      "のんで",
+      "のみて",
+      "のむて"
+    ]
+  },
+  {
+    "id": "plc.ja.pot",
+    "kc": [
+      "kc.ja.potential"
+    ],
+    "level": "B2",
+    "b": 2.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "たべる의 가능형(먹을 수 있다)은?",
+    "answer": {
+      "value": "たべられる"
+    },
+    "options": [
+      "たべられる",
+      "たべれる",
+      "たべさせる"
+    ]
+  }
+]

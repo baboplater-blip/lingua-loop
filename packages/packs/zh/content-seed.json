@@ -1,0 +1,203 @@
+[
+  {
+    "id": "zh.vocab.ni", "lang": "zh", "type": "flashcard", "kc": ["kc.zh.vocab.core"], "level": "A1",
+    "prompt": "너 (2인칭)", "answer": { "value": "你 (nǐ)", "accept": ["你", "nǐ", "ni"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "3성" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.vocab.hao", "lang": "zh", "type": "flashcard", "kc": ["kc.zh.vocab.core"], "level": "A1",
+    "prompt": "좋다 / 안녕", "answer": { "value": "好 (hǎo)", "accept": ["好", "hǎo", "hao"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.vocab.xiexie", "lang": "zh", "type": "flashcard", "kc": ["kc.zh.vocab.core"], "level": "A1",
+    "prompt": "고맙습니다", "answer": { "value": "谢谢 (xièxie)", "accept": ["谢谢", "xièxie", "xiexie"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "4성 + 경성" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.num.san", "lang": "zh", "type": "mcq", "kc": ["kc.zh.numbers"], "level": "A1",
+    "prompt": "숫자 3은?", "answer": { "value": "三 (sān)" },
+    "distractors": [{ "value": "二 (èr)", "errorTag": "number" }, { "value": "四 (sì)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.num.wu", "lang": "zh", "type": "mcq", "kc": ["kc.zh.numbers"], "level": "A1",
+    "prompt": "숫자 5는?", "answer": { "value": "五 (wǔ)" },
+    "distractors": [{ "value": "四 (sì)", "errorTag": "number" }, { "value": "六 (liù)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.greet.nihao", "lang": "zh", "type": "flashcard", "kc": ["kc.zh.greetings"], "level": "A1",
+    "prompt": "안녕하세요 (만났을 때)", "answer": { "value": "你好 (nǐ hǎo)", "accept": ["你好", "nǐhǎo", "nihao"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.greet.zaijian", "lang": "zh", "type": "flashcard", "kc": ["kc.zh.greetings"], "level": "A1",
+    "prompt": "안녕히 가세요", "answer": { "value": "再见 (zàijiàn)", "accept": ["再见", "zàijiàn", "zaijian"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "4성 + 4성" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.phon.ma", "lang": "zh", "type": "minimal_pair", "kc": ["kc.zh.tones"], "level": "A1",
+    "prompt": "들은 성조를 고르세요: mā(妈, 엄마) / mǎ(马, 말)", "answer": { "value": "mǎ (马)" },
+    "distractors": [{ "value": "mā (妈)", "errorTag": "tone-1-vs-3" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "zh.phon.maimai", "lang": "zh", "type": "minimal_pair", "kc": ["kc.zh.tones"], "level": "A1",
+    "prompt": "들은 성조를 고르세요: mǎi(买, 사다) / mài(卖, 팔다)", "answer": { "value": "mài (卖)" },
+    "distractors": [{ "value": "mǎi (买)", "errorTag": "tone-3-vs-4" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "3성은 내렸다 올리고, 4성은 뚝 떨어뜨려요" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "zh.aspect.le_concept",
+    "lang": "zh",
+    "type": "flashcard",
+    "kc": [
+      "kc.zh.aspect_le"
+    ],
+    "level": "B1",
+    "prompt": "조사 了 (le)의 기능은? (예: 我吃了饭 = 나는 밥을 먹었다)",
+    "answer": {
+      "value": "了 — 동작의 완료·상태 변화",
+      "accept": [
+        "了",
+        "le",
+        "완료",
+        "변화"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "동사 뒤 了=완료, 문장 끝 了=변화. 我吃了饭(먹었다)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "zh.aspect.le_fill",
+    "lang": "zh",
+    "type": "mcq",
+    "kc": [
+      "kc.zh.aspect_le"
+    ],
+    "level": "B1",
+    "prompt": "「他昨天买___一本书」(그는 어제 책 한 권을 샀다 — 완료). 빈칸은?",
+    "answer": {
+      "value": "了 (le)"
+    },
+    "distractors": [
+      {
+        "value": "过 (guo, 경험)",
+        "errorTag": "aspect"
+      },
+      {
+        "value": "着 (zhe, 지속)",
+        "errorTag": "aspect"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "완료=了, 경험=过, 지속=着"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "zh.de.concept",
+    "lang": "zh",
+    "type": "flashcard",
+    "kc": [
+      "kc.zh.de_complement"
+    ],
+    "level": "B2",
+    "prompt": "정도보어 得의 기능 (예: 他跑得快)",
+    "answer": {
+      "value": "得 — 동작의 정도·결과를 잇는다",
+      "accept": [
+        "得",
+        "de",
+        "정도보어"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "동사+得+정도: 跑得快(빨리 달린다), 说得好(말을 잘한다)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "zh.de.fill",
+    "lang": "zh",
+    "type": "mcq",
+    "kc": [
+      "kc.zh.de_complement"
+    ],
+    "level": "B2",
+    "prompt": "「她说___很好」(그녀는 말을 잘한다). 빈칸은?",
+    "answer": {
+      "value": "得"
+    },
+    "distractors": [
+      {
+        "value": "的 (de, 소유·관형)",
+        "errorTag": "de-complement"
+      },
+      {
+        "value": "地 (de, 부사)",
+        "errorTag": "de-complement"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "동사 뒤 정도보어는 得(的·地 아님)"
+      }
+    }
+  }
+]

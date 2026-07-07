@@ -1,0 +1,9 @@
+{
+  "name": "@lingua-loop/web",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "학습 웹 UI — 제로 의존 브라우저 앱. 데이터 백엔드가 서빙(packages/server). 투명성·다크패턴 금지.",
+  "scripts": {
+    "test": "node --test test/*.test.ts"
+  }
+}

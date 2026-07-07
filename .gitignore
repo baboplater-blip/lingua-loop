@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Build / cache
+dist/
+build/
+.next/
+out/
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Env / secrets (규칙 7·19 — 시크릿·키는 절대 커밋 금지)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Data (규칙 5·7 — 학습자 이벤트/PII 는 커밋 금지, 개방셋만 별도 관리)
+data/
+*.sqlite
+*.sqlite3
+*.db
+events/
+learner-store/
+# 개방 데이터셋은 명시적으로만 포함
+!datasets/README.md
+
+# Models / large artifacts
+models/*.bin
+models/*.gguf
+*.onnx
+*.ckpt
+
+# Logs / tmp
+*.log
+logs/
+tmp/
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+coverage/
+.nyc_output/
+playwright-report/
+test-results/

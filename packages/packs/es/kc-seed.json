@@ -1,0 +1,25 @@
+[
+  { "id": "kc.es.vocab.core", "skill": "reading", "level": "A1", "prereq": [], "canDo": "핵심 기초 어휘를 인식한다" },
+  { "id": "kc.es.present_ser", "skill": "writing", "level": "A1", "prereq": [], "canDo": "ser(이다) 현재형을 사용한다" },
+  { "id": "kc.es.gender", "skill": "writing", "level": "A1", "prereq": ["kc.es.vocab.core"], "canDo": "정관사 el/la 성 일치를 한다" },
+  { "id": "kc.es.present_ar", "skill": "writing", "level": "A1", "prereq": ["kc.es.present_ser"], "canDo": "-ar 규칙동사 현재형을 사용한다" },
+  { "id": "kc.es.phon.rr", "skill": "listening", "level": "A1", "prereq": [], "canDo": "/r/–/rr/ 최소대립을 지각한다" },
+  {
+    "id": "kc.es.preterite",
+    "skill": "writing",
+    "level": "B1",
+    "prereq": [
+      "kc.es.present_ar"
+    ],
+    "canDo": "단순과거(pretérito) 규칙 활용을 한다"
+  },
+  {
+    "id": "kc.es.subjunctive",
+    "skill": "writing",
+    "level": "B2",
+    "prereq": [
+      "kc.es.preterite"
+    ],
+    "canDo": "접속법 현재로 바람·의심을 표현한다"
+  }
+]

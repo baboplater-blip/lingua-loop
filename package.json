@@ -1,0 +1,30 @@
+{
+  "name": "lingua-loop",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "데이터로 끝없이 진화하는 오픈소스 언어 마스터리 엔진 (self-evolving open-source language-mastery engine)",
+  "workspaces": [
+    "packages/core",
+    "packages/server",
+    "packages/engine",
+    "packages/adapters",
+    "packages/packs",
+    "packages/web"
+  ],
+  "scripts": {
+    "gate": "node scripts/gate.mjs",
+    "test": "node --test packages/*/test/*.test.ts",
+    "serve": "node packages/server/src/server.ts",
+    "evolve:demo": "node packages/engine/scripts/evolve-demo.mjs",
+    "release": "node scripts/release.mjs",
+    "dataset:export": "node scripts/export-dataset.mjs",
+    "evolve:publish": "node scripts/evolve-publish.mjs",
+    "evolve:all": "node scripts/evolve-all.mjs",
+    "efficacy": "node scripts/efficacy.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "MIT"
+}

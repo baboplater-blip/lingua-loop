@@ -1,0 +1,9 @@
+[
+  { "id": "plc.en.vocab", "kc": ["kc.en.vocab.core"], "level": "A1", "b": -1.8, "a": 1.1, "type": "mcq", "prompt": "\"cat\" 의 뜻은?", "answer": { "value": "고양이" }, "options": ["고양이", "자동차", "책"] },
+  { "id": "plc.en.article", "kc": ["kc.en.articles"], "level": "A1", "b": -1.1, "a": 1.1, "type": "mcq", "prompt": "I have ___ apple.", "answer": { "value": "an" }, "options": ["a", "an", "the"] },
+  { "id": "plc.en.be", "kc": ["kc.en.present_be"], "level": "A1", "b": -0.6, "a": 1.1, "type": "mcq", "prompt": "She ___ happy.", "answer": { "value": "is" }, "options": ["am", "is", "are"] },
+  { "id": "plc.en.ps", "kc": ["kc.en.present_simple"], "level": "A2", "b": 0.0, "a": 1.1, "type": "mcq", "prompt": "He ___ to school every day.", "answer": { "value": "goes" }, "options": ["go", "goes", "going"] },
+  { "id": "plc.en.since", "kc": ["kc.en.present_perfect"], "level": "B1", "b": 0.6, "a": 1.1, "type": "mcq", "prompt": "I have lived here ___ 2010.", "answer": { "value": "since" }, "options": ["for", "since", "from"] },
+  { "id": "plc.en.cond", "kc": ["kc.en.conditional"], "level": "B1", "b": 1.2, "a": 1.1, "type": "mcq", "prompt": "If I ___ rich, I would travel.", "answer": { "value": "were" }, "options": ["am", "was", "were"] },
+  { "id": "plc.en.rel", "kc": ["kc.en.relative"], "level": "B2", "b": 1.8, "a": 1.1, "type": "mcq", "prompt": "The report, ___ was late, upset the boss.", "answer": { "value": "which" }, "options": ["who", "which", "what"] }
+]

@@ -1,0 +1,322 @@
+{
+  "lang": "ja",
+  "phonemes": [
+    "a",
+    "i",
+    "u",
+    "e",
+    "o",
+    "k",
+    "g",
+    "s",
+    "z",
+    "ʃ",
+    "t",
+    "ts",
+    "tʃ",
+    "dʒ",
+    "d",
+    "n",
+    "h",
+    "b",
+    "p",
+    "m",
+    "j",
+    "w",
+    "r"
+  ],
+  "minimalPairs": [
+    {
+      "kc": "kc.ja.kana",
+      "contrast": "つ(tsu) vs す(su)",
+      "hint": "つ는 [t]와 [s]를 함께(tsu), す는 [s]만(su)",
+      "a": {
+        "word": "つき (tsuki, 달)",
+        "ipa": [
+          "ts",
+          "u",
+          "k",
+          "i"
+        ]
+      },
+      "b": {
+        "word": "すき (suki, 좋아함)",
+        "ipa": [
+          "s",
+          "u",
+          "k",
+          "i"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ja.kana",
+      "contrast": "단자음 vs 촉음(っ)",
+      "hint": "촉음 っ는 한 박자 멈췄다가 자음을 세게 — kite(와서) vs kitte(우표)",
+      "a": {
+        "word": "きて (kite, 와서)",
+        "ipa": [
+          "k",
+          "i",
+          "t",
+          "e"
+        ]
+      },
+      "b": {
+        "word": "きって (kitte, 우표)",
+        "ipa": [
+          "k",
+          "i",
+          "t",
+          "t",
+          "e"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ja.kana",
+      "contrast": "단모음 vs 장모음",
+      "hint": "장모음은 두 박자로 길게 — ojisan(아저씨) vs ojiisan(할아버지)",
+      "a": {
+        "word": "おじさん (ojisan, 아저씨)",
+        "ipa": [
+          "o",
+          "dʒ",
+          "i",
+          "s",
+          "a",
+          "n"
+        ]
+      },
+      "b": {
+        "word": "おじいさん (ojiisan, 할아버지)",
+        "ipa": [
+          "o",
+          "dʒ",
+          "i",
+          "i",
+          "s",
+          "a",
+          "n"
+        ]
+      }
+    },
+    {
+      "kc": "kc.ja.te_form",
+      "contrast": "て형 촉음(っ) vs 없음",
+      "hint": "行って(itte, 가서)는 촉음 っ로 한 박자 멈춤 — いて(ite, 있어서)와 구별",
+      "a": {
+        "word": "行って (itte, 가서)",
+        "ipa": [
+          "i",
+          "t",
+          "t",
+          "e"
+        ]
+      },
+      "b": {
+        "word": "いて (ite, 있어서)",
+        "ipa": [
+          "i",
+          "t",
+          "e"
+        ]
+      }
+    }
+  ],
+  "shadow": [
+    {
+      "kc": "kc.ja.vocab.core",
+      "word": "わたし (watashi)",
+      "ipa": [
+        "w",
+        "a",
+        "t",
+        "a",
+        "ʃ",
+        "i"
+      ],
+      "gloss": "나",
+      "syllables": [
+        "wa",
+        "ta",
+        "shi"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ja.vocab.core",
+      "word": "ありがとう (arigatō)",
+      "ipa": [
+        "a",
+        "r",
+        "i",
+        "g",
+        "a",
+        "t",
+        "o"
+      ],
+      "gloss": "고맙습니다",
+      "syllables": [
+        "a",
+        "ri",
+        "ga",
+        "tō"
+      ],
+      "stress": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ja.greetings",
+      "word": "こんにちは (konnichiwa)",
+      "ipa": [
+        "k",
+        "o",
+        "n",
+        "n",
+        "i",
+        "tʃ",
+        "i",
+        "w",
+        "a"
+      ],
+      "gloss": "안녕하세요",
+      "syllables": [
+        "kon",
+        "ni",
+        "chi",
+        "wa"
+      ],
+      "stress": [
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ja.te_form",
+      "word": "食べて (tabete)",
+      "ipa": [
+        "t",
+        "a",
+        "b",
+        "e",
+        "t",
+        "e"
+      ],
+      "gloss": "먹고/먹어서(て형)",
+      "syllables": [
+        "ta",
+        "be",
+        "te"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "prosody": [
+    {
+      "kc": "kc.ja.greetings",
+      "word": "こんばんは (konbanwa)",
+      "ipa": [
+        "k",
+        "o",
+        "n",
+        "b",
+        "a",
+        "n",
+        "w",
+        "a"
+      ],
+      "gloss": "안녕하세요 (저녁)",
+      "syllables": [
+        "kon",
+        "ban",
+        "wa"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ja.greetings",
+      "word": "おはよう (ohayō)",
+      "ipa": [
+        "o",
+        "h",
+        "a",
+        "j",
+        "o"
+      ],
+      "gloss": "안녕 (아침)",
+      "syllables": [
+        "o",
+        "ha",
+        "yō"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "kc": "kc.ja.vocab.core",
+      "word": "せんせい (sensei)",
+      "ipa": [
+        "s",
+        "e",
+        "n",
+        "s",
+        "e",
+        "i"
+      ],
+      "gloss": "선생님",
+      "syllables": [
+        "sen",
+        "sei"
+      ],
+      "stress": [
+        0,
+        1
+      ]
+    },
+    {
+      "kc": "kc.ja.te_form",
+      "word": "飲んで (nonde)",
+      "ipa": [
+        "n",
+        "o",
+        "n",
+        "d",
+        "e"
+      ],
+      "gloss": "마시고/마셔서(撥音便)",
+      "syllables": [
+        "no",
+        "n",
+        "de"
+      ],
+      "stress": [
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "note": "일본어 — 히라가나·가타카나·한자. 성조 없음. **피치 액센트**(고저)를 stress 배열로 표현(1=고음절). 촉음(っ)·장모음·つ/す 등 박자(모라) 기반 대립이 지각 훈련 핵심. IPA는 라틴 표기 병기."
+}

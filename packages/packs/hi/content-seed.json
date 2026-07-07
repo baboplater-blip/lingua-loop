@@ -1,0 +1,201 @@
+[
+  {
+    "id": "hi.vocab.pani", "lang": "hi", "type": "flashcard", "kc": ["kc.hi.vocab.core"], "level": "A1",
+    "prompt": "물", "answer": { "value": "पानी (pānī)", "accept": ["पानी", "pānī", "pani", "paani"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "प(pa)+ा(ā 마트라)+न(na)+ी(ī 마트라)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.vocab.dhanyavaad", "lang": "hi", "type": "flashcard", "kc": ["kc.hi.vocab.core"], "level": "A1",
+    "prompt": "고맙습니다", "answer": { "value": "धन्यवाद (dhanyavād)", "accept": ["धन्यवाद", "dhanyavād", "dhanyavaad", "dhanyavad"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.script.ka", "lang": "hi", "type": "mcq", "kc": ["kc.hi.script"], "level": "A1",
+    "prompt": "데바나가리 «क» 의 소리는?", "answer": { "value": "ka (무기음)" },
+    "distractors": [{ "value": "kha (유기음 ख)", "errorTag": "script" }, { "value": "ga (ग)", "errorTag": "script" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "क는 내재모음 a를 품어 [ka]" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.script.ghar", "lang": "hi", "type": "flashcard", "kc": ["kc.hi.script"], "level": "A1",
+    "prompt": "집 (데바나가리로)", "answer": { "value": "घर (ghar)", "accept": ["घर", "ghar"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "घ(gha)+र(ra), 내재모음으로 [ghar]" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.num.teen", "lang": "hi", "type": "mcq", "kc": ["kc.hi.numbers"], "level": "A1",
+    "prompt": "숫자 3은?", "answer": { "value": "तीन (tīn)" },
+    "distractors": [{ "value": "दो (do)", "errorTag": "number" }, { "value": "चार (chār)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.num.paanch", "lang": "hi", "type": "mcq", "kc": ["kc.hi.numbers"], "level": "A1",
+    "prompt": "숫자 5는?", "answer": { "value": "पाँच (pāñch)" },
+    "distractors": [{ "value": "चार (chār)", "errorTag": "number" }, { "value": "छह (chah)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.greet.namaste", "lang": "hi", "type": "flashcard", "kc": ["kc.hi.greetings"], "level": "A1",
+    "prompt": "안녕하세요 (인사)", "answer": { "value": "नमस्ते (namaste)", "accept": ["नमस्ते", "namaste", "namaskar"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.greet.alvida", "lang": "hi", "type": "flashcard", "kc": ["kc.hi.greetings"], "level": "A1",
+    "prompt": "안녕히 가세요", "answer": { "value": "अलविदा (alvidā)", "accept": ["अलविदा", "alvidā", "alvida"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "hi.gender.ladki", "lang": "hi", "type": "mcq", "kc": ["kc.hi.gender"], "level": "A1",
+    "prompt": "여성 명사 लड़की(소녀)에 맞는 «좋은»의 형태는?", "answer": { "value": "अच्छी (achchhī, 여성형)" },
+    "distractors": [{ "value": "अच्छा (achchhā, 남성형)", "errorTag": "gender" }, { "value": "अच्छे (achchhe, 복수)", "errorTag": "gender" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "여성 명사엔 -ी(ī), 남성 명사엔 -ा(ā)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "hi.post.mein",
+    "lang": "hi",
+    "type": "flashcard",
+    "kc": [
+      "kc.hi.postpositions"
+    ],
+    "level": "B1",
+    "prompt": "\"집에\" (घर + 처소 후치사)",
+    "answer": {
+      "value": "घर में (ghar mein)",
+      "accept": [
+        "घर में",
+        "में",
+        "mein"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "में = ~안에/에(처소 후치사)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "hi.post.ko",
+    "lang": "hi",
+    "type": "mcq",
+    "kc": [
+      "kc.hi.postpositions"
+    ],
+    "level": "B1",
+    "prompt": "「यह किताब राम ___ दो」— '이 책을 Ram에게 줘라'(수령자). 알맞은 후치사는?",
+    "answer": {
+      "value": "को (ko, ~에게)"
+    },
+    "distractors": [
+      {
+        "value": "में (mein, ~안에)",
+        "errorTag": "postposition"
+      },
+      {
+        "value": "से (se, ~로부터)",
+        "errorTag": "postposition"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "수령자·목적격=को, 처소=में, 기점=से"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "hi.ne.concept",
+    "lang": "hi",
+    "type": "flashcard",
+    "kc": [
+      "kc.hi.ergative_ne"
+    ],
+    "level": "B2",
+    "prompt": "완료 타동사에서 주어에 붙는 능격 후치사 (예: राम ने रोटी खाई)",
+    "answer": {
+      "value": "ने (ne)",
+      "accept": [
+        "ने",
+        "ne"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "완료상 타동사: 주어+ने, 목적어가 동사에 성·수 일치"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "hi.ne.fill",
+    "lang": "hi",
+    "type": "mcq",
+    "kc": [
+      "kc.hi.ergative_ne"
+    ],
+    "level": "B2",
+    "prompt": "「उसने किताब पढ़ी」에서 'उसने'의 후치사 ने의 역할은?",
+    "answer": {
+      "value": "능격(완료 타동사 주어)"
+    },
+    "distractors": [
+      {
+        "value": "목적격",
+        "errorTag": "ergative"
+      },
+      {
+        "value": "처소격",
+        "errorTag": "ergative"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "완료상 타동사 주어 표지 = ने"
+      }
+    }
+  }
+]

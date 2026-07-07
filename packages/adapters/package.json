@@ -1,0 +1,7 @@
+{
+  "name": "@lingua-loop/adapters",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "pluggable 어댑터 — AI 튜터(로컬 휴리스틱 기본 + LLM 교체형), 인젝션 방어. ASR/TTS 후속. 규칙 12·13.",
+  "scripts": { "test": "node --test test/*.test.ts" }
+}

@@ -1,0 +1,25 @@
+[
+  { "id": "kc.sw.vocab.core", "skill": "reading", "level": "A1", "prereq": [], "canDo": "핵심 스와힐리어 어휘를 인식한다" },
+  { "id": "kc.sw.sounds", "skill": "listening", "level": "A1", "prereq": [], "canDo": "b/p·l/r 등 자음 대립을 지각한다" },
+  { "id": "kc.sw.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.sw.vocab.core"], "canDo": "1~4 숫자를 읽는다" },
+  { "id": "kc.sw.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.sw.vocab.core"], "canDo": "기본 인사를 한다" },
+  { "id": "kc.sw.nounclass", "skill": "reading", "level": "A1", "prereq": ["kc.sw.vocab.core"], "canDo": "사람 명사 부류 단수 m-/복수 wa-를 구별한다" },
+  {
+    "id": "kc.sw.tense_li",
+    "skill": "writing",
+    "level": "B1",
+    "prereq": [
+      "kc.sw.vocab.core"
+    ],
+    "canDo": "과거 시제 표지 -li- 를 동사에 결합한다"
+  },
+  {
+    "id": "kc.sw.association_cha",
+    "skill": "writing",
+    "level": "B2",
+    "prereq": [
+      "kc.sw.tense_li"
+    ],
+    "canDo": "연관의 -a가 명사 부류에 일치한다(ki류 cha)"
+  }
+]

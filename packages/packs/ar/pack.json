@@ -1,0 +1,12 @@
+{
+  "lang": "ar",
+  "name": "العربية (Arabic)",
+  "script": "arabic",
+  "direction": "rtl",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-4.0",
+  "schemaVersion": 1,
+  "note": "아랍어 시드 팩 — 다국어 범용(RTL·아랍 문자) 재실증용. direction=rtl, UI는 dir=auto로 양방향 처리."
+}

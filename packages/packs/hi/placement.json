@@ -1,0 +1,82 @@
+[
+  { "id": "plc.hi.vocab", "kc": ["kc.hi.vocab.core"], "level": "A1", "b": -1.6, "a": 1.1, "type": "mcq", "prompt": "धन्यवाद 의 뜻은?", "answer": { "value": "고맙습니다" }, "options": ["고맙습니다", "안녕", "물"] },
+  { "id": "plc.hi.script", "kc": ["kc.hi.script"], "level": "A1", "b": -0.6, "a": 1.1, "type": "mcq", "prompt": "데바나가리 «क» 의 소리는?", "answer": { "value": "ka" }, "options": ["ga", "ka", "kha"] },
+  { "id": "plc.hi.num", "kc": ["kc.hi.numbers"], "level": "A1", "b": 0.0, "a": 1.1, "type": "mcq", "prompt": "숫자 3은?", "answer": { "value": "तीन (tīn)" }, "options": ["दो (do)", "तीन (tīn)", "चार (chār)"] },
+  { "id": "plc.hi.gender", "kc": ["kc.hi.gender"], "level": "A2", "b": 1.0, "a": 1.1, "type": "mcq", "prompt": "여성 명사 लड़की에 맞는 형용사는?", "answer": { "value": "अच्छी" }, "options": ["अच्छा", "अच्छी", "अच्छे"] },
+  {
+    "id": "plc.hi.post",
+    "kc": [
+      "kc.hi.postpositions"
+    ],
+    "level": "B1",
+    "b": 1.4,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"मैं घर ___ हूँ\" (나는 집에 있다) 빈칸은?",
+    "answer": {
+      "value": "में"
+    },
+    "options": [
+      "में",
+      "से",
+      "को"
+    ]
+  },
+  {
+    "id": "plc.hi.ko",
+    "kc": [
+      "kc.hi.postpositions"
+    ],
+    "level": "B2",
+    "b": 2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"मैंने उसको देखा\"에서 후치사 को의 역할은?",
+    "answer": {
+      "value": "목적격"
+    },
+    "options": [
+      "목적격",
+      "처소격",
+      "도구격"
+    ]
+  },
+  {
+    "id": "plc.hi.post2",
+    "kc": [
+      "kc.hi.postpositions"
+    ],
+    "level": "B1",
+    "b": 1.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "\"델리로부터\" (दिल्ली + 기점 후치사)는?",
+    "answer": {
+      "value": "दिल्ली से"
+    },
+    "options": [
+      "दिल्ली से",
+      "दिल्ली में",
+      "दिल्ली को"
+    ]
+  },
+  {
+    "id": "plc.hi.ne",
+    "kc": [
+      "kc.hi.ergative_ne"
+    ],
+    "level": "B2",
+    "b": 2.2,
+    "a": 1.1,
+    "type": "mcq",
+    "prompt": "「मैं ___ खाना खाया」(나는 밥을 먹었다 — 완료 타동사). 빈칸은?",
+    "answer": {
+      "value": "ने"
+    },
+    "options": [
+      "ने",
+      "को",
+      "से"
+    ]
+  }
+]

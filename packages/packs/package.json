@@ -1,0 +1,6 @@
+{
+  "name": "@lingua-loop/packs",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "언어팩(데이터). 코드 0 — 코어 무변경으로 언어 주입(규칙 11). 첫 시드: en(목표어)/ko(UI)."
+}

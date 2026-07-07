@@ -1,0 +1,12 @@
+{
+  "lang": "sw",
+  "name": "Kiswahili (Swahili)",
+  "script": "latin",
+  "direction": "ltr",
+  "cefrSupported": ["A1"],
+  "role": ["target"],
+  "maintainers": [],
+  "license": "CC-BY-4.0",
+  "schemaVersion": 1,
+  "note": "스와힐리어 저자원 파일럿 팩 — 범용 엔진 재실증(반투어·명사 부류 m-/wa-). 라틴 문자·규칙적 페널티메이트 강세, 성조 없음. 코드 변경 0."
+}

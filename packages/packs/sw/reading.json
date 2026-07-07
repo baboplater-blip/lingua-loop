@@ -1,0 +1,144 @@
+{
+  "lang": "sw",
+  "passages": [
+    {
+      "id": "sw.read.sikuyangu",
+      "level": "A1",
+      "kc": ["kc.sw.vocab.core", "kc.sw.greetings"],
+      "title": "Siku Yangu",
+      "text": "Jina langu ni Amina. Mimi ni mwanafunzi. Asubuhi ninakunywa maji na kula mkate. Nyumba yangu ni ndogo lakini nzuri. Nina paka. Paka ni mweusi na mtulivu.",
+      "glossary": { "Jina": "이름", "mwanafunzi": "학생", "Asubuhi": "아침", "ninakunywa": "(나는) 마신다", "maji": "물", "kula": "먹다", "mkate": "빵", "Nyumba": "집", "ndogo": "작은", "nzuri": "좋은", "paka": "고양이", "mweusi": "검은", "mtulivu": "조용한" },
+      "questions": [
+        { "q": "Amina ananywa nini asubuhi?", "answer": "maji", "options": ["kahawa", "maji", "maziwa"] },
+        { "q": "Paka ana rangi gani?", "answer": "mweusi", "options": ["mweupe", "mweusi", "kahawia"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "sw.read.familia",
+      "level": "A1",
+      "kc": ["kc.sw.vocab.core", "kc.sw.numbers", "kc.sw.nounclass"],
+      "title": "Familia Yangu",
+      "text": "Katika nyumba yangu kuna watu wanne. Baba, mama, dada na mimi. Tuna paka mdogo. Watu wote ni wema. Sisi ni wenye furaha.",
+      "glossary": { "Katika": "~안에", "nyumba": "집", "kuna": "있다", "watu": "사람들", "wanne": "넷", "Baba": "아빠", "mama": "엄마", "dada": "누나/언니", "Tuna": "우리는 가지고 있다", "paka": "고양이", "mdogo": "작은", "wote": "모두", "wema": "착한", "furaha": "행복" },
+      "questions": [
+        { "q": "Kuna watu wangapi nyumbani?", "answer": "wanne", "options": ["watatu", "wanne", "watano"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "sw.read.wikendi",
+      "level": "A2",
+      "kc": ["kc.sw.vocab.core"],
+      "title": "Wikendi",
+      "text": "Wikendi mimi huenda bustanini na marafiki zangu. Katika bustani kuna miti mingi na maua mazuri. Tunatembea na kuzungumza pamoja. Wakati mwingine tunakunywa kahawa. Ninafurahia sana wikendi.",
+      "glossary": { "Wikendi": "주말", "huenda": "(나는) 간다", "bustanini": "공원에", "marafiki": "친구들", "miti": "나무들", "mingi": "많은", "maua": "꽃들", "mazuri": "아름다운", "Tunatembea": "(우리는) 걷는다", "kuzungumza": "이야기하다", "pamoja": "함께", "tunakunywa": "(우리는) 마신다", "kahawa": "커피", "Ninafurahia": "(나는) 즐긴다" },
+      "questions": [
+        { "q": "Yeye huenda wapi wikendi?", "answer": "bustanini", "options": ["bustanini", "shuleni", "dukani"] }
+      ],
+      "source": { "kind": "generated", "license": "CC-BY-4.0" }
+    },
+    {
+      "id": "sw.read.safari",
+      "level": "B1",
+      "kc": [
+        "kc.sw.vocab.core",
+        "kc.sw.tense_li"
+      ],
+      "title": "Safari Fupi",
+      "text": "Wikendi iliyopita, mimi na marafiki zangu tulikwenda mji mdogo karibu na bahari. Ingawa hali ya hewa ilikuwa na mawingu tulipoondoka, iliboreka mchana. Tulitembea bandarini, tulikula samaki mbichi, na tuliongea kuhusu mipango yetu ya baadaye. Kitu nilichopenda zaidi ni kuona mashua zikirudi jioni. Kama ningekuwa na muda zaidi, ningebaki usiku mmoja zaidi. Naamini safari fupi kama hizi hutusaidia kupumzika.",
+      "glossary": {
+        "wikendi": "주말",
+        "iliyopita": "지난",
+        "tulikwenda": "우리는 갔다",
+        "mji": "도시",
+        "bahari": "바다",
+        "ingawa": "비록",
+        "mawingu": "구름",
+        "iliboreka": "나아졌다",
+        "bandari": "항구",
+        "samaki": "생선",
+        "mbichi": "신선한",
+        "mipango": "계획들",
+        "mashua": "배들",
+        "jioni": "저녁",
+        "kupumzika": "쉬다"
+      },
+      "questions": [
+        {
+          "q": "Hali ya hewa ilikuwaje walipoondoka?",
+          "answer": "mawingu",
+          "options": [
+            "jua",
+            "mawingu",
+            "mvua"
+          ]
+        },
+        {
+          "q": "Aliyependa zaidi ni nini?",
+          "answer": "kuona mashua zikirudi",
+          "options": [
+            "kula samaki",
+            "kuona mashua zikirudi",
+            "kwenda kazini"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
+    },
+    {
+      "id": "sw.read.mjini",
+      "level": "B2",
+      "kc": [
+        "kc.sw.vocab.core",
+        "kc.sw.tense_li"
+      ],
+      "title": "Maisha ya Mjini",
+      "text": "Watu wengi wanaota kuishi katika jiji kubwa, wakiamini kwamba lina fursa zisizo na mwisho. Ni kweli kwamba miji hutoa kazi bora, matukio ya kitamaduni, na huduma ambazo miji midogo haiwezi kulingana nazo. Hata hivyo, urahisi huu una gharama yake. Gharama ya maisha ni kubwa, barabara zimejaa watu, na kelele za mfululizo zinaweza kuchosha. Kwa maoni yangu, kama maisha ya mjini yanakufaa inategemea unachothamini zaidi. Wale wanaopenda mwendo wa haraka watastawi, ilhali wale wanaopenda utulivu wanaweza kujihisi wamefungwa. Jambo la muhimu ni kuchagua mazingira yanayokuruhusu kuishi jinsi unavyotaka kweli.",
+      "glossary": {
+        "wanaota": "꿈꾸다",
+        "fursa": "기회",
+        "zisizo na mwisho": "무한한",
+        "matukio": "행사·사건",
+        "kulingana": "필적하다",
+        "urahisi": "편리함",
+        "gharama": "비용·대가",
+        "zimejaa": "가득 차다",
+        "kelele": "소음",
+        "kuchosha": "지치게 하다",
+        "yanakufaa": "너에게 맞다",
+        "unachothamini": "네가 중시하는 것",
+        "watastawi": "번영할 것이다",
+        "wamefungwa": "갇힌",
+        "mazingira": "환경"
+      },
+      "questions": [
+        {
+          "q": "Kasoro ya maisha ya mjini ni ipi kwa mwandishi?",
+          "answer": "gharama kubwa na kelele",
+          "options": [
+            "kazi bora",
+            "gharama kubwa na kelele",
+            "matukio ya kitamaduni"
+          ]
+        },
+        {
+          "q": "Maisha ya mjini kukufaa inategemea nini?",
+          "answer": "unachothamini zaidi",
+          "options": [
+            "umri wako",
+            "unachothamini zaidi",
+            "mapato yako"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+[
+  {
+    "id": "ar.vocab.salam", "lang": "ar", "type": "flashcard", "kc": ["kc.ar.vocab.core"], "level": "A1",
+    "prompt": "평화 / 안녕 (인사)", "answer": { "value": "سلام (salām)", "accept": ["سلام", "salām", "salam"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "우→좌로 읽어요" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.vocab.shukran", "lang": "ar", "type": "flashcard", "kc": ["kc.ar.vocab.core"], "level": "A1",
+    "prompt": "고맙습니다", "answer": { "value": "شكرا (shukran)", "accept": ["شكرا", "shukran", "shukraan"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.vocab.naam", "lang": "ar", "type": "mcq", "kc": ["kc.ar.vocab.core"], "level": "A1",
+    "prompt": "\"네\"(긍정)에 해당하는 말은?", "answer": { "value": "نعم (naʿam)" },
+    "distractors": [{ "value": "لا (lā, 아니오)", "errorTag": "meaning" }, { "value": "من فضلك (min faḍlik, 부탁합니다)", "errorTag": "meaning" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.num.thalatha", "lang": "ar", "type": "mcq", "kc": ["kc.ar.numbers"], "level": "A1",
+    "prompt": "숫자 3은?", "answer": { "value": "ثلاثة (thalātha)" },
+    "distractors": [{ "value": "اثنان (ithnān)", "errorTag": "number" }, { "value": "أربعة (arbaʿa)", "errorTag": "number" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.script.siin", "lang": "ar", "type": "mcq", "kc": ["kc.ar.script"], "level": "A1",
+    "prompt": "아랍 문자 «س» 의 소리는?", "answer": { "value": "s (스)" },
+    "distractors": [{ "value": "sh (ش)", "errorTag": "script" }, { "value": "ṣ (ص, 강세음)", "errorTag": "script" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "점 없는 이빨 모양" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.script.bayt", "lang": "ar", "type": "flashcard", "kc": ["kc.ar.script"], "level": "A1",
+    "prompt": "집 (아랍 문자로)", "answer": { "value": "بيت (bayt)", "accept": ["بيت", "bayt", "bait"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "ب(b) + ي(y) + ت(t)" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.greet.marhaba", "lang": "ar", "type": "flashcard", "kc": ["kc.ar.greetings"], "level": "A1",
+    "prompt": "안녕하세요 (반가워요)", "answer": { "value": "مرحبا (marḥaban)", "accept": ["مرحبا", "marḥaban", "marhaba"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.greet.maasalama", "lang": "ar", "type": "flashcard", "kc": ["kc.ar.greetings"], "level": "A1",
+    "prompt": "안녕히 가세요", "answer": { "value": "مع السلامة (maʿa s-salāma)", "accept": ["مع السلامة", "maʿa s-salāma", "maa salama"] },
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "id": "ar.phon.qalb", "lang": "ar", "type": "minimal_pair", "kc": ["kc.ar.sounds"], "level": "A1",
+    "prompt": "들은 소리를 고르세요: قلب (qalb, 심장) / كلب (kalb, 개)", "answer": { "value": "قلب (qalb)" },
+    "distractors": [{ "value": "كلب (kalb)", "errorTag": "q-vs-k" }],
+    "difficulty": null, "discrimination": null, "quality": "draft",
+    "source": { "kind": "contributed", "license": "CC-BY-4.0" }, "i18n": { "ko": { "hint": "ق(q)는 목 안쪽 깊은 곳에서" } }, "meta": { "schemaVersion": 1 }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ar.past.kataba",
+    "lang": "ar",
+    "type": "flashcard",
+    "kc": [
+      "kc.ar.past_tense"
+    ],
+    "level": "B1",
+    "prompt": "\"그는 썼다\" (كتب 3인칭 남성 과거)",
+    "answer": {
+      "value": "كتب (kataba)",
+      "accept": [
+        "كتب",
+        "kataba"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "과거형 기본형 = 3인칭 남성 단수 كتب"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ar.past.person",
+    "lang": "ar",
+    "type": "mcq",
+    "kc": [
+      "kc.ar.past_tense"
+    ],
+    "level": "B1",
+    "prompt": "\"나는 공부했다\" (درس 1인칭 과거)는?",
+    "answer": {
+      "value": "درستُ (darastu)"
+    },
+    "distractors": [
+      {
+        "value": "أدرس (adrusu, 현재)",
+        "errorTag": "tense"
+      },
+      {
+        "value": "درسوا (darasū, 그들)",
+        "errorTag": "person"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "1인칭 과거 접미사 -tu(ـتُ)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ar.an.concept",
+    "lang": "ar",
+    "type": "flashcard",
+    "kc": [
+      "kc.ar.subjunctive_an"
+    ],
+    "level": "B2",
+    "prompt": "조동사(أريد) 뒤 동사 앞에 오는 접속사 (예: أريد أن أذهب)",
+    "answer": {
+      "value": "أن (an)",
+      "accept": [
+        "أن",
+        "an"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "أريد/أستطيع + أن + 현재형 = ~하고 싶다/할 수 있다"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "ar.an.fill",
+    "lang": "ar",
+    "type": "mcq",
+    "kc": [
+      "kc.ar.subjunctive_an"
+    ],
+    "level": "B2",
+    "prompt": "「أستطيع ___ أكتب」(나는 쓸 수 있다). 빈칸은?",
+    "answer": {
+      "value": "أن"
+    },
+    "distractors": [
+      {
+        "value": "في (fī)",
+        "errorTag": "subjunctive"
+      },
+      {
+        "value": "على (ʿalā)",
+        "errorTag": "subjunctive"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "조동사 뒤 동사는 أن으로 연결"
+      }
+    }
+  }
+]
