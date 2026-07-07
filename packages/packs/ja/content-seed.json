@@ -197,5 +197,65 @@
         "hint": "ら抜き(みれる)는 구어체 오류 — 표준은 みられる"
       }
     }
+  },
+  {
+    "id": "ja.grammar.masu_form.1",
+    "lang": "ja",
+    "type": "flashcard",
+    "kc": [
+      "kc.ja.masu_form"
+    ],
+    "level": "A2",
+    "prompt": "마시다 (정중 현재 ます형)",
+    "answer": {
+      "value": "のみます",
+      "accept": [
+        "のみます",
+        "飲みます"
+      ]
+    },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
+  },
+  {
+    "id": "ja.grammar.masu_form.2",
+    "lang": "ja",
+    "type": "mcq",
+    "kc": [
+      "kc.ja.masu_form"
+    ],
+    "level": "A2",
+    "prompt": "'行く'의 정중 현재형은?",
+    "answer": {
+      "value": "いきます"
+    },
+    "distractors": [
+      {
+        "value": "いきました",
+        "errorTag": "tense"
+      },
+      {
+        "value": "いって",
+        "errorTag": "form"
+      }
+    ],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
   }
 ]

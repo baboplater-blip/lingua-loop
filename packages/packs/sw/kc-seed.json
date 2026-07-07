@@ -4,6 +4,7 @@
   { "id": "kc.sw.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.sw.vocab.core"], "canDo": "1~4 숫자를 읽는다" },
   { "id": "kc.sw.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.sw.vocab.core"], "canDo": "기본 인사를 한다" },
   { "id": "kc.sw.nounclass", "skill": "reading", "level": "A1", "prereq": ["kc.sw.vocab.core"], "canDo": "사람 명사 부류 단수 m-/복수 wa-를 구별한다" },
+  { "id": "kc.sw.present_tense", "skill": "writing", "level": "A2", "prereq": ["kc.sw.vocab.core"], "canDo": "현재시제 -na-와 습관 hu-로 일상을 말한다" },
   {
     "id": "kc.sw.tense_li",
     "skill": "writing",

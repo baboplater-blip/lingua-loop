@@ -130,10 +130,12 @@ export class SpanishReadingGenerator implements ReadingGenerator {
   }
 
   private build(spec: ReadingSpec, tpl: Tpl, id: string, level: string): ReadingPassage {
+    // 등급(vocab.core) 지문은 서술 현재를 담으므로 기초 문법 present_ar 크레딧(규칙 4). 문법 KC 템플릿은 그대로.
+    const extra = spec.kc === ES_GRADED_KC ? ["kc.es.present_ar"] : [];
     return {
       id,
       level: level as ReadingPassage["level"],
-      kc: [spec.kc], title: tpl.title, text: tpl.text,
+      kc: [spec.kc, ...extra], title: tpl.title, text: tpl.text,
       glossary: { ...tpl.glossary },
       questions: withProductionQuestion(tpl.questions), // 복수 문항이면 마지막을 주관식(산출)으로
       source: { kind: "generated", license: "CC-BY-4.0" },

@@ -195,5 +195,64 @@
         "hint": "ki류 명사(kiti)의 연관 = cha"
       }
     }
+  },
+  {
+    "id": "sw.grammar.present_tense.1",
+    "lang": "sw",
+    "type": "flashcard",
+    "kc": [
+      "kc.sw.present_tense"
+    ],
+    "level": "A2",
+    "prompt": "나는 마신다 (현재)",
+    "answer": {
+      "value": "ninakunywa",
+      "accept": [
+        "ninakunywa"
+      ]
+    },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
+  },
+  {
+    "id": "sw.grammar.present_tense.2",
+    "lang": "sw",
+    "type": "mcq",
+    "kc": [
+      "kc.sw.present_tense"
+    ],
+    "level": "A2",
+    "prompt": "'우리는 걷는다'(현재)는?",
+    "answer": {
+      "value": "tunatembea"
+    },
+    "distractors": [
+      {
+        "value": "tulitembea",
+        "errorTag": "tense"
+      },
+      {
+        "value": "tutatembea",
+        "errorTag": "tense"
+      }
+    ],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
   }
 ]

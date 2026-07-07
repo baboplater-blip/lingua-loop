@@ -4,6 +4,7 @@
   { "id": "kc.ja.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.ja.vocab.core"], "canDo": "1~5 숫자를 읽는다" },
   { "id": "kc.ja.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.ja.vocab.core"], "canDo": "기본 인사를 한다" },
   { "id": "kc.ja.particles", "skill": "reading", "level": "A1", "prereq": ["kc.ja.vocab.core"], "canDo": "조사 は(주제)·を(목적)·に(장소·시간)를 구별한다" },
+  { "id": "kc.ja.masu_form", "skill": "writing", "level": "A2", "prereq": ["kc.ja.vocab.core"], "canDo": "정중형 ます형으로 현재·습관을 말한다" },
   {
     "id": "kc.ja.te_form",
     "skill": "writing",

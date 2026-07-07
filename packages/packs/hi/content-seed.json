@@ -197,5 +197,65 @@
         "hint": "완료상 타동사 주어 표지 = ने"
       }
     }
+  },
+  {
+    "id": "hi.grammar.present_habitual.1",
+    "lang": "hi",
+    "type": "flashcard",
+    "kc": [
+      "kc.hi.present_habitual"
+    ],
+    "level": "A2",
+    "prompt": "나는 마신다 (현재습관, 남성)",
+    "answer": {
+      "value": "पीता हूँ",
+      "accept": [
+        "पीता हूँ",
+        "पीता हूं"
+      ]
+    },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
+  },
+  {
+    "id": "hi.grammar.present_habitual.2",
+    "lang": "hi",
+    "type": "mcq",
+    "kc": [
+      "kc.hi.present_habitual"
+    ],
+    "level": "A2",
+    "prompt": "'우리는 간다'(현재습관)는?",
+    "answer": {
+      "value": "जाते हैं"
+    },
+    "distractors": [
+      {
+        "value": "गए",
+        "errorTag": "tense"
+      },
+      {
+        "value": "जाएंगे",
+        "errorTag": "tense"
+      }
+    ],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
   }
 ]

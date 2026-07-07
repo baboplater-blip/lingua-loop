@@ -17,7 +17,10 @@ test("지원 KC → 검증 통과하는 이해가능한 입력 지문 생성", (
     assert.ok(validateReading(p), "validateReading 통과(규칙 4): " + kc);
     assert.ok(Object.keys(p.glossary).length >= 3, "클릭 사전 어휘: " + kc);
     assert.ok(p.questions && p.questions.length >= 1, "이해 문항: " + kc);
-    assert.deepEqual(p.kc, [kc], "KC 태깅");
+    // 등급(vocab.core) 지문은 어휘 + 기초 문법(present_simple)을 크레딧 → 읽기가 문법 숙달에도 기여.
+    // 문법 KC 템플릿은 자기 KC만.
+    if (kc === "kc.en.vocab.core") assert.deepEqual(p.kc, [kc, "kc.en.present_simple"], "vocab 지문은 기초 문법도 크레딧");
+    else assert.deepEqual(p.kc, [kc], "KC 태깅");
   }
 });
 

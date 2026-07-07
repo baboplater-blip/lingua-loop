@@ -199,5 +199,65 @@
         "hint": "동사 뒤 정도보어는 得(的·地 아님)"
       }
     }
+  },
+  {
+    "id": "zh.grammar.basic_sentence.1",
+    "lang": "zh",
+    "type": "flashcard",
+    "kc": [
+      "kc.zh.basic_sentence"
+    ],
+    "level": "A2",
+    "prompt": "나는 사과를 좋아한다 (중국어 어순대로)",
+    "answer": {
+      "value": "我 喜欢 苹果",
+      "accept": [
+        "我喜欢苹果",
+        "我 喜欢 苹果"
+      ]
+    },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
+  },
+  {
+    "id": "zh.grammar.basic_sentence.2",
+    "lang": "zh",
+    "type": "mcq",
+    "kc": [
+      "kc.zh.basic_sentence"
+    ],
+    "level": "A2",
+    "prompt": "어순이 올바른 문장은? (나는 우유를 마신다)",
+    "answer": {
+      "value": "我 喝 牛奶"
+    },
+    "distractors": [
+      {
+        "value": "我 牛奶 喝",
+        "errorTag": "word_order"
+      },
+      {
+        "value": "喝 我 牛奶",
+        "errorTag": "word_order"
+      }
+    ],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
   }
 ]

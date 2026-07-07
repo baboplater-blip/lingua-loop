@@ -185,6 +185,16 @@ function shortKc(kc: string): string {
   return kc.split(".").slice(-1)[0] || "core";
 }
 
+// 생성 지문이 확실히 담는 기초 문법 KC(언어별 A2 현재/기본문장) — 모든 등급 템플릿이 현재·기본문장을 포함하므로 정직하게 크레딧(규칙 4).
+// 상위 문법(了·과거 등)은 템플릿마다 유무가 달라 여기서 붙이지 않는다(시드 지문은 등급별로 이미 태깅됨).
+const GRAMMAR_KC: Record<string, string> = {
+  zh: "kc.zh.basic_sentence",
+  ar: "kc.ar.present_tense",
+  sw: "kc.sw.present_tense",
+  ja: "kc.ja.masu_form",
+  hi: "kc.hi.present_habitual",
+};
+
 /** 지원 언어인지(지문 템플릿 보유). */
 export function supportsMultilingualReading(lang: string): boolean {
   return lang in TEMPLATES;
@@ -219,10 +229,11 @@ export class MultilingualReadingGenerator implements ReadingGenerator {
     const level = (spec.level && byLevel[spec.level]) ? spec.level : DEFAULT_LEVEL;
     const tpl = byLevel[level];
     if (!tpl) return null;
+    const grammarKc = GRAMMAR_KC[this.lang];
     return {
       id: `gen.${spec.lang}.read.${level.toLowerCase()}.${shortKc(spec.kc)}`,
       level: tpl.level as ReadingPassage["level"],
-      kc: [spec.kc],
+      kc: grammarKc ? [spec.kc, grammarKc] : [spec.kc], // 어휘 + 기초 문법 → 읽기가 문법 숙달에도 크레딧
       title: tpl.title,
       text: tpl.text,
       glossary: { ...tpl.glossary },

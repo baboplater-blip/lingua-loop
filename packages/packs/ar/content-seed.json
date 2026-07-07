@@ -196,5 +196,65 @@
         "hint": "조동사 뒤 동사는 أن으로 연결"
       }
     }
+  },
+  {
+    "id": "ar.grammar.present_tense.1",
+    "lang": "ar",
+    "type": "flashcard",
+    "kc": [
+      "kc.ar.present_tense"
+    ],
+    "level": "A2",
+    "prompt": "나는 (커피를) 마신다 (현재형)",
+    "answer": {
+      "value": "أشرب",
+      "accept": [
+        "اشرب",
+        "أشرب"
+      ]
+    },
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
+  },
+  {
+    "id": "ar.grammar.present_tense.2",
+    "lang": "ar",
+    "type": "mcq",
+    "kc": [
+      "kc.ar.present_tense"
+    ],
+    "level": "A2",
+    "prompt": "현재형 '우리는 걷는다'는?",
+    "answer": {
+      "value": "نمشي"
+    },
+    "distractors": [
+      {
+        "value": "مشينا",
+        "errorTag": "tense"
+      },
+      {
+        "value": "سنمشي",
+        "errorTag": "tense"
+      }
+    ],
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    }
   }
 ]

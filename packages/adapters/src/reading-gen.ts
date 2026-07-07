@@ -147,10 +147,13 @@ export class EnglishReadingGenerator implements ReadingGenerator {
   }
 
   private build(spec: ReadingSpec, tpl: Template, id: string, level: string): ReadingPassage {
+    // 등급(vocab.core) 지문은 서술 현재를 확실히 담으므로 기초 문법 present_simple 크레딧(규칙 4).
+    // 문법 KC 템플릿(EN_TEMPLATES)은 spec.kc 자체가 문법이라 그대로 둔다.
+    const extra = spec.kc === EN_GRADED_KC ? ["kc.en.present_simple"] : [];
     return {
       id,
       level: level as ReadingPassage["level"],
-      kc: [spec.kc],
+      kc: [spec.kc, ...extra],
       title: tpl.title,
       text: tpl.text,
       glossary: { ...tpl.glossary },

@@ -3,6 +3,7 @@
   { "id": "kc.zh.vocab.core", "skill": "reading", "level": "A1", "prereq": [], "canDo": "핵심 병음/한자 어휘를 인식한다" },
   { "id": "kc.zh.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.zh.vocab.core"], "canDo": "1~10 숫자를 읽는다" },
   { "id": "kc.zh.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.zh.tones"], "canDo": "기본 인사를 성조에 맞게 말한다" },
+  { "id": "kc.zh.basic_sentence", "skill": "writing", "level": "A2", "prereq": ["kc.zh.vocab.core"], "canDo": "기본 어순(주어-동사-목적어)과 的·和로 현재 문장을 구성한다" },
   {
     "id": "kc.zh.aspect_le",
     "skill": "writing",

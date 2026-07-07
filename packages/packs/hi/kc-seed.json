@@ -4,6 +4,7 @@
   { "id": "kc.hi.numbers", "skill": "reading", "level": "A1", "prereq": ["kc.hi.vocab.core"], "canDo": "1~5 숫자를 읽는다" },
   { "id": "kc.hi.greetings", "skill": "speaking", "level": "A1", "prereq": ["kc.hi.vocab.core"], "canDo": "기본 인사를 한다" },
   { "id": "kc.hi.gender", "skill": "reading", "level": "A1", "prereq": ["kc.hi.vocab.core"], "canDo": "명사의 성(남성·여성)에 형용사를 일치시킨다" },
+  { "id": "kc.hi.present_habitual", "skill": "writing", "level": "A2", "prereq": ["kc.hi.vocab.core"], "canDo": "현재습관형(-ता/ते हूँ/हैं)으로 일상을 말한다" },
   {
     "id": "kc.hi.postpositions",
     "skill": "writing",

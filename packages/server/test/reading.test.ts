@@ -33,6 +33,38 @@ test("모든 배포 지문이 검증 통과(규칙 4 — 미검증 노출 금지
   }
 });
 
+test("모든 지문이 문법 KC를 태깅 — 읽기 채점이 어휘뿐 아니라 문법 숙달에도 기여(규칙 1·11)", () => {
+  // 지문의 kc 전체가 answerReading 에서 크레딧되므로, 지문마다 최소 1개의 문법 KC(비어휘)가 있어야
+  // 읽기 한 번이 어휘+문법을 함께 측정한다. 7개 언어 대칭.
+  for (const lang of ["en", "es", "zh", "ar", "sw", "ja", "hi"]) {
+    for (const p of packReading(lang) as ReadingPassage[]) {
+      const grammar = p.kc.filter((k) => !k.includes("vocab"));
+      assert.ok(grammar.length >= 1, `${lang} ${p.id}: 문법 KC 1개 이상 (현재 [${p.kc.join(", ")}])`);
+    }
+  }
+});
+
+test("answerReading: 신설 A2 문법 KC가 2회 정답으로 숙달 도달 — 비라틴 언어 전수(규칙 1)", () => {
+  // 읽기 이해 정답 2회 → A2 지문의 신설 문법 KC(현재/기본문장)가 BKT 숙달 임계(0.6)에 도달. 5개 비라틴 언어 종단 검증.
+  const a2Grammar: Record<string, string> = {
+    zh: "kc.zh.basic_sentence", ar: "kc.ar.present_tense", sw: "kc.sw.present_tense", ja: "kc.ja.masu_form", hi: "kc.hi.present_habitual",
+  };
+  for (const lang of ["zh", "ar", "sw", "ja", "hi"]) {
+    const store = newStore();
+    const passages = packReading(lang) as ReadingPassage[];
+    const p = passages.find((x) => x.level === "A2" && x.questions?.length && x.questions[0].answer);
+    assert.ok(p, `${lang}: A2 문항 보유 지문`);
+    const grammarKc = a2Grammar[lang];
+    assert.ok(p!.kc.includes(grammarKc), `${lang} A2 지문이 신설 문법 KC(${grammarKc}) 태깅`);
+    const right = p!.questions![0].answer as string;
+    answerReading(store, lang, passages, { learnerRef: "g", passageId: p!.id, questionIndex: 0, choice: right });
+    answerReading(store, lang, passages, { learnerRef: "g", passageId: p!.id, questionIndex: 0, choice: right });
+    const state = stateOf(store, "g", lang);
+    assert.ok(state.kcState[grammarKc], `${lang} ${grammarKc} 기억 생성`);
+    assert.ok(state.kcState[grammarKc].mastery >= 0.6, `${lang} ${grammarKc} 숙달 도달(mastery=${state.kcState[grammarKc].mastery})`);
+  }
+});
+
 test("같은 코어·서버가 언어팩만 바꿔 es 읽기도 서빙(규칙 11)", () => {
   const store = newStore();
   const en = serveReading(store, "r2", "en", packReading("en"));

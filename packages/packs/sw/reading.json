@@ -29,7 +29,7 @@
     {
       "id": "sw.read.wikendi",
       "level": "A2",
-      "kc": ["kc.sw.vocab.core"],
+      "kc": ["kc.sw.vocab.core", "kc.sw.present_tense"],
       "title": "Wikendi",
       "text": "Wikendi mimi huenda bustanini na marafiki zangu. Katika bustani kuna miti mingi na maua mazuri. Tunatembea na kuzungumza pamoja. Wakati mwingine tunakunywa kahawa. Ninafurahia sana wikendi.",
       "glossary": { "Wikendi": "주말", "huenda": "(나는) 간다", "bustanini": "공원에", "marafiki": "친구들", "miti": "나무들", "mingi": "많은", "maua": "꽃들", "mazuri": "아름다운", "Tunatembea": "(우리는) 걷는다", "kuzungumza": "이야기하다", "pamoja": "함께", "tunakunywa": "(우리는) 마신다", "kahawa": "커피", "Ninafurahia": "(나는) 즐긴다" },
