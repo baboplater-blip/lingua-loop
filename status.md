@@ -5,10 +5,17 @@
 
 ## 한 줄 요약
 
+**🚀 공개 배포 완료 (v0.1.0).** LinguaLoop 첫 OSS 릴리스를 GitHub 공개 리포로 배포 — <https://github.com/baboplater-blip/lingua-loop> (PUBLIC, main, MIT). git init→초기 커밋(241파일, 비밀·학습자 데이터 유출 0 검증)→태그 `v0.1.0`→push→GitHub Release 발행→검색 토픽 10종. 배포 직전 게이트 그린 **309 pass / 57파일**·릴리스 준비도 그린 재확인. 이전 라운드까지 코드·콘텐츠(7개 언어 A1~B2)·무인 진화 폐루프·운영 런북·북스타 대시보드(CLI+웹+시계열 추이)·읽기 복수·주관식·산출 측정 전부 완결. 다음: 공개 후 점진 개선(추이 스파크라인·문법KC 읽기 연결).
+
+<details><summary>이전 요약 — 생성기 주관식 산출 + 효능 시계열 추이(2건 일괄)</summary>
+
 **생성기 주관식 산출 + 효능 시계열 추이(2건 일괄).** ①읽기 생성기(다국어·en·es)가 복수 문항 등급에서 **마지막 문항을 주관식(산출)**으로 변환(`withProductionQuestion` 공용 헬퍼) — 인식(객관식)+산출(주관식) 균형을 무인 콘텐츠에 편입, 생성물도 서버 채점. ②**효능 추이(Loop Velocity)** — `computeEfficacy` 스냅샷을 append-only로 누적: 코어 `EfficacySnapshot`·`trendSummary`(첫↔최신 델타, 정확도↑/TTM↓/숙달KC↑), 서버 `recordEfficacy`(EFFICACY_REF 로그, 집계서 제외)·`efficacyHistory`, `GET /efficacy/history`·`POST /efficacy/snapshot`, **진화 잡이 사이클마다 스냅샷 기록**, ops 대시보드·CLI에 추이 표시. **게이트 그린 309 테스트(57파일)** + 라이브 HTTP 8/8·진화 잡 2회 스냅샷 축적. 다음: 공개 배포(승인 대기)·추이 시각화 심화.
+
+</details>
 
 ## 게이트 상태
 
+- **🚀 공개 배포 v0.1.0(규칙 14·18)**: 🟢 명시 승인('배포해')으로 첫 OSS 릴리스 — GitHub 공개 리포 <https://github.com/baboplater-blip/lingua-loop>(PUBLIC·main·MIT). git init(`-b main`)→로컬 identity→`git add -A`(241파일)→**커밋 전 유출 검사 0**(data/·.env·.sqlite·.pem·.key·secrets/·learner-store/ 미포함, `.claude/settings.json`=권한 허용목록뿐)→초기 커밋 `65d3223`→annotated 태그 `v0.1.0`→`gh repo create --public --push`→태그 push→`gh release create v0.1.0`(한/영 릴리스 노트)→토픽 10종(language-learning·spaced-repetition·fsrs·irt·multilingual·self-hosted 등). 배포 직전 게이트 그린 **309 pass / 57파일**·릴리스 준비도 그린 재확인. ⚠️GitHub 라이선스 자동감지는 재스캔 지연(LICENSE=표준 MIT 21줄, 곧 인식). 로컬 main↔origin/main 동기
 - **게이트**: 🟢 통과 — `npm run gate` (문서 5 + 다크패턴 안티 + 검증 스위트 **309 pass / 0 fail**, 57파일). 릴리스 준비도 그린(8종 카드·라이선스·시크릿·self-host 스모크)
 - **생성기 주관식(산출) 문항(규칙 4·11)**: 🟢 `adapters/reading-gen.withProductionQuestion` 공용 헬퍼 — 문항 2개 이상이면 **마지막을 주관식(자유응답)**으로 변환(보기 제거·정답을 accept로), 1개면 객관식 유지. 다국어·en·es 생성기 `build/generate`가 사용 → 진화 폐루프 생성 지문이 인식(객관식)+산출(주관식) 균형. 생성물도 `scoreComprehension`으로 서버 채점. `multilingual-reading.test`(withProductionQuestion 단위·생성 주관식 정오 채점·validate 주관식 허용)·`reading-gen.test`(en 등급 산출 문항). 라이브 확인
 - **효능 시계열 추이 — Loop Velocity(규칙 1·5)**: 🟢 진화 사이클마다 효능 스냅샷을 append-only로 누적해 개선 추세를 본다. 코어 `EfficacySnapshot`·`trendSummary`(첫↔최신 델타: 정확도·복습 정확도·숙달까지 응답[음수=개선]·숙달 KC). 서버 `recordEfficacy`(`EFFICACY_REF="efficacy"` 로그 ingest, `allLearnerEvents`가 집계서 제외)·`efficacyHistory`(언어별 스냅샷+추세). `GET /efficacy/history`·`POST /efficacy/snapshot`. **`evolve-publish.mjs`가 사이클마다 `recordEfficacy` 호출**(자연 캐던스). ops 대시보드 "추이" 카드(델타+개선 화살표)·CLI 추이 출력. `EventType`에 `efficacy.snapshot` 편입. `core/efficacy.test`(trendSummary 델타 부호·0/1개)·`server/efficacy.test`(기록·이력·언어분리·집계 제외)·`ops.test`. 라이브 HTTP 8/8·진화 잡 2회 스냅샷 축적
