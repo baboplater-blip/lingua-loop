@@ -59,6 +59,16 @@ if (e.gain.n === 0) {
 console.log(`  [Content Health] 콘텐츠 건강`);
 console.log(`    서빙 문항             ${r.contentHealth.servableItems} · 캘리브레이션 ${pct(r.contentHealth.calibratedRatio)}`);
 console.log(`    콘텐츠 보유 KC / 전체   ${r.contentHealth.kcsWithContent} / ${r.contentHealth.totalKCs} · 격차 ${r.gaps.length}KC`);
+console.log(`  [KC별 효능] 어디서 잘 가르치고 어디서 막히는가 (도달률 낮은 순)`);
+const strug = e.byKc.filter((k) => k.learners >= 2); // 학습자 2명 이상만(신뢰도)
+if (strug.length === 0) {
+  console.log(`    표본 부족 — KC별 학습자가 2명 이상 쌓이면 표시(콘텐츠는 있으나 안 가르쳐지는 KC를 짚음)`);
+} else {
+  for (const k of strug.slice(0, 5)) {
+    console.log(`    ${k.kc.padEnd(24)} 도달률 ${pct(k.masteryReachRate)} (숙달 ${k.mastered}/${k.learners}) · 노력 ${num(k.medianResponsesToMastery)}응답 · 정확도 ${pct(k.accuracy)}`);
+  }
+  console.log(`    ↑ 도달률 낮은데 콘텐츠는 있는 KC = 콘텐츠·순서 개선 후보(커버리지 격차와 다른 축)`);
+}
 console.log(`  [추이] 진화 사이클 스냅샷 (Loop Velocity)`);
 if (hist.trend.count < 2) {
   console.log(`    스냅샷 ${hist.trend.count}개 — 추세는 2개 이상부터(진화 사이클마다 evolve:publish 가 기록)`);

@@ -29,7 +29,24 @@ export interface EfficacyReport {
   };
   // Gain — 사전(첫 배치)→사후(최근 재평가) 능력 상승(θ)과 효과크기. 효능의 핵심 증거(goal.md Gain Score).
   gain: GainScore;
+  // byKc — KC별 효능 세분(어디서 잘 가르치고 어디서 막히는가). 전역 지표를 넘어 개선 지점을 짚는다.
+  byKc: KcEfficacy[];
   throughput: { responses: number; correct: number; masteryEvents: number };
+}
+
+/**
+ * KC별 효능 — 이 능력요소를 학습자가 실제로 숙달하는가. 커버리지(콘텐츠 유무)와 다른 축:
+ * 콘텐츠가 있어도 숙달도달률이 낮으면 콘텐츠·순서를 고쳐야 한다는 신호(진화 루프의 효능 기반 개선).
+ * 참여도 아님(규칙 1) — 성과(숙달 도달·회상 정확도)만. 결정적·순수(규칙 5).
+ */
+export interface KcEfficacy {
+  kc: string;
+  learners: number; // 이 KC에 응답한 서로 다른 학습자
+  mastered: number; // 숙달(정답 2회)에 도달한 학습자
+  masteryReachRate: number | null; // mastered / learners (도달률)
+  medianResponsesToMastery: number | null; // 숙달까지 응답(노력) 중앙값
+  accuracy: number | null; // 이 KC 전체 정확도
+  responses: number;
 }
 
 /**
@@ -151,6 +168,55 @@ export function computeGainScore(events: readonly LearningEvent[]): GainScore {
   };
 }
 
+/**
+ * KC별 효능 산출 — (학습자,KC)별 숙달 도달을 추적해 KC 단위로 집계. 결정적·순수.
+ * 숙달도달률 오름차순(막히는 KC 먼저) 정렬 — 운영자·진화 루프가 개선 지점을 바로 본다.
+ */
+export function efficacyByKc(events: readonly LearningEvent[]): KcEfficacy[] {
+  const track = new Map<string, { kc: string; responses: number; corrects: number; masteredResponses: number | null }>();
+  const kcLearners = new Map<string, Set<string>>();
+  const kcResp = new Map<string, { n: number; correct: number }>();
+  for (const ev of events) {
+    if (!GRADED.has(ev.type) || !Array.isArray(ev.kc) || ev.kc.length === 0) continue;
+    const c = correctOf(ev);
+    if (c === null) continue;
+    if (Number.isNaN(Date.parse(ev.ts))) continue;
+    for (const kc of new Set(ev.kc)) {
+      (kcLearners.get(kc) ?? kcLearners.set(kc, new Set()).get(kc)!).add(ev.learnerRef);
+      const rs = kcResp.get(kc) ?? { n: 0, correct: 0 };
+      rs.n += 1;
+      if (c) rs.correct += 1;
+      kcResp.set(kc, rs);
+      const key = ev.learnerRef + "\u0001" + kc; // U+0001 구분(learnerRef/kc 에 없는 제어문자·충돌 방지). kc 는 값에 저장해 분리 불필요.
+      const t = track.get(key) ?? { kc, responses: 0, corrects: 0, masteredResponses: null };
+      t.responses += 1;
+      if (c) t.corrects += 1;
+      if (t.masteredResponses === null && t.corrects >= MASTERY_CORRECTS) t.masteredResponses = t.responses;
+      track.set(key, t);
+    }
+  }
+  const masteredByKc = new Map<string, number[]>();
+  for (const t of track.values()) {
+    if (t.masteredResponses !== null) (masteredByKc.get(t.kc) ?? masteredByKc.set(t.kc, []).get(t.kc)!).push(t.masteredResponses);
+  }
+  const out: KcEfficacy[] = [];
+  for (const [kc, learners] of kcLearners) {
+    const mastered = masteredByKc.get(kc)?.length ?? 0;
+    const rs = kcResp.get(kc)!;
+    out.push({
+      kc,
+      learners: learners.size,
+      mastered,
+      masteryReachRate: learners.size ? mastered / learners.size : null,
+      medianResponsesToMastery: median(masteredByKc.get(kc) ?? []),
+      accuracy: rs.n ? rs.correct / rs.n : null,
+      responses: rs.n,
+    });
+  }
+  // 막히는 KC 먼저(도달률 오름차순), 동률은 학습자 많은 순(신뢰도)
+  return out.sort((a, b) => (a.masteryReachRate ?? 1) - (b.masteryReachRate ?? 1) || b.learners - a.learners);
+}
+
 interface Track { firstTs: number; responses: number; corrects: number; masteredAt: number | null; masteredResponses: number | null; }
 
 /**
@@ -223,6 +289,7 @@ export function computeEfficacy(events: readonly LearningEvent[]): EfficacyRepor
       masteredPerLearner: mean(masteredCounts),
     },
     gain: computeGainScore(events), // 사전→사후 능력 상승·효과크기(관측, 인과 아님)
+    byKc: efficacyByKc(events), // KC별 효능(어디서 잘 가르치고 어디서 막히는가)
     throughput: { responses, correct, masteryEvents: respToMastery.length },
   };
 }
