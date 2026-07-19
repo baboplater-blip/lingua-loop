@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**🎓 C1 티어 스페인어 확장 — C1 패턴 일반화 실증(en→es, Phase 6).** 79가 en에 세운 C1 티어가 한 언어 특수해가 아니라 **데이터 패턴**임을 es로 실증(코어 0줄·cefrFromAbility C1은 이미 처리). es C1 문법 KC 2종(`kc.es.subjunctive_imperfect` 접속법 과거[Si tuviera…]·`kc.es.cleft` 분열문[Fue X quien…]), 각 flashcard+mcq, C1 논설 지문 `es.read.aburrimiento`(본문에 실제 접속법 과거 llenara·분열문 → 정직 태깅·규칙 4), C1 배치 문항 2개. ⚠️C1은 시드로만(생성기 C1=null). `server/c1-spanish.test`(서빙·무회귀·학습 가능·배치 천장)+라이브 5/5(LANG_PACK=es·θ=3.3→es.read.aburrimiento·배치 전부 정답→C1 θ=3.50). 게이트 **370→374 pass(65파일)**. **en·es C1 완비, 나머지 5개 언어도 같은 패턴으로 확장 가능.**
+
+<details><summary>이전 요약 — 🔁 FSRS 재적합 영속·적용(자기개선 플라이휠 완결)</summary>
+
 **🔁 FSRS 재적합 영속·적용 — 자기개선 플라이휠 완결(Phase 6).** 진화 3축 중 콘텐츠 ✓·캘리브레이션 ✓는 영속됐으나 **FSRS 스케줄러 재적합은 evolve가 A/B 가드레일까지 판정하고도 파라미터를 폐기**하던 마지막 축을 닫음. 코어 `deriveState(...,params?)`가 FSRS 파라미터를 `nextState`에 전달(미지정=기본값 무회귀·순수 유지, 직접 호출자는 `stateOf` 하나뿐이라 contained). 서버 `fsrs.tuned` 시스템 이벤트+`fsrs` 예약 ref(위조 차단)·`recordFsrsParams`(멱등)·`tunedFsrsParams`·**`stateOf`가 튜닝을 스케줄링에 적용**. evolve-publish가 `fsrsRefit.deployed`(A/B 리텐션 통과)면 영속→모든 학습자 스케줄 반영. `core/events-model.test`·`server/fsrs-tune.test`(멱등·적용·위조 차단)+라이브(FSRS 라인 실행·개선 없어 가드레일 미배포=규칙 1 안전). 게이트 **365→370 pass(64파일)**. **evolve 한 사이클이 콘텐츠·난이도·스케줄 3축 모두 영속·적용(성과 개선분만).**
 
 <details><summary>이전 요약 — 🎓 C1 상급 티어 착수(en 기준)</summary>
@@ -85,8 +89,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **🎓 C1 티어 스페인어 확장 — 패턴 일반화 실증(en→es, Phase 6, 규칙 4·6·11)**: 🟢 en C1 티어가 데이터 패턴임을 es로 실증(코어 0줄). es C1 문법 KC 2종(`kc.es.subjunctive_imperfect` 접속법 과거·`kc.es.cleft` 분열문, prereq subjunctive), 각 flashcard+mcq(접속법 과거 tuviera/tuviese accept), C1 논설 지문 `es.read.aburrimiento`(본문에 실제 llenara·분열문 정직 태깅), C1 배치 문항 2개. ⚠️C1은 시드로만(생성기 C1=null). `server/c1-spanish.test`(C1 서빙·B2 무회귀·C1 학습 가능·배치 C1 천장·정직 태깅)+라이브 5/5(LANG_PACK=es·θ=3.3→es.read.aburrimiento·배치 전부 정답→C1 θ=3.50). 게이트 **370→374 pass(65파일)**. en·es C1 완비
 - **🔁 FSRS 재적합 영속·적용 — 자기개선 플라이휠 완결(Phase 6, 규칙 2·1·5·16)**: 🟢 evolve가 A/B 가드레일까지 판정하고도 재적합 FSRS 파라미터를 폐기하던 마지막 축을 닫음. 코어 `deriveState(...,params?)`가 FSRS 파라미터를 `nextState`에 전달(미지정=기본값 무회귀·순수·결정적 유지, 직접 호출자 `stateOf` 하나뿐 contained). 서버 `fsrs.tuned` 시스템 이벤트+`fsrs` 예약 ref(위조 차단=임의 스케줄 파라미터 주입 방지)·`recordFsrsParams`(멱등 append-only)·`tunedFsrsParams`(언어별 최신)·`stateOf`가 튜닝 적용. evolve-publish가 `fsrsRefit.deployed`(A/B 리텐션 통과)면 `recordFsrsParams` 영속→모든 학습자 스케줄 반영. `core/events-model.test`(params 안정성·dueTs 상향·무회귀)·`server/fsrs-tune.test`(멱등·적용·위조 차단·집계 제외)+라이브(FSRS 라인 실행·합성 데이터선 개선 없어 가드레일 올바르게 미배포·재실행 멱등). 게이트 **365→370 pass(64파일)**. evolve 한 사이클이 콘텐츠·난이도·스케줄 3축 모두 영속·적용(성과 개선분만)
 - **🎓 C1 상급 티어 착수(en 기준, Phase 6, 규칙 4·6·11)**: 🟢 난이도 상한 B2→C1(북스타 "0→원어민"). 코어 `cefrFromAbility` 확장(능력>3→C1, 2.5→B2 불변 — reading 서빙·placement 레벨 라벨 인식). en C1 문법 KC 2종(`kc.en.inversion` 부정어 도치·`kc.en.cleft` 분열문, prereq relative)+각 flashcard+mcq+C1 논설 지문 `en.read.boredom`(≥200자·본문에 실제 도치/분열문 정직 태깅)+C1 배치 문항 2개(b 2.6·2.9). ⚠️C1은 생성기가 안 만듦→시드로만(생성 C1=null 유지). `core/reading.test`(cefrFromAbility C1)·`server/c1-english.test`(C1 서빙·B2 무회귀·C1 학습 가능·배치 C1 천장·정직 태깅)+라이브 6/6(θ=3.3→en.read.boredom·정답 미유출·배치 전부 정답→C1 θ=3.50). 게이트 **361→365 pass(63파일)**. 다른 언어는 이 패턴 따라 확장
 - **⚙️ 무인 캘리브레이션 잡 — 진화 루프 상시 가동(Phase 6, 규칙 3·5·16)**: 🟢 캘리브레이션(`runCalibration`)이 무인 잡·영속 없어 결과가 사라지던 격차를 닫음. `content.calibrated` 시스템 이벤트+`calibration` 예약 ref(공개 위조 차단=임의 난이도 주입 방지), `recordCalibration`(캘리브레이션분만 append-only·멱등)·`calibrationOverlay`(id→최신)·`applyCalibrationOverlay`(뱅크 오버레이). `efficacyReport`·`serveItems`가 오버레이 적용(Content Health 비율·서빙 난이도 반영). `RESERVED_REFS` 단일 소스 통합(공용 로그 5종 일괄 제외). `scripts/calibrate.mjs`+`npm run calibrate`(이상 문항 승격 제외)·**evolve-publish 편입**(생성→발행→캘리브레이션→스냅샷). `server/calibrate.test`(멱등·오버레이·비율 반영·위조 차단·집계 제외)+라이브(45응답→3문항·Content Health 27.3%·재실행 멱등 스킵 3·evolve 캘리브레이션 라인). OPERATING §2·§4 문서화. 게이트 **357→361 pass(62파일)**. 난이도는 데이터로만(규칙 3)

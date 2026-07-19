@@ -21,5 +21,23 @@
       "kc.es.preterite"
     ],
     "canDo": "접속법 현재로 바람·의심을 표현한다"
+  },
+  {
+    "id": "kc.es.subjunctive_imperfect",
+    "skill": "writing",
+    "level": "C1",
+    "prereq": [
+      "kc.es.subjunctive"
+    ],
+    "canDo": "접속법 과거(불완료)로 과거 가정·정중 표현을 한다(Si tuviera…)"
+  },
+  {
+    "id": "kc.es.cleft",
+    "skill": "writing",
+    "level": "C1",
+    "prereq": [
+      "kc.es.subjunctive"
+    ],
+    "canDo": "분열문(Fue X quien…, Lo que… es…)으로 초점을 준다"
   }
 ]

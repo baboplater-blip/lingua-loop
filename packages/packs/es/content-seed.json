@@ -211,5 +211,141 @@
         "hint": "esperar que + 접속법(esté)"
       }
     }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.subjimp.concept",
+    "lang": "es",
+    "type": "flashcard",
+    "kc": [
+      "kc.es.subjunctive_imperfect"
+    ],
+    "level": "C1",
+    "prompt": "가정: \"Si yo ___ (tener) tiempo, viajaría.\" (시간이 있다면)",
+    "answer": {
+      "value": "tuviera",
+      "accept": [
+        "tuviera",
+        "tuviese"
+      ]
+    },
+    "i18n": {
+      "ko": {
+        "hint": "Si + 접속법 과거(tuviera/tuviese) + 조건법(viajaría)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.subjimp.fill",
+    "lang": "es",
+    "type": "mcq",
+    "kc": [
+      "kc.es.subjunctive_imperfect"
+    ],
+    "level": "C1",
+    "prompt": "\"Ojalá ___ (poder) ir contigo.\" (함께 갈 수 있으면)",
+    "answer": {
+      "value": "pudiera"
+    },
+    "distractors": [
+      {
+        "value": "puedo",
+        "errorTag": "subjunctive_imperfect"
+      },
+      {
+        "value": "pueda",
+        "errorTag": "subjunctive_imperfect"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "Ojalá + 접속법 과거(pudiera) — 실현 어려운 바람"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.cleft.concept",
+    "lang": "es",
+    "type": "flashcard",
+    "kc": [
+      "kc.es.cleft"
+    ],
+    "level": "C1",
+    "prompt": "분열문(강조): \"___ necesito es tiempo.\" (내가 필요한 건 시간이다)",
+    "answer": {
+      "value": "Lo que"
+    },
+    "i18n": {
+      "ko": {
+        "hint": "Lo que + 절 + es … (강조 대상을 앞으로)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "es.cleft.fill",
+    "lang": "es",
+    "type": "mcq",
+    "kc": [
+      "kc.es.cleft"
+    ],
+    "level": "C1",
+    "prompt": "\"Fue ella ___ resolvió el problema.\" (문제를 푼 건 그녀였다)",
+    "answer": {
+      "value": "quien"
+    },
+    "distractors": [
+      {
+        "value": "que",
+        "errorTag": "cleft"
+      },
+      {
+        "value": "cual",
+        "errorTag": "cleft"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "사람 강조: Fue X quien … (Fue ella quien resolvió)"
+      }
+    }
   }
 ]

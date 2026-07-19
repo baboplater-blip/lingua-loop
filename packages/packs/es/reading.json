@@ -139,6 +139,65 @@
         "kind": "generated",
         "license": "CC-BY-4.0"
       }
+    },
+    {
+      "id": "es.read.aburrimiento",
+      "level": "C1",
+      "kc": [
+        "kc.es.vocab.core",
+        "kc.es.subjunctive_imperfect",
+        "kc.es.cleft"
+      ],
+      "title": "El valor del aburrimiento",
+      "text": "Vivimos en una época que trata el aburrimiento como un problema que hay que resolver de inmediato. En cuanto se forma una cola o una conversación se detiene, buscamos el móvil, ansiosos por llenar el silencio. Sin embargo, algo valioso podría perderse en esa costumbre inquieta. Lo que muchos pensadores compartían no era un estímulo constante, sino largos ratos de tiempo sin estructura, durante los cuales su obra más ambiciosa tomaba forma poco a poco. Los investigadores que estudian la creatividad sostienen que los momentos ociosos no son tiempo perdido. Es precisamente cuando nos aburrimos cuando la mente empieza a hacer conexiones inesperadas. Si cada persona llenara todos sus huecos con contenido, quizá descubriría, con el tiempo, que su atención se ha vuelto superficial. No se trata de idealizar el no hacer nada, pues el aburrimiento puede resultar incómodo. La cuestión es que una mente a la que nunca se deja sola es una mente a la que nunca se le da la oportunidad de pensar a fondo. Fue esa capacidad de detenerse la que permitió a tantos crear algo original. Quizá lo que de verdad necesitamos no sea más entretenimiento, sino el valor de sentarnos con nuestros propios pensamientos.",
+      "glossary": {
+        "aburrimiento": "지루함",
+        "cola": "줄",
+        "ansiosos": "초조한",
+        "inquieta": "가만있지 못하는",
+        "estímulo": "자극",
+        "ratos": "짧은 시간·동안",
+        "ociosos": "한가한",
+        "inesperadas": "예상치 못한",
+        "huecos": "빈 시간·틈",
+        "superficial": "피상적인",
+        "idealizar": "미화하다",
+        "a fondo": "깊이",
+        "detenerse": "멈추다",
+        "entretenimiento": "오락"
+      },
+      "questions": [
+        {
+          "q": "¿Cuándo empieza la mente a hacer conexiones inesperadas, según el texto?",
+          "answer": "cuando nos aburrimos",
+          "options": [
+            "cuando trabajamos",
+            "cuando nos aburrimos",
+            "cuando dormimos"
+          ]
+        },
+        {
+          "q": "¿Qué necesitamos de verdad, según el autor?",
+          "answer": "el valor de sentarnos con nuestros pensamientos",
+          "options": [
+            "más entretenimiento",
+            "el valor de sentarnos con nuestros pensamientos",
+            "móviles más rápidos"
+          ]
+        },
+        {
+          "q": "¿Qué palabra del título valora el texto? (escribe la palabra)",
+          "answer": "aburrimiento",
+          "accept": [
+            "aburrimiento",
+            "el aburrimiento"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
     }
   ]
 }
