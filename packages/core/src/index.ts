@@ -17,4 +17,5 @@ export * from "./reading.ts";
 export * from "./community.ts";
 export * from "./efficacy.ts";
 export * from "./efficacy-experiment.ts";
+export * from "./practice-order.ts";
 export * from "./sim.ts";

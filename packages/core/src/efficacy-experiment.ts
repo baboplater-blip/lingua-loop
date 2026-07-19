@@ -12,14 +12,22 @@ import { gainPairs } from "./efficacy.ts";
  * 사전등록 프로토콜 — **데이터 수집 전에** 확정한다(p-해킹·사후 결과 취사선택 방지, 규칙 17).
  * primaryOutcome 은 학습성과(gainScore)만 허용 — 참여도(세션·스트릭)를 1차 결과로 두는 실험은 규칙 1 위반이라 등록 자체를 거부한다.
  */
+/**
+ * 실험 개입 — 실험군/통제군이 실제로 무엇이 다른지 선언한다. 선택 사항(없으면 순수 관측 비교).
+ * `practice_order`: 연습 순서(실험군=인터리빙 교차연습, 통제군=블록연습). SLA 근거 레버·분량 불변(규칙 1).
+ * 서빙 계층(serveItems)이 학습자 배정 팔에 따라 이 개입을 적용한다.
+ */
+export type Intervention = { kind: "practice_order" };
+
 export interface PreRegistration {
   experimentId: string;
-  hypothesis: string; // 검증할 가설(예: "확장 클로즈가 reading θ 상승을 키운다")
+  hypothesis: string; // 검증할 가설(예: "교차연습이 reading θ 상승을 키운다")
   primaryOutcome: "gainScore"; // 1차 결과 = 학습성과. 다른 값은 허용 안 함(규칙 1)
   treatmentShare: number; // 실험군 배정 비율 0..1
   minSamplePerArm: number; // 사전 확정 표본. 두 팔 중 하나라도 미달이면 무결론(underpowered)
   guardrail: string; // 학습성과 가드레일 서술(예: "통제군 대비 리텐션 비열등")
   registeredTs: string; // 등록 시각(ISO). 학습 데이터보다 앞서야 사전등록으로 유효
+  intervention?: Intervention; // 실험군에 실제로 배선할 개입(없으면 관측 비교만)
 }
 
 /** 등록 유효성 — 1차 결과가 학습성과이고 배정/표본이 온전한지(규칙 1·17). */

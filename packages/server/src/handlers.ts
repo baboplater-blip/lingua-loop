@@ -1,7 +1,7 @@
 // 최소 데이터 백엔드 핸들러(순수 함수). 코어 위의 얇은 배선.
 // 규칙 4(verified 만 서빙)·5(append-only)·6(소유권) 집행.
-import { EventLog, makeEvent, deriveState, nextKCs, makeGraph, selectGradedReading, makeSubmission, evaluateCommunity, servableCommunityItems, rankContributions, rankByEffect, itemEffects, isDemoted, checkItem, validateReading, scoreComprehension, redactReadingAnswers, computeEfficacy, trendSummary, estimateAbility, pickNextItem, cefrFromAbility, deriveCertifications, buildCertificate, deriveBadges, authoredStats, buildProfile, validatePreRegistration, assignVariant, compareCohorts } from "../../core/src/index.ts";
-import type { CertificationReport, MasteryCertificate, BadgeReport, ProfileCard, EfficacyReport, EfficacySnapshot, TrendSummary, PreRegistration, ExperimentResult } from "../../core/src/index.ts";
+import { EventLog, makeEvent, deriveState, nextKCs, makeGraph, selectGradedReading, makeSubmission, evaluateCommunity, servableCommunityItems, rankContributions, rankByEffect, itemEffects, isDemoted, checkItem, validateReading, scoreComprehension, redactReadingAnswers, computeEfficacy, trendSummary, estimateAbility, pickNextItem, cefrFromAbility, deriveCertifications, buildCertificate, deriveBadges, authoredStats, buildProfile, validatePreRegistration, assignVariant, compareCohorts, orderByPractice } from "../../core/src/index.ts";
+import type { CertificationReport, MasteryCertificate, BadgeReport, ProfileCard, EfficacyReport, EfficacySnapshot, TrendSummary, PreRegistration, Intervention, ExperimentResult, PracticeOrder } from "../../core/src/index.ts";
 import type { LearningEvent, LearnerState, ContentItem, KCNode, KCGraph, Grade, ReadingPassage, ContributionState, ReviewVerdict, ReviewFlag, Response, RankedContribution, ItemEffect, ResponseObs } from "../../core/src/index.ts";
 import type { MakeEventInput } from "../../core/src/events.ts";
 import type { TutorModel, TutorTurn, TutorResponse, PronunciationScorer, PronunciationResult } from "../../adapters/src/index.ts";
@@ -128,7 +128,11 @@ export function serveItems(store: Store, learnerRef: string, lang: string, graph
   const servable = bank.filter(
     (it) => it.lang === lang && (it.quality === "verified" || it.quality === "calibrated") && it.kc.some((k) => kcs.has(k)),
   );
-  return servable.slice(0, opts.limit ?? 10);
+  // 실험 개입(있으면): 활성 practice_order 실험의 배정 팔에 따라 순서 재배열(집합 불변·slice 전 적용).
+  // 미참여 학습자는 기본 순서 그대로(무회귀, 규칙 16).
+  const order = practiceOrderFor(store, learnerRef);
+  const ordered = order ? orderByPractice(servable, order) : servable;
+  return ordered.slice(0, opts.limit ?? 10);
 }
 
 /**
@@ -291,6 +295,7 @@ export interface RegisterExperimentInput {
   treatmentShare?: number; // 기본 0.5
   minSamplePerArm?: number; // 기본 12
   guardrail?: string;
+  intervention?: Intervention; // 실험군에 배선할 개입(없으면 관측 비교만)
 }
 
 /**
@@ -310,6 +315,7 @@ export function registerExperiment(store: Store, input: RegisterExperimentInput,
     minSamplePerArm: input.minSamplePerArm ?? 12,
     guardrail: input.guardrail ?? "통제군 대비 리텐션 비열등(규칙 1)",
     registeredTs: tsISO ?? new Date().toISOString(),
+    ...(input.intervention ? { intervention: input.intervention } : {}),
   };
   const v = validatePreRegistration(reg);
   if (!v.ok) throw new Error("invalid pre-registration: " + v.reason);
@@ -336,6 +342,23 @@ export function assignForLearner(store: Store, experimentId: string, learnerRef:
   const reg = getRegistration(store, experimentId);
   if (!reg) return null;
   return assignVariant(experimentId, learnerRef, reg.treatmentShare);
+}
+
+/**
+ * 활성 `practice_order` 실험에서 이 학습자의 연습 순서 정책을 결정한다(실험군=인터리빙·통제군=블록).
+ * 첫 등록된 practice_order 실험을 사용(데모는 동시 1개 가정). 그런 실험이 없으면 null → 서빙은 기본 순서(무회귀).
+ * 결정적(assignVariant) — 같은 학습자는 늘 같은 정책. 세션 간 개입 일관성 보장(규칙 5).
+ */
+export function practiceOrderFor(store: Store, learnerRef: string): PracticeOrder | null {
+  const log = store.logs.get(EXPERIMENT_REF);
+  if (!log) return null;
+  for (const e of log.all()) {
+    const reg = e.payload["registration"] as PreRegistration | undefined;
+    if (reg?.intervention?.kind === "practice_order") {
+      return assignVariant(reg.experimentId, learnerRef, reg.treatmentShare) === "treatment" ? "interleaved" : "blocked";
+    }
+  }
+  return null;
 }
 
 /**

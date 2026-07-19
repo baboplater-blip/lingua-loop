@@ -40,6 +40,8 @@ const VERDICT = {
 console.log(`\n── 사전등록 통제 실험: ${experimentId} ──\n`);
 console.log(`  가설        ${reg.hypothesis || "—"}`);
 console.log(`  1차 결과    Gain Score(사전→사후 θ 상승) · 배정 실험군 ${(reg.treatmentShare * 100).toFixed(0)}% · 최소표본/팔 ${reg.minSamplePerArm}`);
+const IV = { practice_order: "연습 순서(실험군=인터리빙 교차연습 · 통제군=블록연습)" };
+console.log(`  개입        ${reg.intervention ? (IV[reg.intervention.kind] ?? reg.intervention.kind) : "없음(관측 비교만)"}`);
 console.log(`  가드레일    ${reg.guardrail}`);
 console.log(`  등록시각    ${reg.registeredTs}${r.retroactive ? "  ⚠️ 데이터보다 늦음(사전등록 무효)" : ""}`);
 console.log(`\n  [코호트 Gain]`);
