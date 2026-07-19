@@ -171,12 +171,13 @@ const argmax = (a: number[]): number => a.reduce((bi, v, i, arr) => (v > arr[bi]
  */
 export function stressScore(target: number[], produced: number[]): StressResult {
   if (!target || target.length === 0) return { score: 1, primaryMatch: true };
+  const prod = Array.isArray(produced) ? produced : []; // 누락/비배열 산출 방어(크래시 방지) — 전체를 미일치로 처리
   const ti = argmax(target);
-  const pi = produced && produced.length ? argmax(produced) : -1;
+  const pi = prod.length ? argmax(prod) : -1;
   const primaryMatch = ti === pi;
-  const n = Math.max(target.length, produced.length || 0);
+  const n = Math.max(target.length, prod.length);
   let agree = 0;
-  for (let i = 0; i < n; i++) if (((target[i] ?? 0) >= 1) === ((produced[i] ?? 0) >= 1)) agree++;
+  for (let i = 0; i < n; i++) if (((target[i] ?? 0) >= 1) === ((prod[i] ?? 0) >= 1)) agree++;
   const score = clamp01(0.7 * (primaryMatch ? 1 : 0) + 0.3 * (agree / Math.max(n, 1)));
   return { score, primaryMatch, note: primaryMatch ? undefined : `강세를 ${ti + 1}번째 음절에 두세요` };
 }

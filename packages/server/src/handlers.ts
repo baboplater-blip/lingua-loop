@@ -515,15 +515,16 @@ export function placementStep(bank: PlacementItem[], responses: PlacementResp[],
     const accept = [it.answer.value, ...(it.answer.accept ?? [])].map(normP);
     obs.push({ b: it.b, a: it.a ?? 1, correct: accept.includes(normP(String(r.choice ?? ""))) }); // choice 를 문자열로 강제(숫자 등 방어)
   }
-  const est = obs.length ? estimateAbility(obs) : { theta: 0, se: Infinity };
-  // 전부 정답/오답 응답은 MLE θ가 발산 → 현실 IRT logit 범위로 클램프(저장·레벨 온전)
-  const theta = Math.max(-3.5, Math.min(3.5, est.theta));
-  const enough = obs.length >= maxItems || (obs.length >= 4 && est.se < seTarget);
+  const est = obs.length ? estimateAbility(obs) : { theta: 0, se: null as number | null };
+  // θ 발산은 코어 estimateAbility 가 이미 [-3.5,3.5] 클램프·se null 정규화(불변식 코어 내장). 여기선 그대로 사용.
+  const theta = est.theta;
+  // se 가 null(불신뢰=정보 부족)이면 정지 조건 미충족으로 취급(계속 문항 제시). null < seTarget 오판 방지.
+  const enough = obs.length >= maxItems || (obs.length >= 4 && est.se !== null && est.se < seTarget);
   const picked = enough ? null : (pickNextItem(theta, bank, used) as PlacementItem | null);
   const next = picked ? { id: picked.id, prompt: picked.prompt, type: picked.type, options: picked.options ?? [] } : null;
   return {
     theta,
-    se: est.se === Infinity ? null : est.se,
+    se: est.se,
     done: enough || !next,
     count: obs.length,
     level: cefrFromAbility(obs.length ? theta : undefined),

@@ -39,3 +39,14 @@ test("estimateAbility: 정답 많으면 θ↑, 오답 많으면 θ↓ (양방향
   ]);
   assert.ok(hi.theta > lo.theta);
 });
+
+test("estimateAbility: 전부 정답/오답도 θ는 [-3.5,3.5] 클램프·se=null(발산 방지, 코어 불변식)", () => {
+  const all = Array.from({ length: 40 }, (_, i) => ({ b: (i % 5) - 2, a: 1, correct: true }));
+  const hi = estimateAbility(all);
+  assert.ok(hi.theta <= 3.5 && hi.theta >= -3.5, "θ 범위 내 클램프(θ=26 발산 방지)");
+  assert.equal(hi.se, null, "정보 부족(전부 정답) → se null(불신뢰)");
+  const allWrong = all.map((r) => ({ ...r, correct: false }));
+  const lo = estimateAbility(allWrong);
+  assert.ok(lo.theta >= -3.5, "전부 오답도 하한 클램프");
+  assert.equal(lo.se, null);
+});

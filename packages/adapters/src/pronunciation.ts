@@ -40,7 +40,7 @@ const GRADE_SCORE: Record<Grade, number> = { again: 0.2, hard: 0.5, good: 0.8, e
 /** 오프라인 로컬 스코어러 — 코어 음성학 엔진 사용, 외부 호출 0. */
 export class LocalPhoneticScorer implements PronunciationScorer {
   async score(req: PronunciationRequest): Promise<PronunciationResult> {
-    if (req.producedIPA && req.producedIPA.length > 0) {
+    if (req.producedIPA && req.producedIPA.length > 0 && Array.isArray(req.targetIPA)) { // targetIPA 누락 시 객관 채점 불가 → 자가평가로 폴백(크래시 방지)
       const s = scorePronunciation(req.targetIPA, req.producedIPA);
       const hints = dedupe(s.errors.map((e) => e.hint).filter((h): h is string => !!h)).slice(0, 2);
       // 운율(강세·성조): 목표·산출이 모두 있으면 채점해 종합에 반영

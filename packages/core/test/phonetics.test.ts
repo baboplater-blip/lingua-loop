@@ -44,6 +44,8 @@ test("운율(강세): 주강세 위치 일치가 점수를 좌우한다", () => 
   assert.ok(wrong.score < 0.5, "주강세 틀리면 크게 감점");
   assert.ok(wrong.note && wrong.note.includes("강세"), "강세 위치 힌트");
   assert.equal(stressScore([], []).score, 1, "강세 정보 없으면 무영향");
+  assert.doesNotThrow(() => stressScore([1, 0, 0], undefined as never), "산출 누락(undefined) 크래시 방지");
+  assert.equal(stressScore([1, 0, 0], undefined as never).primaryMatch, false, "산출 없으면 미일치 처리");
 });
 
 test("성조(성조어): 음절별 성조 범주 일치", () => {

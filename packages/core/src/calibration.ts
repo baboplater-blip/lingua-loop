@@ -58,13 +58,15 @@ export function eloCalibrate(responses: Response[], opts: EloOptions = {}): Cali
 /**
  * 캘리브레이션 결과를 문항에 반영: difficulty 갱신, quality → calibrated.
  * SE 가 큰(표본 부족) 문항은 승격하지 않음(과신 금지).
+ * **이상 문항(anomalous)은 승격 제외** — 정답률 극단(≈0/≈1)이라 SE 는 작아도 서빙 자격이 없다(flagAnomalousItems 와 통합).
  */
-export function applyCalibration(items: ContentItem[], result: CalibrationResult, seThreshold = 0.5): ContentItem[] {
+export function applyCalibration(items: ContentItem[], result: CalibrationResult, seThreshold = 0.5, anomalous: Iterable<string> = []): ContentItem[] {
+  const flagged = new Set(anomalous);
   return items.map((it) => {
     const b = result.itemDifficulty[it.id];
     if (b === undefined) return it;
     const se = result.itemSE[it.id] ?? 1;
-    const calibrated = se <= seThreshold;
+    const calibrated = se <= seThreshold && !flagged.has(it.id);
     return {
       ...it,
       difficulty: b,

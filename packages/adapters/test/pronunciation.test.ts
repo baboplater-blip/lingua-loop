@@ -3,6 +3,13 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createDefaultPronunciationScorer, LocalPhoneticScorer } from "../src/index.ts";
 
+test("방어: targetIPA 누락(필드 없음) 시 크래시 없이 자가평가로 폴백", async () => {
+  const s = createDefaultPronunciationScorer();
+  const r = await s.score({ producedIPA: ["t"] } as never); // targetIPA 없음
+  assert.equal(r.mode, "self", "객관 채점 불가 → self 모드");
+  assert.ok(typeof r.score === "number", "점수 반환(크래시 없음)");
+});
+
 test("전사가 있으면 객관 채점(mode=asr) + 음소별 피드백", async () => {
   const s = createDefaultPronunciationScorer();
   const r = await s.score({ targetIPA: ["θ", "ɪ", "ŋ", "k"], producedIPA: ["s", "ɪ", "ŋ", "k"], word: "think" });

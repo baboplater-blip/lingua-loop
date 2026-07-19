@@ -8,6 +8,12 @@ test("retrievability는 경과일에 대해 단조 감소, R(0)=1", () => {
   assert.ok(retrievability(2, 5) > retrievability(2, 20));
 });
 
+test("retrievability: 음수 경과일도 R∈[0,1] (0으로 클램프 — 코어 불변식 내장)", () => {
+  assert.equal(retrievability(2, -18), 1, "음수 경과 → R=1 (Infinity/음수 확률 방지)");
+  assert.equal(retrievability(2, -30), 1);
+  assert.ok(retrievability(2, -1) <= 1 && retrievability(2, -1) >= 0);
+});
+
 test("안정성이 클수록 복습 간격이 길다", () => {
   assert.ok(dueInDays({ stability: 10, difficulty: 5 }) > dueInDays({ stability: 1, difficulty: 5 }));
   // target 0.9 정합

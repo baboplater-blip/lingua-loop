@@ -54,8 +54,11 @@ export function deriveState(events: readonly LearningEvent[], learnerRef: string
         const prevCard: CardState | null = mem.reps === 0 ? null : { stability: mem.stability, difficulty: mem.difficulty };
         const card = nextState(prevCard, grade, elapsedDays);
         const correct = grade !== "again";
+        // BKT 최초 관측(prev=0) 퇴화 보정: prev=0 이면 사후확률이 정오답 모두 0이 되어 첫 오답도 첫 정답과 같은
+        // 0.25 로 상향된다("오답이면 하향" 위반). 첫 오답은 상향하지 않는다(0 유지). 첫 정답·이후 궤적은 불변(2정답→0.70).
+        const firstWrong = mem.reps === 0 && !correct;
         state.kcState[kc] = {
-          mastery: updateMastery(mem.mastery, correct),
+          mastery: firstWrong ? 0 : updateMastery(mem.mastery, correct),
           stability: card.stability,
           difficulty: card.difficulty,
           lastReviewTs: tsMs,

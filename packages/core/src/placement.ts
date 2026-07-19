@@ -13,8 +13,16 @@ export interface ResponseObs {
   correct: boolean;
 }
 
-/** MLE 능력 추정(Newton-Raphson, 2PL). 소수 반복으로 수렴. */
-export function estimateAbility(responses: ResponseObs[], iterations = 30): { theta: number; se: number } {
+/** θ 유효 범위(현실 IRT logit) — 전부 정답/오답 응답의 MLE 발산을 코어에서 클램프(불변식 내장). */
+export const THETA_MIN = -3.5;
+export const THETA_MAX = 3.5;
+
+/**
+ * MLE 능력 추정(Newton-Raphson, 2PL). 소수 반복으로 수렴.
+ * 전부 정답/오답이면 MLE θ가 ±∞로 발산 → 코어에서 [-3.5, 3.5] 로 클램프하고, se 도 비현실적으로 크면
+ * null(불신뢰)로 정규화한다 — 서버 레이어의 임기응변 클램프에 의존하지 않고 API 자체가 안전.
+ */
+export function estimateAbility(responses: ResponseObs[], iterations = 30): { theta: number; se: number | null } {
   let theta = 0;
   for (let iter = 0; iter < iterations; iter++) {
     let grad = 0;
@@ -29,12 +37,17 @@ export function estimateAbility(responses: ResponseObs[], iterations = 30): { th
     theta += Math.max(-1, Math.min(1, step)); // 스텝 클램프(안정)
     if (Math.abs(step) < 1e-4) break;
   }
+  // θ가 범위 경계에 닿았다 = MLE 발산(전부 정답/오답 등 분리 가능 패턴) = 검열된 추정 → se 불신뢰(null)
+  const censored = theta <= THETA_MIN || theta >= THETA_MAX;
+  theta = Math.max(THETA_MIN, Math.min(THETA_MAX, theta)); // θ 범위 클램프(발산 방지)
   let info = 0;
   for (const r of responses) {
     const p = sigmoid(r.a * (theta - r.b));
     info += r.a * r.a * p * (1 - p);
   }
-  const se = info > 0 ? 1 / Math.sqrt(info) : Infinity;
+  const seRaw = info > 0 ? 1 / Math.sqrt(info) : Infinity;
+  // 검열되었거나 비현실적으로 큰 se 는 null(불신뢰) — 정지규칙이 오작동하지 않도록
+  const se = censored || !Number.isFinite(seRaw) || seRaw > 10 ? null : seRaw;
   return { theta, se };
 }
 
@@ -57,7 +70,7 @@ export function pickNextItem(theta: number, bank: CalibratedItem[], used: Set<st
 
 export interface CatResult {
   theta: number;
-  se: number;
+  se: number | null; // 정보 부족(전부 정답/오답)이면 null(불신뢰)
   used: string[];
 }
 
@@ -84,7 +97,7 @@ export function runCat(
     obs.push({ b: item.b, a: item.a ?? 1, correct });
     const est = estimateAbility(obs);
     theta = est.theta;
-    if (obs.length >= 4 && est.se < seTarget) break;
+    if (obs.length >= 4 && est.se !== null && est.se < seTarget) break; // se null(불신뢰)이면 계속
   }
 
   const final = estimateAbility(obs);

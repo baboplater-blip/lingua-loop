@@ -29,10 +29,11 @@ export interface CardState {
   difficulty: number; // 1..10
 }
 
-/** 경과 t일 뒤 회상 성공확률 R = (1 + t/(9S))^-1 */
+/** 경과 t일 뒤 회상 성공확률 R = (1 + t/(9S))^-1. 음수 경과일은 0으로 클램프(R∈[0,1] 보장 — 코어 불변식 내장). */
 export function retrievability(stability: number, elapsedDays: number): number {
   if (stability <= 0) return 0;
-  return Math.pow(1 + elapsedDays / (9 * stability), -1);
+  const t = Math.max(0, elapsedDays);
+  return Math.pow(1 + t / (9 * stability), -1);
 }
 
 /** R 이 target 으로 떨어지는 시점(일) = 9S(1/target - 1) */

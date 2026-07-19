@@ -61,8 +61,10 @@ export function itemEffects(responses: Response[], opts: EffectOptions = {}): Ma
     const correctRate = pairs.filter((p) => p.correct).length / n;
     const discrimination = pointBiserial(pairs);
     const enoughData = n >= minN;
-    // 난이도 적합: target 에서 멀수록 감점(정규화)
-    const difficultyFit = clamp01(1 - ((correctRate - target) / Math.max(target, 1 - target)) ** 2);
+    // 난이도 적합: target 에서 멀수록 감점. **방향별 정규화** — target 위(너무 쉬움)는 (1-target), 아래(너무 어려움)는 target
+    // 으로 나눠 양 극단(정답률 1.0·0.0)이 동일하게 fit=0 이 되게 한다(비대칭 결함 수정: too_easy 부당 우대 방지).
+    const denom = correctRate >= target ? 1 - target : target;
+    const difficultyFit = clamp01(1 - ((correctRate - target) / Math.max(denom, 1e-9)) ** 2);
     const discNorm = clamp01((discrimination + 0.4) / 0.8); // −0.4..0.4 → 0..1
     const effectScore = enoughData ? clamp01(0.5 * difficultyFit + 0.5 * discNorm) : 0.5;
     let health: ItemHealth = "insufficient";

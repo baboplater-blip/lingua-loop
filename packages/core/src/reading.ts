@@ -49,6 +49,7 @@ export function validateReading(p: ReadingPassage): boolean {
   if (!p || !p.id || typeof p.text !== "string" || p.text.trim().length < 10) return false;
   if (!p.source || !p.source.license) return false;
   if (!Array.isArray(p.kc) || p.kc.length === 0) return false;
+  if (!CEFR_ORDER.includes(p.level)) return false; // 유효한 CEFR 등급만(오타·비정상 레벨 지문 노출 차단, 규칙 4)
   if (p.questions) {
     for (const q of p.questions) {
       if (typeof q.answer !== "string" || q.answer.trim() === "") return false; // 소스는 정답 필수

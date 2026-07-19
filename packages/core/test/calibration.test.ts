@@ -71,3 +71,17 @@ test("이상 문항 탐지: 전원 정답 문항이 리뷰 큐로 (양방향)", 
   assert.ok(flagged.includes("easy"), "정답률 극단 문항 플래그");
   assert.ok(!flagged.includes("normal"), "정상 문항은 미플래그");
 });
+
+test("applyCalibration: 이상 문항(전원 정답)은 SE 낮아도 승격 제외 (flagAnomalous 통합)", () => {
+  const items: ContentItem[] = [
+    { id: "easy", lang: "en", type: "cloze", kc: ["k"], level: "A1", prompt: "p", answer: { value: "x" }, difficulty: null, discrimination: null, quality: "verified", source: { kind: "generated", license: "CC-BY" } },
+  ];
+  const responses: Response[] = [];
+  for (let j = 0; j < 40; j++) responses.push({ learner: "l" + j, item: "easy", correct: true }); // 정답률 1.0(이상)
+  const result = eloCalibrate(responses);
+  const anomalous = flagAnomalousItems(responses);
+  const without = applyCalibration(items, result); // 이상 목록 미전달 → 이전 결함 재현(승격됨)
+  assert.equal(without[0].quality, "calibrated", "이상 목록 없으면 SE 만으로 승격(과거 동작)");
+  const withAnom = applyCalibration(items, result, 0.5, anomalous); // 통합
+  assert.equal(withAnom[0].quality, "verified", "이상 문항은 승격 제외(calibrated 아님)");
+});

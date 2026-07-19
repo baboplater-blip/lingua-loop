@@ -31,19 +31,29 @@ export interface MakeEventInput {
   eventId?: string;
 }
 
+/**
+ * 이벤트 불변화(append-only, 규칙 5). 최상위 객체뿐 아니라 `kc` 배열·`payload` 도 얼려
+ * `ev.kc.push(...)`·`ev.payload.x = ...` 같은 이력 조용한 변조를 예외로 막는다(얕은 freeze 결함 수정).
+ */
+function freezeEvent(ev: LearningEvent): LearningEvent {
+  if (ev.kc) Object.freeze(ev.kc);
+  Object.freeze(ev.payload);
+  return Object.freeze(ev);
+}
+
 export function makeEvent(input: MakeEventInput): LearningEvent {
-  return Object.freeze({
+  return freezeEvent({
     eventId: input.eventId ?? nextId(),
     ts: input.ts ?? new Date().toISOString(),
     learnerRef: input.learnerRef,
     sessionId: input.sessionId,
     type: input.type,
-    kc: input.kc,
+    kc: input.kc ? input.kc.slice() : input.kc, // 호출자 배열과 분리 후 동결(원본 변조·공유 방지)
     itemId: input.itemId,
-    payload: Object.freeze({ ...(input.payload ?? {}) }),
+    payload: { ...(input.payload ?? {}) },
     consent: input.consent ?? "learn",
     schemaVersion: 1,
-  }) as LearningEvent;
+  } as LearningEvent);
 }
 
 /** append-only 로그. update/delete 메서드는 존재하지 않는다. */
@@ -51,7 +61,8 @@ export class EventLog {
   #events: LearningEvent[] = [];
 
   append(input: MakeEventInput | LearningEvent): LearningEvent {
-    const e = "eventId" in input && "schemaVersion" in input ? (Object.freeze(input) as LearningEvent) : makeEvent(input as MakeEventInput);
+    // 완성된 이벤트(복원 경로)도 깊게 동결한다 — 최상위만 얼리면 payload/kc 가 변조 가능했던 결함 수정.
+    const e = "eventId" in input && "schemaVersion" in input ? freezeEvent(input as LearningEvent) : makeEvent(input as MakeEventInput);
     this.#events.push(e);
     return e;
   }
