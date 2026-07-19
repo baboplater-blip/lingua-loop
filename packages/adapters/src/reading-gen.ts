@@ -16,11 +16,22 @@ export interface ReadingSpec {
  * 인식(객관식)에 더해 산출(production) 연습을 무인 콘텐츠에 편입 — 정답은 그대로, 보기만 제거하고 accept 부여.
  * 문항 1개면 그대로(객관식). 언어 무관·결정적(규칙 11·5).
  */
+// CJK(한자·가나) 판별 — 클릭사전용으로 단어 사이 공백을 인위 삽입한 언어. 학습자는 자연히 붙여 쓴다.
+const CJK_RE = /[぀-ヿ㐀-鿿豈-﫿ｦ-ﾟ]/;
+
+/** 주관식 허용정답 변형 — CJK 답이면 공백 제거형(자연 표기)도 허용해 붙여쓴 입력이 오답 처리되지 않게 한다. */
+export function acceptVariants(answer: string): string[] {
+  const variants = [answer];
+  const collapsed = answer.replace(/\s+/g, "");
+  if (collapsed !== answer && CJK_RE.test(answer)) variants.push(collapsed); // 공백 구분 언어(en·es·ar·sw·hi)는 제외
+  return [...new Set(variants)];
+}
+
 export function withProductionQuestion(qs: { q: string; answer: string; options: string[] }[]): ReadingQuestion[] {
   const mapped: ReadingQuestion[] = qs.map((q) => ({ q: q.q, answer: q.answer, options: [...q.options] }));
   if (mapped.length >= 2) {
     const last = mapped[mapped.length - 1];
-    mapped[mapped.length - 1] = { q: last.q, answer: last.answer, accept: [last.answer as string] }; // options 제거 → 주관식
+    mapped[mapped.length - 1] = { q: last.q, answer: last.answer, accept: acceptVariants(last.answer as string) }; // options 제거 → 주관식(CJK 붙여쓰기 허용)
   }
   return mapped;
 }

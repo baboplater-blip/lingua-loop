@@ -43,22 +43,36 @@ export interface TutorModel {
   respond(req: TutorRequest): Promise<TutorResponse>;
 }
 
-// ── 프롬프트 인젝션 / 역할 오버라이드 탐지 (ai-tutor-protocol 안전) ──
+// ── 프롬프트 인젝션 / 지시 오버라이드 탐지 (ai-tutor-protocol 안전) ──
+// **정규화 후** 매칭 — 전각(NFKC 폴딩)·제로폭 문자·구두점 삽입 우회를 차단한다.
+// 패턴은 "시스템 지시 오버라이드/프롬프트 추출"에 좁게 겨눈다 — 역할극(이 앱의 정식 기능: "act as a doctor",
+// "역할 바꿔서 연습")은 인젝션이 아니므로 오탐(과잉차단)하지 않는다.
+function normalizeForDetect(text: string): string {
+  return String(text ?? "")
+    .normalize("NFKC")                      // 전각→반각 등 호환 폴딩
+    .replace(/\p{Cf}/gu, "")                // 제로폭·포맷 문자 제거(제로폭 삽입 우회 차단)
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")      // 구두점→공백("ignore, all"·"ignore-previous" 우회 차단)
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
 const INJECTION = [
-  /ignore\s+(all\s+)?(previous|prior|above)/i,
-  /disregard\s+(the\s+)?(instructions|rules|system)/i,
-  /system\s*prompt/i,
-  /you\s+are\s+now\b/i,
-  /pretend\s+to\s+be/i,
-  /act\s+as\s+(a|an)\b/i,
-  /무시\s*(하고|해|하라|할)/,
+  /\bignore\s+(all\s+|the\s+)?(previous|prior|above)\b/,
+  /\bforget\s+(everything|all|the\s+above|previous|prior)\b/,
+  /\bdisregard\s+(the\s+)?(instructions?|rules?|system|above|previous)\b/,
+  /\b(reveal|show|print|repeat|leak)\s+(me\s+)?(your\s+|the\s+)?(system\s+)?(prompt|instructions?)\b/,
+  /\bsystem\s+prompt\b/,
+  /\bnew\s+instructions?\b/,
+  /무시\s*(하고|해|하라|할|하세요|해라)/,
   /시스템\s*(프롬프트|지시)/,
-  /역할을?\s*(바꿔|변경)/,
+  /(이전|위)\s*(의\s*)?(지시|명령|규칙)[^.\n]*무시/,
 ];
 
 export function detectInjection(text: string): { flagged: boolean; reason?: string } {
+  const norm = normalizeForDetect(text);
   for (const re of INJECTION) {
-    if (re.test(text)) return { flagged: true, reason: "지시 오버라이드 시도 감지" };
+    if (re.test(norm)) return { flagged: true, reason: "지시 오버라이드 시도 감지" };
   }
   return { flagged: false };
 }
@@ -71,7 +85,10 @@ export function withSafety(inner: TutorModel): TutorModel {
   return {
     id: `safe(${inner.id})`,
     async respond(req: TutorRequest): Promise<TutorResponse> {
-      const inj = detectInjection(req.message);
+      // 이번 요청의 모든 신뢰 불가 입력을 검사 — 메시지 + task + 클라이언트가 보낸 history(위조 가능).
+      // 미래 LLM 어댑터는 history 를 컨텍스트로 받으므로 history 인젝션도 막아야 한다(규칙 12 방어 심층).
+      const inputs = [req.message, req.task, ...((req.history ?? []).map((h) => h && h.text))].filter((s): s is string => typeof s === "string" && s.length > 0);
+      const inj = detectInjection(inputs.join(" \n "));
       if (inj.flagged) {
         const nm = langName(req.targetLang, req.explainLang);
         return {
