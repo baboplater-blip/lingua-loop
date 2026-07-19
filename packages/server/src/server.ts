@@ -96,7 +96,7 @@ async function readBody(req: import("node:http").IncomingMessage): Promise<Recor
   let size = 0;
   for await (const c of req) {
     size += (c as Buffer).length;
-    if (size > MAX_BODY_BYTES) { req.destroy(); throw new PayloadTooLarge(); }
+    if (size > MAX_BODY_BYTES) throw new PayloadTooLarge(); // 초과 시 읽기 중단 → 상위 catch 가 413 응답(소켓은 파괴하지 않아 응답 전달됨)
     chunks.push(c as Buffer);
   }
   const raw = Buffer.concat(chunks).toString("utf8");
