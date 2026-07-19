@@ -5,7 +5,7 @@
 
 ## 한 줄 요약
 
-**기여 인프라 — 이슈/PR 템플릿·라벨·good first issue.** 공개 리포에 외부 기여를 받을 채비(CI 자동 게이트와 짝). `.github/ISSUE_TEMPLATE/` config+폼 3종(🐛 버그·🌍 언어팩[good first issue·코어 0줄]·💡 콘텐츠/기능[성과 근거 필수]) + `PULL_REQUEST_TEMPLATE.md`(rules 체크리스트: 게이트 그린·성과가 진실·다크패턴 없음·append-only·자가호스팅·erasable TS·DCO) + CONTRIBUTING §2.5 처음 기여 흐름·라벨 taxonomy + 라벨 생성(language-pack·content·core·evolution·help wanted). 게이트 **313 pass(57파일)** 불변. 다음: 생성 지문 상위문법 태깅 등.
+**🛡️ 적대적 디버깅 스윕 완료 — v1.0.0 준비.** 결함 사냥 4라운드(정적 코드리뷰·7언어 E2E·내결함·보안감사)로 확증 결함 **19건을 재현→수정→회귀테스트→게이트 편입**으로 전부 닫음(5커밋). 최우선 2건: **게이트 우회**(공개 `/events`가 예약 로그·시스템 타입 위조 → 미검증 콘텐츠 전 학습자 서빙·규칙 4 붕괴)와 **저장형 XSS**(app.js 미이스케이프 innerHTML). 그 외 kc 비배열 영구오염 DoS·커뮤니티 중복투표·efficacy 삭제보호·잘린 JSONL 부팅크래시 자가복구·body 512KB 캡·이벤트 deep freeze·BKT 첫관측·placement/fsrs 클램프·validateReading 레벨·calibration 이상문항·difficultyFit 대칭·크래시 가드·withSafety 정규화·CJK 정답. SECURITY.md 인증/IDOR 위협모델 + `docs/KNOWN_LIMITATIONS.md`(튜터 다절 과잉교정 등 정직 기록). 게이트 **313→332 pass(57파일)**·R2 180/0·라이브 보안 스모크 8/8. 다음: M2 백로그(#2·#3)·M3 Gain Score·v1.0.0 컷(배포 승인 시).
 
 <details><summary>이전 요약 — 문법 스킬 읽기 연결</summary>
 
@@ -33,6 +33,7 @@
 
 ## 게이트 상태
 
+- **🛡️ 적대적 디버깅 스윕(M1) — v1.0.0 준비(규칙 15·16·4·5·6)**: 🟢 결함 사냥 4라운드로 확증 19건 수정(5커밋). **보안**: 게이트 우회(`ingest`가 예약 ref community/published/efficacy·시스템 이벤트 타입 위조 거부, `recordEfficacy` 직접 append), 저장형 XSS(app.js `esc()` 전면), 커뮤니티 중복투표 dedup, efficacy 삭제보호, body 512KB→413, withSafety 정규화(전각·제로폭·구두점)+역할극 오탐 제거+history 검사. **데이터 무결**: kc 비배열 거부(ingest·content-gate)+심층 가드+dedup, NaN ts 가드, 잘린 JSONL 부팅크래시 자가복구, 이벤트 deep freeze(kc·payload). **코어 수학**: BKT 첫오답 보정, placement θ/se 클램프 코어 이전, fsrs 음수경과 클램프, validateReading CEFR 검증, calibration 이상문항 승격제외, difficultyFit 대칭. **어댑터**: stressScore/pronunciation 크래시 가드, CJK 산출 정답 붙여쓰기. **문서**: SECURITY.md 인증/IDOR 위협모델, `docs/KNOWN_LIMITATIONS.md`(튜터 다절 과잉교정=폴백 한계 등 정직 기록). 게이트 **313→332 pass(57파일)**·R2 7언어 E2E 180/0·라이브 보안 스모크 8/8. 잔여(문서화): 튜터 휴리스틱 다절 오탐(오프라인 폴백, pluggable LLM 경로)·자가채점·이벤트 정렬(다중프로세스)
 - **기여 인프라 — 이슈/PR 템플릿·라벨·good first issue(규칙 1·9·11)**: 🟢 외부 기여를 받을 채비(CI 자동 게이트와 짝). `.github/ISSUE_TEMPLATE/config.yml`(빈 이슈 차단·보안=advisory·질문=Discussions) + 이슈 폼 3종(🐛 `bug_report`[영역·환경·PII 미포함 체크]·🌍 `language_pack`[문자체계·포함 데이터·코어 0줄 체크·good first issue]·💡 `content_or_feature`[성과 근거 필수·다크패턴 금지 체크]) + `.github/PULL_REQUEST_TEMPLATE.md`(rules 체크리스트: 게이트 그린·성과가 진실·다크패턴 없음·append-only·미검증 미노출·자가호스팅·erasable TS·스키마 마이그레이션·DCO) + CONTRIBUTING §2.5(이슈→Discussions→작은 PR→CI 게이트→머지·라벨 taxonomy). 라벨 생성(language-pack·content·core·evolution·help wanted + 기본 good first issue/bug/enhancement). 한/영 병기·규칙 인용. 게이트 313 pass 불변(문서·yaml)
 - **문법 스킬 읽기 연결 — 읽기 채점이 문법 숙달에 기여(규칙 1·11)**: 🟢 `answerReading`은 이미 지문 `kc` 전체를 크레딧 → 격차는 태깅. 비라틴 5개 언어 A2 지문에 문법 KC가 없던 구조적 결함을 체계 수정: **A2 문법 KC 5종 신설**(`kc.zh.basic_sentence`·`kc.ar.present_tense`·`kc.sw.present_tense`·`kc.ja.masu_form`·`kc.hi.present_habitual`, en·es는 이미 present 문법 보유 → 7개 언어 대칭)+각 `content-seed` flashcard+mcq(학습 가능)+A2 시드 지문 5개 정직 태깅(각 지문이 실제 그 문법 포함). **생성기 systemic**(다국어·en·es 생성기가 등급 vocab.core 지문에 기초 문법 KC 함께 태깅→새 생성 지문도 문법 크레딧, 상위 문법은 템플릿마다 유무 달라 미부착=규칙 4). `reading.test`(모든 지문 문법 KC 7언어·신설 A2 KC 2회 정답→숙달 도달 5언어)·`multilingual-reading.test`(생성 지문 어휘+문법 전등급)·`reading-gen.test`(등급 지문 present_simple). 라이브 HTTP 13/13(`/reading/answer` 2회→`/state` 문법 숙달 0.70·신설 KC 콘텐츠). 게이트 313 pass
 - **추이 스파크라인 — 스냅샷 시퀀스 꺾은선(규칙 1)**: 🟢 ops 대시보드 추이 카드가 첫↔최신 델타에 더해 지표별 **SVG 꺾은선**(`sp-acc`·`sp-review`·`sp-ttm`·`sp-kcs`). `/efficacy/history`가 이미 주던 `snapshots[]` 전체 시퀀스를 ops.js 순수 `sparkline(vals, better)`(제로 의존 SVG path, null=x축 위치 보존, 첫↔최신 방향 색 초록=개선·빨강=악화·파랑=평탄, TTM=better false로 하락이 개선)로 렌더. `.tv` flex·범례 추가. `ops.test`(슬롯 4·함수·`.snapshots`·SVG path·innerHTML·TTM false). 라이브 스모크 9/9(스냅샷 3개→kcsMastered 0→2 상승·정확도/숙달 path 생성·개선색·빈/단일 시퀀스 안전). 게이트 310 pass
@@ -119,6 +120,12 @@
 **TypeScript 무설치 실행(Node 24 타입 스트리핑) + `node:test`** — 제로 의존성·자가호스팅(규칙 13). 모노레포: `packages/core`(엔진)·`server`(백엔드)·`engine`(진화워커)·`adapters`(튜터·발음·생성)·`packs`(언어팩)·`web`(브라우저앱). 데이터: append-only **JSONL(기본) 또는 SQLite(`LL_DB`, node:sqlite 내장)** → Postgres(향후). 첫 언어쌍: **en(목표어)/ko(UI)**. 학습 언어 7종: en·es·zh·ar·sw·ja·hi(데이터만, 문자 패러다임 5종). 화면 언어 5종: ko·en·es·zh·ar.
 
 ## 로그
+
+### 2026-07-19 (71b) — 🛡️ M1 적대적 디버깅 스윕 실행 (확증 19건 수정, 게이트 313→332)
+- **결함 사냥 4라운드**: R1 정적·적대적 코드 리뷰(core·server·adapters 5개 병렬 에이전트) + R2 7언어 라이브 E2E 매트릭스(180/0) + R3 내결함·JSONL↔SQLite 동등성 + R4 보안 최종 감사. 모든 발견은 **재현→수정→회귀 테스트→게이트 편입**으로만 닫음.
+- **커밋 5건**: (A) 보안·내구성 — 게이트 우회 차단·kc 검증·중복투표·efficacy 보호·JSONL 자가복구·body 캡(313→322). (B) 코어 수학 — deep freeze·BKT 첫관측·placement/fsrs 클램프·validateReading·calibration·difficultyFit·크래시 가드(322→329). (C) XSS — app.js `esc()`(329→330). (D) 어댑터 — withSafety 정규화·CJK 정답(330→332). (E) 문서 — SECURITY.md 위협모델·KNOWN_LIMITATIONS·413 전달 수정(332).
+- **실증**: 게이트 332 pass/0 fail(57파일)·R2 매트릭스 180/0·라이브 보안 스모크 8/8(게이트우회·efficacy삭제·kc검증·413·정상경로)·CRITICAL-1 재현→차단 확인.
+- **잔여**: 튜터 휴리스틱 다절 과잉교정 등은 `docs/KNOWN_LIMITATIONS.md`에 정직 기록(오프라인 폴백, 데이터/보안 결함 아님). 다음: M2 백로그·M3 Gain Score·v1.0.0 컷.
 
 ### 2026-07-19 (71) — 최종 완결 설계 확정 (디버깅 스윕 → v1.0.0)
 - **실측 베이스라인**: 게이트 313 pass/0 fail(57파일)·릴리스 준비도 그린·CI 3연속 success·워킹트리 클린·오픈 이슈 3건(자가 등록 백로그, 버그 0). 알려진 결함 0 → "디버깅"을 고장 수리가 아닌 **적대적 결함 사냥 4라운드**로 설계.
