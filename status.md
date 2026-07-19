@@ -120,6 +120,11 @@
 
 ## 로그
 
+### 2026-07-19 (71) — 최종 완결 설계 확정 (디버깅 스윕 → v1.0.0)
+- **실측 베이스라인**: 게이트 313 pass/0 fail(57파일)·릴리스 준비도 그린·CI 3연속 success·워킹트리 클린·오픈 이슈 3건(자가 등록 백로그, 버그 0). 알려진 결함 0 → "디버깅"을 고장 수리가 아닌 **적대적 결함 사냥 4라운드**로 설계.
+- **설계 문서**: `docs/design/final-completion.md` 신설 — ①"최종"=v1.0.0 정의(무인 운영+효능 파이프라인+적대적 검증 통과+커뮤니티 인수 가능) ②결함 사냥 4라운드(R1 정적·적대적 코드 리뷰[core 수리 모듈·서버 경계·튜터 규칙], R2 7언어 라이브 E2E 매트릭스, R3 내결함·JSONL↔SQLite 계약 동등성, R4 보안 최종 감사) ③마일스톤 M1 디버깅→M2 백로그(#2 상위문법 태깅·#3 주제 풀·#1 언어팩 가이드)→M3 효능 Gain Score(효과크기 d) 파이프라인→M4 운영 정례화·롤백 리허설→M5 v1.0.0 컷(push는 승인 시, 규칙 18) ④리스크 대응(실학습자 부재→합성 검증까지로 범위 고정 등).
+- **plan.md**: "최종 완결 스프린트" 섹션 편입 + 다음 액션을 M1 착수로 갱신. 결함 닫힘 절차 고정: 발견→최소 재현→수정→회귀 테스트→게이트 편입(규칙 15·16, pass 수 단조 증가).
+
 ### 2026-07-08 (65) — 생성기 주관식(산출) 문항 + 효능 시계열 추이 (2건 일괄)
 - **① 생성기 주관식(산출) 문항**: `adapters/reading-gen.withProductionQuestion(qs)` 공용 헬퍼 — 문항 2개 이상이면 마지막을 주관식(자유응답)으로 변환(options 제거·정답을 accept로), 1개면 객관식 그대로. `MultilingualReadingGenerator`·`EnglishReadingGenerator`·`SpanishReadingGenerator`가 questions 빌드 시 사용 → 진화 폐루프가 공급하는 지문이 **인식(객관식)+산출(주관식)** 균형. 생성물도 소스에 answer·accept 보존 → `scoreComprehension` 서버 채점. `multilingual-reading.test`(단위+생성 주관식 정오)·`reading-gen.test`(en 등급). ⚠️`multilingual-reading.test`의 `q.options.includes` 단정을 주관식(보기 없음) 허용으로 갱신.
 - **② 효능 시계열 추이(Loop Velocity)**: 코어 `EfficacySnapshot`(컴팩트 지표+ts)·`trendSummary(snaps)`(첫↔최신 델타, 정확도/복습 정확도/숙달까지 응답[음수=개선]/숙달 KC). 서버 `snapshotOf`·`recordEfficacy`(현재 지표를 `EFFICACY_REF="efficacy"` 로그에 append-only ingest, `allLearnerEvents`가 집계서 제외해 학습자 오염 0)·`efficacyHistory`(언어별 스냅샷+추세). `GET /efficacy/history`·`POST /efficacy/snapshot`. `EventType`에 `efficacy.snapshot` 추가. **`evolve-publish.mjs`가 사이클마다 `recordEfficacy` 호출** → 진화 캐던스로 추이 축적. ops 대시보드 "추이" 카드(델타+▲▼ 개선/악화)·`efficacy` CLI 추이 출력.
