@@ -9,6 +9,7 @@ export interface ReadingSpec {
   lang: string;
   kc: string;
   level?: string;
+  topic?: string; // 같은 등급의 대체 주제 슬러그(주제 다양화). 미지정=기본 주제.
 }
 
 /**
@@ -42,6 +43,8 @@ export interface ReadingGenerator {
   generate(spec: ReadingSpec): ReadingPassage | null;
   /** 이 KC에서 생성 가능한 CEFR 등급 목록(있으면 등급 생성기 — 진화 루프가 A1~B2 스펙트럼을 공급). 없으면 단일 등급. */
   levels?(kc: string): string[];
+  /** 이 KC·등급에서 생성 가능한 주제 슬러그 목록(주제 다양화). 첫 항목은 기본 주제(""). 있으면 반복 노출을 줄이는 대체 주제 공급. */
+  topics?(kc: string, level: string): string[];
 }
 
 interface Template {

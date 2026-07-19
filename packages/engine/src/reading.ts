@@ -45,6 +45,7 @@ export function generateGradedReadings(
   existing: ReadingPassage[],
   lang: string,
   levels: string[] = ["A1", "A2", "B1", "B2"],
+  opts: { includeTopics?: boolean } = {},
 ): ReadingGenResult {
   const generated: ReadingPassage[] = [];
   const skipped: string[] = [];
@@ -54,13 +55,17 @@ export function generateGradedReadings(
   for (const kc of gapKcs) {
     if (!generator.supports(kc)) { skipped.push(kc); continue; }
     for (const level of levels) {
-      const p = generator.generate({ lang, kc, level });
-      if (!p) continue;
-      if (seenIds.has(p.id) || seenText.has(p.text.trim())) continue; // 중복(등급/본문)
-      if (!validateReading(p)) { rejected.push(p.id); continue; } // 규칙 4
-      seenIds.add(p.id);
-      seenText.add(p.text.trim());
-      generated.push(p);
+      // 기본은 기본 주제 1편/등급(멱등·개수 불변). includeTopics면 대체 주제까지 공급(#3 다양화).
+      const topics = (opts.includeTopics && generator.topics) ? generator.topics(kc, level) : [""];
+      for (const topic of topics.length ? topics : [""]) {
+        const p = generator.generate({ lang, kc, level, topic: topic || undefined });
+        if (!p) continue;
+        if (seenIds.has(p.id) || seenText.has(p.text.trim())) continue; // 중복(등급/주제/본문)
+        if (!validateReading(p)) { rejected.push(p.id); continue; } // 규칙 4
+        seenIds.add(p.id);
+        seenText.add(p.text.trim());
+        generated.push(p);
+      }
     }
   }
   return { generated, skipped, rejected };

@@ -180,6 +180,36 @@ const TEMPLATES: Record<string, Record<string, Template>> = {
   },
 };
 
+// 주제 다양화(#3) — 같은 등급의 **대체 주제** 템플릿. 반복 노출을 줄이고 어휘 폭을 넓힌다.
+// 기본 주제(TEMPLATES)와 별개로 슬러그를 붙여 공존·멱등(id에 주제 접미사). 시드·기본 주제와 겹치지 않는 새 주제.
+// (한 언어부터 — 이슈 스코프. 다른 언어는 같은 형식으로 확장.)
+const TOPIC_VARIANTS: Record<string, Record<string, Record<string, Template>>> = {
+  zh: {
+    A2: {
+      station: {
+        level: "A2", title: "在 车站",
+        text: "今天 我 去 火车站。 车站 里 有 很多 人。 我 买 了 一 张 票。 火车 来 了。 我 很 高兴。",
+        glossary: { "火车站": "기차역", "车站": "역", "票": "표", "火车": "기차", "买": "사다", "高兴": "기쁘다" },
+        questions: [
+          { q: "我 买 了 什么？", answer: "票", options: ["票", "书", "水"] },
+          { q: "什么 来 了？", answer: "火车", options: ["火车", "朋友", "老师"] },
+        ],
+      },
+    },
+    B1: {
+      trip: {
+        level: "B1", title: "一 次 旅行",
+        text: "上 个 月 我 和 朋友 去 旅行。 我们 坐 火车 到 海边。 海边 很 美， 我们 玩 得 很 开心。 我 觉得 旅行 让 生活 更 有 意思。",
+        glossary: { "旅行": "여행", "海边": "바닷가", "坐": "타다", "玩": "놀다", "意思": "재미/의미", "觉得": "생각하다" },
+        questions: [
+          { q: "他们 坐 什么 到 海边？", answer: "火车", options: ["火车", "飞机", "汽车"] },
+          { q: "他们 玩 得 怎么样？", answer: "很 开心", options: ["很 开心", "很 累", "很 忙"] },
+        ],
+      },
+    },
+  },
+};
+
 const DEFAULT_LEVEL = "A2";
 function shortKc(kc: string): string {
   return kc.split(".").slice(-1)[0] || "core";
@@ -251,18 +281,27 @@ export class MultilingualReadingGenerator implements ReadingGenerator {
     return this.supports(kc) ? Object.keys(TEMPLATES[this.lang]) : [];
   }
 
+  /** 이 KC·등급의 주제 슬러그(기본 "" + 대체 주제). 진화 루프가 주제 다양화를 옵트인할 때 사용(#3). */
+  topics(kc: string, level: string): string[] {
+    if (!this.supports(kc) || !TEMPLATES[this.lang]?.[level]) return [];
+    return ["", ...Object.keys(TOPIC_VARIANTS[this.lang]?.[level] ?? {})];
+  }
+
   generate(spec: ReadingSpec): ReadingPassage | null {
     const byLevel = TEMPLATES[this.lang];
     if (!byLevel || !this.supports(spec.kc)) return null;
     // 요청 등급 우선, 없으면 A2(기본) 폴백.
     const level = (spec.level && byLevel[spec.level]) ? spec.level : DEFAULT_LEVEL;
-    const tpl = byLevel[level];
+    // 주제: 지정된 대체 주제가 있으면 그 템플릿, 아니면 기본 주제. id에 주제 슬러그를 붙여 공존·멱등(#3).
+    const variant = spec.topic ? TOPIC_VARIANTS[this.lang]?.[level]?.[spec.topic] : undefined;
+    const tpl = variant ?? byLevel[level];
     if (!tpl) return null;
+    const topicSuffix = variant ? `${spec.topic}.` : "";
     const grammarKc = GRAMMAR_KC[this.lang];
     const upper = upperGrammarKcs(this.lang, tpl.text, level); // B1/B2에서 본문 근거 있는 상위 문법(규칙 4)
     const kcs = [spec.kc, ...(grammarKc ? [grammarKc] : []), ...upper]; // 어휘 + 기초 문법 + (있으면) 상위 문법
     return {
-      id: `gen.${spec.lang}.read.${level.toLowerCase()}.${shortKc(spec.kc)}`,
+      id: `gen.${spec.lang}.read.${level.toLowerCase()}.${topicSuffix}${shortKc(spec.kc)}`,
       level: tpl.level as ReadingPassage["level"],
       kc: [...new Set(kcs)], // 중복 제거 → 읽기가 어휘·기초·상위 문법 숙달에 정직하게 크레딧
       title: tpl.title,
