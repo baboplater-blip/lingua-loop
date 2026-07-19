@@ -7,6 +7,9 @@ let UILANG = localStorage.getItem("ll.ui") || "ko";
 let I18N = {};
 const t = (k, fb) => (I18N[k] != null ? I18N[k] : (fb != null ? fb : k)); // 번역 조회(없으면 폴백/키)
 const $ = (id) => document.getElementById(id);
+// HTML 이스케이프 — 콘텐츠(문항·기여·읽기 지문 등 사용자 유래 문자열)를 innerHTML 에 넣기 전 반드시 통과.
+// 저장형 XSS 방어(규칙 4 정신을 표시 계층까지): 커뮤니티/발행 콘텐츠는 신뢰 불가. 코어 게이트는 HTML 을 막지 않는다.
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 function learnerId() {
   let id = localStorage.getItem("ll.learner");
@@ -69,7 +72,7 @@ function judgeAndPost(correct) {
 
 function renderChoice(item) {
   const options = shuffle([item.answer.value, ...(item.distractors || []).map((d) => d.value)]);
-  $("stage").innerHTML = `<div class="prompt">${item.prompt}</div>`;
+  $("stage").innerHTML = `<div class="prompt">${esc(item.prompt)}</div>`;
   $("controls").innerHTML = "";
   for (const opt of options) {
     const b = document.createElement("button");
@@ -82,7 +85,7 @@ function renderChoice(item) {
 }
 
 function renderCloze(item) {
-  $("stage").innerHTML = `<div class="prompt">${item.prompt.replace("___", '<span class="blank">____</span>')}</div>`;
+  $("stage").innerHTML = `<div class="prompt">${esc(item.prompt).replace("___", '<span class="blank">____</span>')}</div>`;
   $("controls").innerHTML = "";
   const input = document.createElement("input");
   input.className = "answer";
@@ -104,13 +107,13 @@ function renderCloze(item) {
 const GRADES = [["grade.again", "again"], ["grade.hard", "hard"], ["grade.good", "good"], ["grade.easy", "easy"]];
 
 function renderFlashcard(item) {
-  $("stage").innerHTML = `<div class="cue">${t("cue.hint")}</div><div class="prompt">${item.prompt}</div>`;
+  $("stage").innerHTML = `<div class="cue">${t("cue.hint")}</div><div class="prompt">${esc(item.prompt)}</div>`;
   $("controls").innerHTML = "";
   const reveal = document.createElement("button");
   reveal.className = "primary";
   reveal.textContent = t("study.showAnswer");
   reveal.onclick = () => {
-    $("stage").innerHTML = `<div class="cue">${item.prompt}</div><div class="prompt">${item.answer.value}</div>`;
+    $("stage").innerHTML = `<div class="cue">${esc(item.prompt)}</div><div class="prompt">${esc(item.answer.value)}</div>`;
     $("controls").innerHTML = "";
     for (const [key, g] of GRADES) {
       const b = document.createElement("button");
@@ -151,7 +154,7 @@ async function refreshState() {
     const pct = Math.round(m.mastery * 100);
     const div = document.createElement("div");
     div.className = "kc";
-    div.innerHTML = `<div class="row"><span>${kc}</span><span>${pct}%</span></div><div class="bar"><span style="width:${pct}%"></span></div>`;
+    div.innerHTML = `<div class="row"><span>${esc(kc)}</span><span>${pct}%</span></div><div class="bar"><span style="width:${pct}%"></span></div>`;
     el.appendChild(div);
   }
   return state;
@@ -174,11 +177,11 @@ async function renderAchievements() {
   html += "</div>";
   if ((c.certified || []).length) {
     html += `<p class="muted" style="margin-top:10px">${t("ach.canDoNow")}</p>`;
-    for (const cert of c.certified) html += `<div class="cert">✓ ${cert.canDo}</div>`;
+    for (const cert of c.certified) html += `<div class="cert">✓ ${esc(cert.canDo)}</div>`;
   }
   if (c.nextUp && c.nextUp.length) {
     const n = c.nextUp[0];
-    html += `<p class="muted" style="margin-top:8px">${t("ach.soon")} ${n.canDo} (${Math.round(n.mastery * 100)}%)</p>`;
+    html += `<p class="muted" style="margin-top:8px">${t("ach.soon")} ${esc(n.canDo)} (${Math.round(n.mastery * 100)}%)</p>`;
   }
   el.innerHTML = html;
   if ((c.certified || []).length) {
@@ -314,7 +317,7 @@ async function placeStep() {
   placeTheta = r.theta;
   if (r.done || !r.next) return placeResult(r);
   $("place-progress").textContent = `${t("place.qLabel")} ${placeResponses.length + 1} · ${t("place.adaptive")}`;
-  $("place-stage").innerHTML = `<div class="prompt">${r.next.prompt}</div>`;
+  $("place-stage").innerHTML = `<div class="prompt">${esc(r.next.prompt)}</div>`;
   $("place-controls").innerHTML = "";
   for (const opt of r.next.options) {
     const b = document.createElement("button");
@@ -388,7 +391,7 @@ async function renderLeaderboard() {
     const rate = e && e.enoughData ? ` · ${t("contrib.accuracy")} ${Math.round(e.correctRate * 100)}%` : "";
     const div = document.createElement("div");
     div.className = "cq";
-    div.innerHTML = `<div class="prompt">${c.item.prompt}</div><div class="cue">${health}${rate} · ${t("contrib.approvedCount")} ${c.score}</div>`;
+    div.innerHTML = `<div class="prompt">${esc(c.item.prompt)}</div><div class="cue">${health}${rate} · ${t("contrib.approvedCount")} ${esc(c.score)}</div>`;
     board.appendChild(div);
   }
 }
@@ -402,7 +405,7 @@ async function renderQueue() {
   for (const c of pending) {
     const card = document.createElement("div");
     card.className = "cq";
-    card.innerHTML = `<div class="prompt">${c.item.prompt}</div><div class="cue">${t("contrib.answerLabel")}: ${c.item.answer.value} · ${t("contrib.approvedCount")} ${c.score} · ${t("contrib.by")} ${c.contributorRef}</div>`;
+    card.innerHTML = `<div class="prompt">${esc(c.item.prompt)}</div><div class="cue">${t("contrib.answerLabel")}: ${esc(c.item.answer.value)} · ${t("contrib.approvedCount")} ${esc(c.score)} · ${t("contrib.by")} ${esc(c.contributorRef)}</div>`;
     const ctr = document.createElement("div");
     ctr.className = "controls";
     for (const [key, v] of [["contrib.approve", "approve"], ["contrib.reject", "reject"]]) {
@@ -489,7 +492,7 @@ function renderReading() {
 }
 
 function showGloss(word, gloss) {
-  $("read-gloss").innerHTML = `<b>${word}</b> — ${gloss} <span class="muted">🔊</span>`;
+  $("read-gloss").innerHTML = `<b>${esc(word)}</b> — ${esc(gloss)} <span class="muted">🔊</span>`;
 }
 
 // 지문의 모든 이해 문항을 렌더 — 객관식(보기 버튼)·주관식(텍스트 입력) 둘 다. 서버 채점(규칙 1·4).
@@ -500,7 +503,7 @@ function renderReadingQuestions(p) {
   p.questions.forEach((q, qi) => {
     const wrap = document.createElement("div");
     wrap.className = "readq";
-    wrap.innerHTML = `<div class="cue">${t("read.comprehension")}${n > 1 ? ` ${qi + 1}/${n}` : ""}</div><div class="prompt" dir="auto">${q.q}</div>`;
+    wrap.innerHTML = `<div class="cue">${t("read.comprehension")}${n > 1 ? ` ${qi + 1}/${n}` : ""}</div><div class="prompt" dir="auto">${esc(q.q)}</div>`;
     const fb = document.createElement("div");
     fb.className = "feedback";
     // 서버로 선택/입력만 보내고, 응답으로 정오·정답·해설을 받는다. 정답은 클라이언트에 없다(규칙 4).
@@ -778,7 +781,7 @@ function renderPerceive() {
   const mp = pick(PHON.minimalPairs);
   const target = Math.random() < 0.5 ? mp.a : mp.b;
   $("pron-why").textContent = `${t("why.now")} ${mp.contrast} ${t("pron.distinguish")} · ${mp.kc}`;
-  $("pron-stage").innerHTML = `<div class="cue">${t("pron.chooseHeard")}</div><div class="prompt">${mp.contrast}</div>`;
+  $("pron-stage").innerHTML = `<div class="cue">${t("pron.chooseHeard")}</div><div class="prompt">${esc(mp.contrast)}</div>`;
   $("pron-controls").innerHTML = "";
   const play = document.createElement("button");
   play.className = "primary";
@@ -819,8 +822,8 @@ function renderShadow() {
   if (!sh) { $("pron-stage").textContent = t("pron.noShadow"); $("pron-controls").innerHTML = ""; return; }
   const isProsody = (sh.syllables && sh.syllables.length > 1);
   $("pron-why").textContent = `${t("why.now")} ${isProsody ? t("pron.prosodyPractice") : t("pron.shadowPractice")} · ${sh.kc}`;
-  const stressLine = isProsody ? `<div class="cue">${t("pron.stress")}: <span class="stressword">${stressedWord(sh)}</span> — ${t("pron.stressHint")}</div>` : "";
-  $("pron-stage").innerHTML = `<div class="prompt">${sh.word}</div><div class="cue">[${(sh.ipa || []).join(" ")}] · ${sh.gloss}</div>${stressLine}`;
+  const stressLine = isProsody ? `<div class="cue">${t("pron.stress")}: <span class="stressword">${esc(stressedWord(sh))}</span> — ${t("pron.stressHint")}</div>` : "";
+  $("pron-stage").innerHTML = `<div class="prompt">${esc(sh.word)}</div><div class="cue">[${esc((sh.ipa || []).join(" "))}] · ${esc(sh.gloss)}</div>${stressLine}`;
   $("pron-controls").innerHTML = "";
   const play = document.createElement("button");
   play.className = "primary";
