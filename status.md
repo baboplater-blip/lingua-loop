@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**📚 M2 백로그 소진 — 상위 문법 태깅·주제 다양화·언어팩 가이드.** 디버깅 스윕(M1) 후 v1.0.0 로드맵 M2 실행. **#2**: 생성 지문 B1/B2에 **본문 근거 있는 상위 문법 KC만** 정직 태깅(`upperGrammarKcs`, zh 了·ja て형/가능형·ar 과거·hi 후치사, sw는 없어서 미태깅·규칙 4). **#3**: 생성기 `topics()` + 엔진 `includeTopics` 옵트인 주제 다양화(zh 车站/旅行 대체 주제, 기본 개수 불변→기존 테스트 안전·멱등). **#1**: `docs/ADD_LANGUAGE.md` 기여 가이드(최소 3파일 복붙, help wanted 유지). 게이트 **333→335 pass(57파일)**. 다음: M3 Gain Score 파이프라인·M4 운영 정례화·M5 v1.0.0 컷(배포 승인 시).
+
+<details><summary>이전 요약 — 🛡️ 적대적 디버깅 스윕(M1)</summary>
+
 **🛡️ 적대적 디버깅 스윕 완료 — v1.0.0 준비.** 결함 사냥 4라운드(정적 코드리뷰·7언어 E2E·내결함·보안감사)로 확증 결함 **19건을 재현→수정→회귀테스트→게이트 편입**으로 전부 닫음(5커밋). 최우선 2건: **게이트 우회**(공개 `/events`가 예약 로그·시스템 타입 위조 → 미검증 콘텐츠 전 학습자 서빙·규칙 4 붕괴)와 **저장형 XSS**(app.js 미이스케이프 innerHTML). 그 외 kc 비배열 영구오염 DoS·커뮤니티 중복투표·efficacy 삭제보호·잘린 JSONL 부팅크래시 자가복구·body 512KB 캡·이벤트 deep freeze·BKT 첫관측·placement/fsrs 클램프·validateReading 레벨·calibration 이상문항·difficultyFit 대칭·크래시 가드·withSafety 정규화·CJK 정답. SECURITY.md 인증/IDOR 위협모델 + `docs/KNOWN_LIMITATIONS.md`(튜터 다절 과잉교정 등 정직 기록). 게이트 **313→332 pass(57파일)**·R2 180/0·라이브 보안 스모크 8/8. 다음: M2 백로그(#2·#3)·M3 Gain Score·v1.0.0 컷(배포 승인 시).
 
 <details><summary>이전 요약 — 문법 스킬 읽기 연결</summary>
@@ -31,8 +35,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **📚 M2 백로그 소진 — good first issue 3건(규칙 4·11)**: 🟢 **#2 상위 문법 정직 태깅**: `upperGrammarKcs(lang,text,level)`가 B1/B2에서 본문 마커 있는 상위 문법만 크레딧(zh 了→aspect_le·得 독립토큰만/ja て형·가능형/ar 과거/hi 후치사, sw 미태깅). 근거 마커 검증 테스트. **#3 주제 다양화**: `topics(kc,level)`+`generate(spec.topic)`+엔진 `generateGradedReadings(...,{includeTopics})` 옵트인(기본 4등급 개수 불변→기존 테스트 안전). zh A2 车站·B1 旅行 대체 주제(고유 id·클릭사전·마지막 주관식 산출·멱등, B1 trip 玩得→de_complement 근거). **#1 가이드**: `docs/ADD_LANGUAGE.md`(최소 3파일 복붙 예시·검증 루프·규칙 체크). CONTRIBUTING·README 링크. 게이트 335 pass. 이슈 #2·#3 close, #1 help wanted 유지
 - **🛡️ 적대적 디버깅 스윕(M1) — v1.0.0 준비(규칙 15·16·4·5·6)**: 🟢 결함 사냥 4라운드로 확증 19건 수정(5커밋). **보안**: 게이트 우회(`ingest`가 예약 ref community/published/efficacy·시스템 이벤트 타입 위조 거부, `recordEfficacy` 직접 append), 저장형 XSS(app.js `esc()` 전면), 커뮤니티 중복투표 dedup, efficacy 삭제보호, body 512KB→413, withSafety 정규화(전각·제로폭·구두점)+역할극 오탐 제거+history 검사. **데이터 무결**: kc 비배열 거부(ingest·content-gate)+심층 가드+dedup, NaN ts 가드, 잘린 JSONL 부팅크래시 자가복구, 이벤트 deep freeze(kc·payload). **코어 수학**: BKT 첫오답 보정, placement θ/se 클램프 코어 이전, fsrs 음수경과 클램프, validateReading CEFR 검증, calibration 이상문항 승격제외, difficultyFit 대칭. **어댑터**: stressScore/pronunciation 크래시 가드, CJK 산출 정답 붙여쓰기. **문서**: SECURITY.md 인증/IDOR 위협모델, `docs/KNOWN_LIMITATIONS.md`(튜터 다절 과잉교정=폴백 한계 등 정직 기록). 게이트 **313→332 pass(57파일)**·R2 7언어 E2E 180/0·라이브 보안 스모크 8/8. 잔여(문서화): 튜터 휴리스틱 다절 오탐(오프라인 폴백, pluggable LLM 경로)·자가채점·이벤트 정렬(다중프로세스)
 - **기여 인프라 — 이슈/PR 템플릿·라벨·good first issue(규칙 1·9·11)**: 🟢 외부 기여를 받을 채비(CI 자동 게이트와 짝). `.github/ISSUE_TEMPLATE/config.yml`(빈 이슈 차단·보안=advisory·질문=Discussions) + 이슈 폼 3종(🐛 `bug_report`[영역·환경·PII 미포함 체크]·🌍 `language_pack`[문자체계·포함 데이터·코어 0줄 체크·good first issue]·💡 `content_or_feature`[성과 근거 필수·다크패턴 금지 체크]) + `.github/PULL_REQUEST_TEMPLATE.md`(rules 체크리스트: 게이트 그린·성과가 진실·다크패턴 없음·append-only·미검증 미노출·자가호스팅·erasable TS·스키마 마이그레이션·DCO) + CONTRIBUTING §2.5(이슈→Discussions→작은 PR→CI 게이트→머지·라벨 taxonomy). 라벨 생성(language-pack·content·core·evolution·help wanted + 기본 good first issue/bug/enhancement). 한/영 병기·규칙 인용. 게이트 313 pass 불변(문서·yaml)
 - **문법 스킬 읽기 연결 — 읽기 채점이 문법 숙달에 기여(규칙 1·11)**: 🟢 `answerReading`은 이미 지문 `kc` 전체를 크레딧 → 격차는 태깅. 비라틴 5개 언어 A2 지문에 문법 KC가 없던 구조적 결함을 체계 수정: **A2 문법 KC 5종 신설**(`kc.zh.basic_sentence`·`kc.ar.present_tense`·`kc.sw.present_tense`·`kc.ja.masu_form`·`kc.hi.present_habitual`, en·es는 이미 present 문법 보유 → 7개 언어 대칭)+각 `content-seed` flashcard+mcq(학습 가능)+A2 시드 지문 5개 정직 태깅(각 지문이 실제 그 문법 포함). **생성기 systemic**(다국어·en·es 생성기가 등급 vocab.core 지문에 기초 문법 KC 함께 태깅→새 생성 지문도 문법 크레딧, 상위 문법은 템플릿마다 유무 달라 미부착=규칙 4). `reading.test`(모든 지문 문법 KC 7언어·신설 A2 KC 2회 정답→숙달 도달 5언어)·`multilingual-reading.test`(생성 지문 어휘+문법 전등급)·`reading-gen.test`(등급 지문 present_simple). 라이브 HTTP 13/13(`/reading/answer` 2회→`/state` 문법 숙달 0.70·신설 KC 콘텐츠). 게이트 313 pass
