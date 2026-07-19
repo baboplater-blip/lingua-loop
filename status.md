@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**📈 M3 Gain Score 효능 파이프라인 — "실제로 가르치는가"의 핵심 증거.** `core/efficacy.computeGainScore` — `assessment.item` θ에서 학습자·스킬별 **사전(배치)↔사후(재평가) 상승과 관측 효과크기 Cohen's d**. 재평가 없으면 표본 0(가짜 개선 방지). `EfficacyReport.gain`+스냅샷 `gainEffectSize`/`gainN`+`/efficacy`·ops "Gain Score" 카드·CLI 노출, **전부 인과 주의 병기**(규칙 17: 관측값·인과는 A/B·통제군, n 표시). **합성 코호트 검증**(학습군 d≥0.4·통제군 ~0). 라이브 스모크 8/8. OPERATING.md §6 Gain Score 채우는 법·인과 주의. 게이트 **335→338 pass(57파일)**. 다음: M4 운영 정례화·M5 v1.0.0 컷(배포 승인 시).
+
+<details><summary>이전 요약 — 📚 M2 백로그 소진</summary>
+
 **📚 M2 백로그 소진 — 상위 문법 태깅·주제 다양화·언어팩 가이드.** 디버깅 스윕(M1) 후 v1.0.0 로드맵 M2 실행. **#2**: 생성 지문 B1/B2에 **본문 근거 있는 상위 문법 KC만** 정직 태깅(`upperGrammarKcs`, zh 了·ja て형/가능형·ar 과거·hi 후치사, sw는 없어서 미태깅·규칙 4). **#3**: 생성기 `topics()` + 엔진 `includeTopics` 옵트인 주제 다양화(zh 车站/旅行 대체 주제, 기본 개수 불변→기존 테스트 안전·멱등). **#1**: `docs/ADD_LANGUAGE.md` 기여 가이드(최소 3파일 복붙, help wanted 유지). 게이트 **333→335 pass(57파일)**. 다음: M3 Gain Score 파이프라인·M4 운영 정례화·M5 v1.0.0 컷(배포 승인 시).
 
 <details><summary>이전 요약 — 🛡️ 적대적 디버깅 스윕(M1)</summary>
@@ -37,8 +41,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **📈 M3 Gain Score 효능 파이프라인(규칙 1·17)**: 🟢 `core/efficacy.computeGainScore` — `assessment.item` θ에서 학습자·스킬별 첫(사전/배치)↔최신(사후/재평가) θ → 평균 상승·관측 Cohen's d(pooled SD). 재평가(2회↑) 없으면 표본 0(단일 배치로 가짜 개선 방지). `EfficacyReport.gain`(computeEfficacy 통합)·`EfficacySnapshot.gainEffectSize/gainN`·`trendSummary` 델타. `/efficacy`·ops "Gain Score" 카드·CLI 노출, 전부 **인과 주의 병기**(관측값·인과는 A/B·통제군 필요·규칙 17·n 표시). 합성 코호트 검증(학습군 d≥0.4·통제군 ~0·학습>통제). `core/efficacy.test`·`ops.test`. 라이브 스모크 8/8. OPERATING.md §6 채우는 법(배치 재평가)·인과 주의. 게이트 338 pass. 실학습자 효능은 커뮤니티 영역(goal §5-5)
 - **📚 M2 백로그 소진 — good first issue 3건(규칙 4·11)**: 🟢 **#2 상위 문법 정직 태깅**: `upperGrammarKcs(lang,text,level)`가 B1/B2에서 본문 마커 있는 상위 문법만 크레딧(zh 了→aspect_le·得 독립토큰만/ja て형·가능형/ar 과거/hi 후치사, sw 미태깅). 근거 마커 검증 테스트. **#3 주제 다양화**: `topics(kc,level)`+`generate(spec.topic)`+엔진 `generateGradedReadings(...,{includeTopics})` 옵트인(기본 4등급 개수 불변→기존 테스트 안전). zh A2 车站·B1 旅行 대체 주제(고유 id·클릭사전·마지막 주관식 산출·멱등, B1 trip 玩得→de_complement 근거). **#1 가이드**: `docs/ADD_LANGUAGE.md`(최소 3파일 복붙 예시·검증 루프·규칙 체크). CONTRIBUTING·README 링크. 게이트 335 pass. 이슈 #2·#3 close, #1 help wanted 유지
 - **🛡️ 적대적 디버깅 스윕(M1) — v1.0.0 준비(규칙 15·16·4·5·6)**: 🟢 결함 사냥 4라운드로 확증 19건 수정(5커밋). **보안**: 게이트 우회(`ingest`가 예약 ref community/published/efficacy·시스템 이벤트 타입 위조 거부, `recordEfficacy` 직접 append), 저장형 XSS(app.js `esc()` 전면), 커뮤니티 중복투표 dedup, efficacy 삭제보호, body 512KB→413, withSafety 정규화(전각·제로폭·구두점)+역할극 오탐 제거+history 검사. **데이터 무결**: kc 비배열 거부(ingest·content-gate)+심층 가드+dedup, NaN ts 가드, 잘린 JSONL 부팅크래시 자가복구, 이벤트 deep freeze(kc·payload). **코어 수학**: BKT 첫오답 보정, placement θ/se 클램프 코어 이전, fsrs 음수경과 클램프, validateReading CEFR 검증, calibration 이상문항 승격제외, difficultyFit 대칭. **어댑터**: stressScore/pronunciation 크래시 가드, CJK 산출 정답 붙여쓰기. **문서**: SECURITY.md 인증/IDOR 위협모델, `docs/KNOWN_LIMITATIONS.md`(튜터 다절 과잉교정=폴백 한계 등 정직 기록). 게이트 **313→332 pass(57파일)**·R2 7언어 E2E 180/0·라이브 보안 스모크 8/8. 잔여(문서화): 튜터 휴리스틱 다절 오탐(오프라인 폴백, pluggable LLM 경로)·자가채점·이벤트 정렬(다중프로세스)
 - **기여 인프라 — 이슈/PR 템플릿·라벨·good first issue(규칙 1·9·11)**: 🟢 외부 기여를 받을 채비(CI 자동 게이트와 짝). `.github/ISSUE_TEMPLATE/config.yml`(빈 이슈 차단·보안=advisory·질문=Discussions) + 이슈 폼 3종(🐛 `bug_report`[영역·환경·PII 미포함 체크]·🌍 `language_pack`[문자체계·포함 데이터·코어 0줄 체크·good first issue]·💡 `content_or_feature`[성과 근거 필수·다크패턴 금지 체크]) + `.github/PULL_REQUEST_TEMPLATE.md`(rules 체크리스트: 게이트 그린·성과가 진실·다크패턴 없음·append-only·미검증 미노출·자가호스팅·erasable TS·스키마 마이그레이션·DCO) + CONTRIBUTING §2.5(이슈→Discussions→작은 PR→CI 게이트→머지·라벨 taxonomy). 라벨 생성(language-pack·content·core·evolution·help wanted + 기본 good first issue/bug/enhancement). 한/영 병기·규칙 인용. 게이트 313 pass 불변(문서·yaml)
