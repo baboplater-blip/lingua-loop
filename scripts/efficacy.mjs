@@ -47,6 +47,15 @@ console.log(`  [Coverage] 진척`);
 console.log(`    학습자                ${num(e.coverage.learners)}`);
 console.log(`    본 KC / 숙달 KC        ${num(e.coverage.kcsSeen)} / ${num(e.coverage.kcsMastered)}`);
 console.log(`    학습자당 숙달 KC(평균)  ${e.coverage.masteredPerLearner === null ? "—" : e.coverage.masteredPerLearner.toFixed(1)}`);
+console.log(`  [Gain Score] 사전(배치)→사후(재평가) 능력 상승 · 효능 핵심 증거`);
+const one = (x) => (x === null || x === undefined ? "—" : x.toFixed(2));
+if (e.gain.n === 0) {
+  console.log(`    표본 0 — 배치를 2회 이상(재평가) 본 학습자가 필요(진척을 다시 측정하면 채워짐)`);
+} else {
+  console.log(`    사전→사후 θ           ${one(e.gain.meanPre)} → ${one(e.gain.meanPost)} (상승 ${e.gain.meanGain >= 0 ? "+" : ""}${one(e.gain.meanGain)})`);
+  console.log(`    효과크기 d(관측)       ${one(e.gain.effectSize)} · 표본 ${e.gain.n} ${e.gain.effectSize !== null && e.gain.effectSize >= 0.4 ? "(유의미)" : ""}`);
+  console.log(`    ⚠️ 관측값 — 인과(‘가르쳤다’)는 사전등록 A/B·통제군으로만(규칙 17)`);
+}
 console.log(`  [Content Health] 콘텐츠 건강`);
 console.log(`    서빙 문항             ${r.contentHealth.servableItems} · 캘리브레이션 ${pct(r.contentHealth.calibratedRatio)}`);
 console.log(`    콘텐츠 보유 KC / 전체   ${r.contentHealth.kcsWithContent} / ${r.contentHealth.totalKCs} · 격차 ${r.gaps.length}KC`);

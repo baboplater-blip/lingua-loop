@@ -27,7 +27,23 @@ export interface EfficacyReport {
     kcsMastered: number; // 누군가 숙달한 서로 다른 KC
     masteredPerLearner: number | null; // 학습자당 평균 숙달 KC
   };
+  // Gain — 사전(첫 배치)→사후(최근 재평가) 능력 상승(θ)과 효과크기. 효능의 핵심 증거(goal.md Gain Score).
+  gain: GainScore;
   throughput: { responses: number; correct: number; masteryEvents: number };
+}
+
+/**
+ * Gain Score — 배치평가 θ(사전) → 재평가 θ(사후)의 상승과 **관측 효과크기(Cohen's d)**.
+ * ⚠️ **인과 주의(규칙 17)**: 이 값은 *관측* 상승일 뿐, 관측만으로 "도구가 가르쳤다"를 단정하지 않는다.
+ * 인과 주장은 **사전등록 A/B 또는 사전-사후 통제군**이 필요하다([`ab-experiment-framework`]). n(표본)을 항상 함께 본다.
+ */
+export interface GainScore {
+  n: number; // 사전·사후(assessment.item 2회 이상) 둘 다 있는 (학습자,스킬) 쌍 수
+  meanPre: number | null; // 평균 사전 θ
+  meanPost: number | null; // 평균 사후 θ
+  meanGain: number | null; // 평균 상승(θ) = 사후 − 사전
+  effectSize: number | null; // Cohen's d(pooled SD). n<2 또는 분산 0이면 null(추정 불가)
+  bySkill: Record<string, { n: number; meanGain: number | null; effectSize: number | null }>;
 }
 
 function correctOf(ev: LearningEvent): boolean | null {
@@ -49,6 +65,72 @@ function median(xs: number[]): number | null {
 }
 function mean(xs: number[]): number | null {
   return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
+}
+
+function variance(xs: number[]): number {
+  if (xs.length < 2) return 0;
+  const m = xs.reduce((a, b) => a + b, 0) / xs.length;
+  return xs.reduce((a, b) => a + (b - m) ** 2, 0) / xs.length;
+}
+
+/** 사전·사후 분포에서 Cohen's d(pooled SD). 표본<2 또는 pooled SD=0이면 null(추정 불가). */
+function cohensD(pre: number[], post: number[]): number | null {
+  if (pre.length < 2 || post.length < 2) return null;
+  const mPre = pre.reduce((a, b) => a + b, 0) / pre.length;
+  const mPost = post.reduce((a, b) => a + b, 0) / post.length;
+  const pooledSd = Math.sqrt((variance(pre) + variance(post)) / 2);
+  if (pooledSd === 0) return null;
+  return (mPost - mPre) / pooledSd;
+}
+
+/**
+ * Gain Score 산출 — assessment.item(θ 추정) 이벤트에서 학습자·스킬별 첫(사전)↔최신(사후) θ를 뽑아 상승·효과크기 계산.
+ * 사전·사후가 모두 있으려면 같은 (학습자,스킬)에 assessment.item 이 **2회 이상**(재평가) 있어야 한다.
+ * 결정적·순수(규칙 5). 인과 아님(규칙 17) — 관측 효과크기일 뿐.
+ */
+export function computeGainScore(events: readonly LearningEvent[]): GainScore {
+  // (learner|skill) → θ 시퀀스(ts 순)
+  const seq = new Map<string, { ts: number; theta: number }[]>();
+  for (const ev of events) {
+    if (ev.type !== "assessment.item") continue;
+    const skill = ev.payload["skill"];
+    const theta = ev.payload["thetaEst"];
+    if (typeof skill !== "string" || typeof theta !== "number" || Number.isNaN(theta)) continue;
+    const ts = Date.parse(ev.ts);
+    const key = ev.learnerRef + "|" + skill;
+    const arr = seq.get(key) ?? [];
+    arr.push({ ts: Number.isNaN(ts) ? arr.length : ts, theta });
+    seq.set(key, arr);
+  }
+  const bySkillPre = new Map<string, number[]>();
+  const bySkillPost = new Map<string, number[]>();
+  const allPre: number[] = [];
+  const allPost: number[] = [];
+  for (const [key, arrRaw] of seq) {
+    if (arrRaw.length < 2) continue; // 사전·사후(재평가) 둘 다 필요
+    const arr = [...arrRaw].sort((a, b) => a.ts - b.ts);
+    const skill = key.split("|")[1];
+    const pre = arr[0].theta;
+    const post = arr[arr.length - 1].theta;
+    (bySkillPre.get(skill) ?? bySkillPre.set(skill, []).get(skill)!).push(pre);
+    (bySkillPost.get(skill) ?? bySkillPost.set(skill, []).get(skill)!).push(post);
+    allPre.push(pre);
+    allPost.push(post);
+  }
+  const bySkill: GainScore["bySkill"] = {};
+  for (const skill of bySkillPre.keys()) {
+    const pre = bySkillPre.get(skill)!;
+    const post = bySkillPost.get(skill)!;
+    bySkill[skill] = { n: pre.length, meanGain: mean(post.map((p, i) => p - pre[i])), effectSize: cohensD(pre, post) };
+  }
+  return {
+    n: allPre.length,
+    meanPre: mean(allPre),
+    meanPost: mean(allPost),
+    meanGain: mean(allPost.map((p, i) => p - allPre[i])),
+    effectSize: cohensD(allPre, allPost),
+    bySkill,
+  };
 }
 
 interface Track { firstTs: number; responses: number; corrects: number; masteredAt: number | null; masteredResponses: number | null; }
@@ -122,6 +204,7 @@ export function computeEfficacy(events: readonly LearningEvent[]): EfficacyRepor
       kcsMastered: kcsMastered.size,
       masteredPerLearner: mean(masteredCounts),
     },
+    gain: computeGainScore(events), // 사전→사후 능력 상승·효과크기(관측, 인과 아님)
     throughput: { responses, correct, masteryEvents: respToMastery.length },
   };
 }
@@ -140,14 +223,16 @@ export interface EfficacySnapshot {
   learners: number;
   calibratedRatio: number | null;
   gaps: number;
+  gainEffectSize: number | null; // 사전→사후 효과크기(관측, 인과 아님)
+  gainN: number; // Gain Score 표본 수(사전·사후 쌍)
 }
 
 export interface TrendSummary {
   count: number;
   first: EfficacySnapshot | null;
   latest: EfficacySnapshot | null;
-  // delta = latest − first. 정확도·숙달은 양수가 개선, TTM(응답 수)은 음수가 개선(빨라짐).
-  delta: { overallAccuracy: number | null; reviewAccuracy: number | null; medianResponsesToMastery: number | null; kcsMastered: number } | null;
+  // delta = latest − first. 정확도·숙달·효과크기는 양수가 개선, TTM(응답 수)은 음수가 개선(빨라짐).
+  delta: { overallAccuracy: number | null; reviewAccuracy: number | null; medianResponsesToMastery: number | null; kcsMastered: number; gainEffectSize: number | null } | null;
 }
 
 /** 스냅샷 시퀀스에서 첫↔최신 추세(개선 여부). 순서는 기록순(append-only). */
@@ -165,6 +250,7 @@ export function trendSummary(snaps: readonly EfficacySnapshot[]): TrendSummary {
       reviewAccuracy: d(first.reviewAccuracy, latest.reviewAccuracy),
       medianResponsesToMastery: d(first.medianResponsesToMastery, latest.medianResponsesToMastery),
       kcsMastered: latest.kcsMastered - first.kcsMastered,
+      gainEffectSize: d(first.gainEffectSize, latest.gainEffectSize),
     },
   };
 }

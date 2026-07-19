@@ -242,6 +242,8 @@ export function snapshotOf(d: EfficacyDashboard, tsISO: string): EfficacySnapsho
     learners: e.coverage.learners,
     calibratedRatio: d.contentHealth.calibratedRatio,
     gaps: d.gaps.length,
+    gainEffectSize: e.gain.effectSize,
+    gainN: e.gain.n,
   };
 }
 

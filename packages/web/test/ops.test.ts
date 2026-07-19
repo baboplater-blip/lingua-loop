@@ -24,6 +24,13 @@ test("ops.js: GET /efficacy 를 읽어 지표를 렌더", () => {
   assert.ok(/overallAccuracy|reviewAccuracy/.test(js), "리텐션 필드 렌더");
 });
 
+test("ops: Gain Score 카드 — 사전→사후 효과크기 + 인과 주의(규칙 17)", () => {
+  assert.ok(html.includes("Gain Score"), "Gain Score 카드");
+  assert.ok(/id="gain-theta"/.test(html) && /id="gain-d"/.test(html) && /id="gain-n"/.test(html), "사전→사후·효과크기·표본 슬롯");
+  assert.ok(/인과/.test(html) && /규칙 17|A\/B|통제군/.test(html), "인과 아님·통제 필요 주의 문구");
+  assert.ok(/e\.gain|\.effectSize|meanGain/.test(js), "gain 필드 렌더");
+});
+
 test("ops: 추이(Loop Velocity) — 진화 사이클 스냅샷 델타 렌더", () => {
   assert.ok(html.includes("추이") && html.includes("Loop Velocity"), "추이 카드");
   assert.ok(js.includes("/efficacy/history"), "이력 엔드포인트 사용");

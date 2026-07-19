@@ -33,6 +33,17 @@ async function load() {
     $("cov-learners").textContent = num(e.coverage.learners);
     $("cov-kcs").textContent = `${num(e.coverage.kcsSeen)} / ${num(e.coverage.kcsMastered)}`;
     $("cov-per").textContent = one(e.coverage.masteredPerLearner);
+    // Gain Score — 사전→사후 능력 상승·효과크기(관측, 인과 아님)
+    const g = e.gain;
+    if (!g || g.n === 0) {
+      $("gain-theta").textContent = "—";
+      $("gain-d").textContent = "표본 없음 (배치 재평가 필요)";
+      $("gain-n").textContent = "0";
+    } else {
+      $("gain-theta").textContent = `${one(g.meanPre)} → ${one(g.meanPost)} (${g.meanGain >= 0 ? "+" : ""}${one(g.meanGain)})`;
+      $("gain-d").textContent = g.effectSize == null ? "—" : `${one(g.effectSize)}${g.effectSize >= 0.4 ? " (유의미)" : ""}`;
+      $("gain-n").textContent = num(g.n);
+    }
     // Content Health
     const ch = r.contentHealth;
     $("ch-items").textContent = `${ch.servableItems} / ${ch.calibratedItems} (${pct(ch.calibratedRatio)})`;
