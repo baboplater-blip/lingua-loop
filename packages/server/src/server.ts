@@ -87,9 +87,18 @@ function json(res: import("node:http").ServerResponse, code: number, body: unkno
   res.end(s);
 }
 
+// 요청 본문 상한(자가호스팅 기본 방어 — 리버스 프록시 없이도 메모리 고갈 DoS 차단). 초과 시 413.
+const MAX_BODY_BYTES = 512 * 1024; // 512KB — 학습 이벤트·기여 콘텐츠에 충분, 남용은 차단
+class PayloadTooLarge extends Error { constructor() { super("payload too large"); } }
+
 async function readBody(req: import("node:http").IncomingMessage): Promise<Record<string, unknown>> {
   const chunks: Buffer[] = [];
-  for await (const c of req) chunks.push(c as Buffer);
+  let size = 0;
+  for await (const c of req) {
+    size += (c as Buffer).length;
+    if (size > MAX_BODY_BYTES) { req.destroy(); throw new PayloadTooLarge(); }
+    chunks.push(c as Buffer);
+  }
   const raw = Buffer.concat(chunks).toString("utf8");
   return raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
 }
@@ -112,7 +121,7 @@ export const app = createServer(async (req, res) => {
         message: String(body.message ?? ""),
         lang,
         task: body.task as string | undefined,
-        history: body.history as TutorTurn[] | undefined,
+        history: Array.isArray(body.history) ? (body.history as TutorTurn[]) : undefined, // 비배열 history 방어(어댑터 .filter 크래시 방지)
         explainLang: body.explainLang as string | undefined,
       });
       return json(res, 200, resp);
@@ -235,6 +244,7 @@ export const app = createServer(async (req, res) => {
 
     return json(res, 404, { error: "not found" });
   } catch (e) {
+    if (e instanceof PayloadTooLarge) return json(res, 413, { error: e.message });
     return json(res, 400, { error: (e as Error).message });
   }
 });

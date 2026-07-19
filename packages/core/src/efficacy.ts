@@ -66,14 +66,15 @@ export function computeEfficacy(events: readonly LearningEvent[]): EfficacyRepor
   let responses = 0, correct = 0, reviewResponses = 0, reviewCorrect = 0;
 
   for (const ev of events) {
-    if (!GRADED.has(ev.type) || !ev.kc || ev.kc.length === 0) continue;
+    if (!GRADED.has(ev.type) || !Array.isArray(ev.kc) || ev.kc.length === 0) continue; // 비배열 kc 방어(심층) — 전역 대시보드 크래시 방지
     const c = correctOf(ev);
     if (c === null) continue;
     const ts = Date.parse(ev.ts);
+    if (Number.isNaN(ts)) continue; // 파싱 불가 ts 는 TTM 경과시간을 오염 — 무시
     learners.add(ev.learnerRef);
     responses += 1;
     if (c) correct += 1;
-    for (const kc of ev.kc) {
+    for (const kc of new Set(ev.kc)) { // 한 이벤트 내 중복 KC 는 1회만
       kcsSeen.add(kc);
       const key = ev.learnerRef + "|" + kc;
       let t = track.get(key);

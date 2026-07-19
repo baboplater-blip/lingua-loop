@@ -101,6 +101,7 @@ export function deriveContributions(events: readonly LearningEvent[], policy: Re
       if (!c) continue;
       const reviewerRef = String(ev.payload["reviewerRef"] ?? ev.learnerRef);
       if (reviewerRef === c.contributorRef) continue; // 자기 기여 자가검토 무시(어뷰즈 방어)
+      if (c.reviews.some((r) => r.reviewerRef === reviewerRef)) continue; // 동일 검토자 중복투표 무시 — 1인 1표(어뷰즈 방어). 최초 표만 유효.
       c.reviews.push({
         reviewerRef,
         verdict: ev.payload["verdict"] as ReviewVerdict,

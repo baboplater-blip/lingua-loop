@@ -23,7 +23,7 @@ export function checkItem(item: ContentItem, existing: ContentItem[] = []): Gate
   if (!item.id) reasons.push("id 누락");
   if (!item.lang) reasons.push("lang 누락");
   if (!item.type) reasons.push("type 누락");
-  if (!item.kc || item.kc.length === 0) reasons.push("KC 태그 누락(규칙: 최소 1개)");
+  if (!Array.isArray(item.kc) || item.kc.length === 0) reasons.push("KC 태그 누락(규칙: 최소 1개, 배열)"); // 문자열 등 비배열 kc 차단 — serveItems `it.kc.some` 크래시 방지(DoS)
   if (!item.level) reasons.push("level 누락");
   if (!item.prompt || !item.prompt.trim()) reasons.push("prompt 비어 있음");
 

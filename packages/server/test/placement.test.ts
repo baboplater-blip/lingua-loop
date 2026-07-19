@@ -22,6 +22,16 @@ function drive(b: any[], responder: (next: any) => string) {
 const correctFor = (b: any[], id: string) => b.find((x) => x.id === id).answer.value;
 const wrongFor = (b: any[], id: string) => b.find((x) => x.id === id).options.find((o: string) => o !== correctFor(b, id));
 
+test("방어: 비배열 responses·비문자열 choice 에도 크래시하지 않는다", () => {
+  const b = bank("en");
+  assert.doesNotThrow(() => placementStep(b, "oops" as never), "비배열 responses 안전");
+  assert.doesNotThrow(() => placementStep(b, 5 as never), "숫자 responses 안전");
+  const id = b[0].id;
+  assert.doesNotThrow(() => placementStep(b, [{ itemId: id, choice: 5 as never }]), "숫자 choice 안전");
+  const s = placementStep(b, [{ itemId: id, choice: 5 as never }]);
+  assert.equal(s.count, 1, "숫자 choice 도 1응답으로 채점(오답 처리)");
+});
+
 test("첫 스텝: 문항 제시·done=false·정답 미유출", () => {
   const b = bank("en");
   const s = placementStep(b, []);

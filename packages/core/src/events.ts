@@ -69,11 +69,23 @@ export class EventLog {
     return this.#events.map((e) => JSON.stringify(e)).join("\n");
   }
 
-  static fromJSONL(text: string): EventLog {
+  /**
+   * JSONL 역직렬화. 기본은 엄격(불량 라인에서 throw — toJSONL 왕복 계약 보존).
+   * `onError` 를 주면 파싱 실패 라인을 건너뛰고 콜백에 넘긴다 — 파일 스토어가 전원 손실·디스크 풀로
+   * 잘린 append(마지막 줄이 미완성)를 만나도 유효 이벤트를 복원하고 부팅을 잇기 위함(규칙 13 내구성).
+   * 유효 이벤트는 하나도 버리지 않는다(규칙 5).
+   */
+  static fromJSONL(text: string, opts: { onError?: (line: string, err: unknown) => void } = {}): EventLog {
     const log = new EventLog();
     for (const line of text.split("\n")) {
       const t = line.trim();
-      if (t) log.append(JSON.parse(t) as LearningEvent);
+      if (!t) continue;
+      try {
+        log.append(JSON.parse(t) as LearningEvent);
+      } catch (err) {
+        if (opts.onError) opts.onError(t, err);
+        else throw err;
+      }
     }
     return log;
   }

@@ -45,9 +45,10 @@ export function deriveState(events: readonly LearningEvent[], learnerRef: string
 
     if (ev.type === "item.response" || ev.type === "review.done") {
       const grade = gradeOf(ev);
-      if (!grade || !ev.kc) continue;
+      if (!grade || !Array.isArray(ev.kc)) continue; // 비배열 kc 방어(심층) — 크래시 대신 무시
       const tsMs = Date.parse(ev.ts);
-      for (const kc of ev.kc) {
+      if (Number.isNaN(tsMs)) continue; // 파싱 불가 ts 는 FSRS stability/dueTs 를 영구 NaN 오염시킨다 — 무시(규칙 5 재현성)
+      for (const kc of new Set(ev.kc)) { // 한 이벤트 내 중복 KC 는 1회만 반영(이중 카운트 방지)
         const mem = state.kcState[kc] ?? emptyMemory();
         const elapsedDays = mem.lastReviewTs === null ? 0 : Math.max(0, (tsMs - mem.lastReviewTs) / DAY_MS);
         const prevCard: CardState | null = mem.reps === 0 ? null : { stability: mem.stability, difficulty: mem.difficulty };

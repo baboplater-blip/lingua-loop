@@ -22,6 +22,12 @@ export function newStore(): Store {
   return { logs: new Map() };
 }
 
+// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷). 공개 진입점으로 위조 쓰기 금지.
+// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
+const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy"]);
+// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 4(게이트) 우회.
+const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "efficacy.snapshot"]);
+
 function logFor(store: Store, learnerRef: string): EventLog {
   let log = store.logs.get(learnerRef);
   if (!log) {
@@ -31,8 +37,20 @@ function logFor(store: Store, learnerRef: string): EventLog {
   return log;
 }
 
-/** 이벤트 수집 — append-only(규칙 5). 영속 스토어면 파일에도 append. */
+/**
+ * 이벤트 수집 — append-only(규칙 5). 영속 스토어면 파일에도 append.
+ * **공개 진입점**(HTTP /events·/reading/answer 등)의 유일 관문 — 클라이언트가 지정한 learnerRef·type 를 신뢰하지 않는다:
+ * 예약 시스템 로그(community/published/efficacy)나 시스템 전용 이벤트 타입 위조를 거부해 콘텐츠 품질 게이트(규칙 4)
+ * 우회를 막는다. 정당한 발행/기여/스냅샷은 전용 함수(publishContent·submitContribution·recordEfficacy)가
+ * logFor 로 직접 append 한다(이 관문을 거치지 않음).
+ */
 export function ingest(store: Store, input: MakeEventInput): LearningEvent {
+  if (!input.learnerRef || typeof input.learnerRef !== "string") throw new Error("learnerRef required");
+  if (RESERVED_REFS.has(input.learnerRef)) throw new Error("reserved learnerRef: " + input.learnerRef);
+  if (SYSTEM_EVENT_TYPES.has(input.type as string)) throw new Error("system-only event type: " + input.type);
+  // kc 는 문자열 배열이어야 — 문자열 등 비배열이 저장되면 deriveState/computeEfficacy 의 `for...of`·`.some` 이
+  // 영구 크래시(append-only 라 회복 불가·전역 대시보드까지 마비). 진입점에서 차단(규칙 5 무결성).
+  if (input.kc !== undefined && (!Array.isArray(input.kc) || !input.kc.every((k) => typeof k === "string"))) throw new Error("kc must be an array of strings");
   const ev = logFor(store, input.learnerRef).append(makeEvent(input));
   store.sink?.(input.learnerRef, ev);
   return ev;
@@ -234,7 +252,10 @@ export function snapshotOf(d: EfficacyDashboard, tsISO: string): EfficacySnapsho
 export function recordEfficacy(store: Store, lang: string, graph: KCGraph, bank: ContentItem[], tsISO?: string): EfficacySnapshot {
   const dash = efficacyReport(store, lang, graph, bank);
   const snap = snapshotOf(dash, tsISO ?? new Date().toISOString());
-  ingest(store, { learnerRef: EFFICACY_REF, type: "efficacy.snapshot", payload: { lang, snapshot: snap }, consent: "learn+improve" });
+  // 시스템 전용 스냅샷 — 공개 ingest 관문을 거치지 않고 직접 append(EFFICACY_REF·efficacy.snapshot 은 위조 차단 대상).
+  const ev = makeEvent({ learnerRef: EFFICACY_REF, type: "efficacy.snapshot", payload: { lang, snapshot: snap }, consent: "learn+improve" });
+  logFor(store, EFFICACY_REF).append(ev);
+  store.sink?.(EFFICACY_REF, ev);
   return snap;
 }
 
@@ -255,7 +276,7 @@ export function exportLearner(store: Store, learnerRef: string): LearningEvent[]
 
 /** 학습자 데이터 영구 삭제(규칙 6) — 메모리 + 영속 파일 모두. 공용 기여 로그는 보호. */
 export function deleteLearner(store: Store, learnerRef: string): boolean {
-  if (learnerRef === COMMUNITY_REF || learnerRef === PUBLISHED_REF) return false; // 공용 로그(기여·발행)는 개인 삭제 불가
+  if (RESERVED_REFS.has(learnerRef)) return false; // 공용 로그(기여·발행·효능 추이)는 개인 삭제 불가 — efficacy 포함(Loop Velocity 증거 보호)
   const existed = store.logs.delete(learnerRef);
   store.remove?.(learnerRef);
   return existed;
@@ -487,12 +508,12 @@ export function placementStep(bank: PlacementItem[], responses: PlacementResp[],
   const byId = new Map(bank.map((it) => [it.id, it]));
   const obs: ResponseObs[] = [];
   const used = new Set<string>();
-  for (const r of responses) {
-    const it = byId.get(r.itemId);
+  for (const r of Array.isArray(responses) ? responses : []) { // 비배열 responses 방어(요청 크래시 방지)
+    const it = r && byId.get(String(r.itemId));
     if (!it) continue;
     used.add(it.id);
     const accept = [it.answer.value, ...(it.answer.accept ?? [])].map(normP);
-    obs.push({ b: it.b, a: it.a ?? 1, correct: accept.includes(normP(r.choice)) });
+    obs.push({ b: it.b, a: it.a ?? 1, correct: accept.includes(normP(String(r.choice ?? ""))) }); // choice 를 문자열로 강제(숫자 등 방어)
   }
   const est = obs.length ? estimateAbility(obs) : { theta: 0, se: Infinity };
   // 전부 정답/오답 응답은 MLE θ가 발산 → 현실 IRT logit 범위로 클램프(저장·레벨 온전)

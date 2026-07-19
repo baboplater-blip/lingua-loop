@@ -2,7 +2,7 @@
 // "서버를 재시작해도 학습이 유지되는가"를 실제 파일 스토어를 열고 닫으며 증명한다.
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, readFileSync, appendFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { openFileStore, safeName } from "../src/persist.ts";
@@ -86,6 +86,40 @@ test("영속: 안전 파일명은 경로 조작·특수문자를 차단한다", 
   assert.ok(!safeName("a b*c").includes("*"), "와일드카드 제거");
   assert.notEqual(safeName("a/b"), safeName("a_b"), "단사: 서로 다른 ref → 다른 파일");
   assert.ok(safeName("web-abc123").startsWith("web-abc123"), "안전한 ref 는 가독성 유지");
+});
+
+test("영속: 잘린 마지막 줄(전원손실·디스크풀)이 부팅을 막지 않고 자가복구된다", () => {
+  const dir = freshDir();
+  const s1 = openFileStore(dir);
+  ingest(s1, review("torn", "kc.en.vocab.core", 1, true));
+  ingest(s1, review("torn", "kc.en.vocab.core", 2, true));
+  const path = join(dir, safeName("torn"));
+  // 잘린 append 시뮬 — 미완성 JSON 조각을 파일 끝에 붙인다(전원 손실 시나리오).
+  appendFileSync(path, '{"eventId":"evt_x","ts":"2026-07-05T00:03:00.000Z","learnerRef":"torn","ty');
+
+  // 재시작 — 손상 라인이 있어도 throw 없이 유효 이벤트를 복원해야 한다(규칙 13 내구성).
+  let s2: ReturnType<typeof openFileStore>;
+  assert.doesNotThrow(() => { s2 = openFileStore(dir); }, "손상 라인이 부팅을 막지 않는다");
+  assert.equal(exportLearner(s2!, "torn").length, 2, "유효 이벤트 2건 복원(손상 조각만 폐기)");
+  assert.equal(stateOf(s2!, "torn", "en").kcState["kc.en.vocab.core"].reps, 2, "파생 상태 온전");
+
+  // 자가복구: 파일이 정리되어 이후 append 가 재손상되지 않는다.
+  assert.ok(readFileSync(path, "utf8").endsWith("\n"), "복구 후 파일은 개행으로 끝난다(다음 append 안전)");
+  const e = ingest(s2!, review("torn", "kc.en.vocab.core", 3, true));
+  assert.ok(e.eventId, "복구 후 정상 append");
+  const s3 = openFileStore(dir); // 다시 재시작 — 새 append 도 온전
+  assert.equal(exportLearner(s3, "torn").length, 3, "복구 후 append 한 이벤트까지 3건 온전");
+});
+
+test("영속: 전부 손상된 파일도 부팅을 막지 않는다(격리)", () => {
+  const dir = freshDir();
+  const s1 = openFileStore(dir);
+  ingest(s1, review("ok", "kc.en.vocab.core", 1, true));
+  // 유효 이벤트가 하나도 없는(전부 깨진) 파일을 심는다.
+  appendFileSync(join(dir, "garbage.jsonl"), "not json at all\n{also broken");
+  let s2: ReturnType<typeof openFileStore>;
+  assert.doesNotThrow(() => { s2 = openFileStore(dir); }, "전부 깨진 파일이 있어도 부팅");
+  assert.equal(exportLearner(s2!, "ok").length, 1, "정상 학습자 로그는 영향 없이 복원");
 });
 
 // 청소: 남은 아티팩트 제거(다른 게이트 스캔에 영향 없음)

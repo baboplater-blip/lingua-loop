@@ -1,7 +1,7 @@
 // 이벤트 영속 — JSONL 파일 스토어(자가호스팅·제로 의존). 규칙 5(append-only)·6(소유권)·13(자가호스팅).
 // 학습자당 한 파일(<dir>/<safe>.jsonl). 이벤트를 한 줄씩 append — 파일 자체도 append-only(수정/삭제 없음,
 // 학습자 삭제 시에만 파일 통째 제거). 재시작하면 디렉터리를 스캔해 로그를 리플레이 복원한다.
-import { mkdirSync, readdirSync, readFileSync, appendFileSync, rmSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, appendFileSync, writeFileSync, renameSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { EventLog, syncCounterFrom } from "../../core/src/index.ts";
 import type { LearningEvent } from "../../core/src/index.ts";
@@ -28,8 +28,20 @@ export function openFileStore(dir: string): Store {
   const loaded: LearningEvent[] = [];
   for (const f of readdirSync(dir)) {
     if (!f.endsWith(".jsonl")) continue;
-    const log = EventLog.fromJSONL(readFileSync(join(dir, f), "utf8"));
+    const path = join(dir, f);
+    // 불량 라인(전원 손실·디스크 풀·프로세스 강제종료로 잘린 append)에 내성 — throw 대신 건너뛴다.
+    // 하나의 손상 파일이 서버 부팅 전체를 막지 않게(모든 학습자 데이터 접근 상실 방지, 규칙 13).
+    let bad = 0;
+    const log = EventLog.fromJSONL(readFileSync(path, "utf8"), { onError: () => { bad++; } });
     const events = log.all();
+    if (bad > 0) {
+      // 자가복구 — 유효 이벤트만으로 원자적 재기록(tmp→rename). 잘린 꼬리 파편을 제거해
+      // 이후 append 가 미완성 라인에 붙어 재손상되는 것을 막는다. 유효 이벤트는 하나도 잃지 않는다(규칙 5).
+      const tmp = path + ".tmp";
+      writeFileSync(tmp, events.length ? log.toJSONL() + "\n" : "");
+      renameSync(tmp, path);
+      console.warn(`[persist] ${f}: ${events.length}개 이벤트 복원, 손상 라인 ${bad}개 제거(잘린 append 추정)`);
+    }
     if (events.length === 0) continue;
     store.logs.set(events[0].learnerRef, log);
     for (const e of events) loaded.push(e);
