@@ -60,8 +60,8 @@
 
 ## Phase 6 — 운영·그로스 (공개 후, 지속)
 
-- [ ] 효능 연구 정례화(코호트 비교, 사전등록 실험).
-- [ ] 진화 루프 상시 가동(캘리브레이션·최적화 스케줄).
+- [~] 효능 연구 정례화(코호트 비교, 사전등록 실험). — **측정 기구 완료(2026-07-19)**: `core/efficacy-experiment.ts`(사전등록·결정적 배정·집단 간 Cohen's d·95% CI·판정 규율)+서버 `/experiment`+CLI `npm run experiment`. 합성 코호트·E2E 검증. **남은 것**: 실험군 실제 개입 배선(실험 설계자)·실학습자 코호트 축적(커뮤니티).
+- [ ] 진화 루프 상시 가동(캘리브레이션·최적화 스케줄). — 운영자 스케줄러 영역(OPERATING §5 crontab/schtasks).
 - [ ] 신규 언어팩·교수법 스킬 확장, 저자원 언어 지원.
 
 ## 최종 완결 스프린트 — 디버깅 스윕 → v1.0.0 (설계: [docs/design/final-completion.md](docs/design/final-completion.md))

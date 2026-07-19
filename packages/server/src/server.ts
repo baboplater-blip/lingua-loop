@@ -7,7 +7,7 @@ import { promoteVerified } from "../../core/src/index.ts";
 import type { ContentItem, KCNode } from "../../core/src/index.ts";
 import { createTutorFor, createDefaultPronunciationScorer } from "../../adapters/src/index.ts";
 import type { TutorTurn, TutorModel } from "../../adapters/src/index.ts";
-import { ingest, stateOf, reviewQueue, serveItems, serveReading, answerReading, efficacyReport, efficacyHistory, recordEfficacy, exportLearner, deleteLearner, loadGraph, tutorTurn, scorePronunciation, submitContribution, reviewContribution, listContributions, contributionLeaderboard, communityBank, placementStep, publishContent, publishReading, publishedBank, publishedReadings, certificatesFor, exportCertificate, badgesFor, profileFor, type Store, type PlacementItem, type PlacementResp } from "./handlers.ts";
+import { ingest, stateOf, reviewQueue, serveItems, serveReading, answerReading, efficacyReport, efficacyHistory, recordEfficacy, registerExperiment, assignForLearner, experimentResult, exportLearner, deleteLearner, loadGraph, tutorTurn, scorePronunciation, submitContribution, reviewContribution, listContributions, contributionLeaderboard, communityBank, placementStep, publishContent, publishReading, publishedBank, publishedReadings, certificatesFor, exportCertificate, badgesFor, profileFor, type Store, type PlacementItem, type PlacementResp } from "./handlers.ts";
 import type { ReadingPassage, ContentItem as CItem, ReviewVerdict, ReviewFlag } from "../../core/src/index.ts";
 import { openFileStore } from "./persist.ts";
 import { openSqliteStore } from "./sqlite-store.ts";
@@ -158,6 +158,37 @@ export const app = createServer(async (req, res) => {
       // 현재 효능을 append-only 스냅샷으로 기록(운영자·cron). 추이 축적.
       const bank = [...getPack(lang).bank, ...communityBank(store, lang), ...publishedBank(store, lang)];
       return json(res, 201, recordEfficacy(store, lang, getPack(lang).graph, bank));
+    }
+    // ── 사전등록 통제 실험(규칙 17: 관측 Gain Score → 인과 증거) — 운영자·실험 설계자용 ──
+    if (req.method === "POST" && url.pathname === "/experiment") {
+      // 데이터 수집 전에 프로토콜을 append-only 로 고정(p-해킹 방지). primaryOutcome 은 서버가 gainScore 로 고정(참여도 실험 금지).
+      const body = await readBody(req);
+      try {
+        const out = registerExperiment(store, {
+          experimentId: String(body.experimentId ?? ""),
+          hypothesis: String(body.hypothesis ?? ""),
+          treatmentShare: body.treatmentShare as number | undefined,
+          minSamplePerArm: body.minSamplePerArm as number | undefined,
+          guardrail: body.guardrail as string | undefined,
+        });
+        return json(res, out.created ? 201 : 200, out);
+      } catch (e) {
+        return json(res, 400, { error: (e as Error).message });
+      }
+    }
+    if (req.method === "GET" && url.pathname === "/experiment/assign") {
+      // 결정적 배정(앱이 어떤 팔의 개입을 줄지 결정). 등록 없으면 404.
+      const exp = url.searchParams.get("exp") ?? "";
+      const variant = assignForLearner(store, exp, learner);
+      if (variant === null) return json(res, 404, { error: "experiment not registered: " + exp });
+      return json(res, 200, { experimentId: exp, learnerRef: learner, variant });
+    }
+    if (req.method === "GET" && url.pathname === "/experiment/result") {
+      // 통제군/실험군 Gain 집단 간 비교(인과 주의 병기·규칙 17). 등록 없으면 404.
+      const exp = url.searchParams.get("exp") ?? "";
+      const result = experimentResult(store, exp);
+      if (result === null) return json(res, 404, { error: "experiment not registered: " + exp });
+      return json(res, 200, result);
     }
     if (req.method === "GET" && url.pathname === "/certificates") return json(res, 200, certificatesFor(store, learner, lang, getPack(lang).graph));
     if (req.method === "GET" && url.pathname === "/badges") return json(res, 200, badgesFor(store, learner, lang, getPack(lang).graph)); // 배지(학습 인증+기여+검토, 증거 기반)

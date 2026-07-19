@@ -83,13 +83,21 @@ function cohensD(pre: number[], post: number[]): number | null {
   return (mPost - mPre) / pooledSd;
 }
 
+/** 한 (학습자,스킬)의 사전(첫 배치)·사후(최근 재평가) θ 쌍. 재평가(assessment.item 2회 이상) 있는 것만. */
+export interface GainPair {
+  learnerRef: string;
+  skill: string;
+  pre: number;
+  post: number;
+}
+
 /**
- * Gain Score 산출 — assessment.item(θ 추정) 이벤트에서 학습자·스킬별 첫(사전)↔최신(사후) θ를 뽑아 상승·효과크기 계산.
+ * assessment.item(θ 추정) 이벤트에서 (학습자,스킬)별 첫(사전)↔최신(사후) θ 쌍을 뽑는다.
  * 사전·사후가 모두 있으려면 같은 (학습자,스킬)에 assessment.item 이 **2회 이상**(재평가) 있어야 한다.
- * 결정적·순수(규칙 5). 인과 아님(규칙 17) — 관측 효과크기일 뿐.
+ * 결정적·순수(규칙 5). Gain Score(단일 코호트)와 통제 실험(집단 간 비교)의 공통 추출기.
  */
-export function computeGainScore(events: readonly LearningEvent[]): GainScore {
-  // (learner|skill) → θ 시퀀스(ts 순)
+export function gainPairs(events: readonly LearningEvent[]): GainPair[] {
+  // (learner|skill) → θ 시퀀스(ts 순). 스킬에는 "|"가 없으므로 마지막 "|" 기준으로 안전 분리.
   const seq = new Map<string, { ts: number; theta: number }[]>();
   for (const ev of events) {
     if (ev.type !== "assessment.item") continue;
@@ -102,20 +110,30 @@ export function computeGainScore(events: readonly LearningEvent[]): GainScore {
     arr.push({ ts: Number.isNaN(ts) ? arr.length : ts, theta });
     seq.set(key, arr);
   }
+  const out: GainPair[] = [];
+  for (const [key, arrRaw] of seq) {
+    if (arrRaw.length < 2) continue; // 사전·사후(재평가) 둘 다 필요
+    const arr = [...arrRaw].sort((a, b) => a.ts - b.ts);
+    const cut = key.lastIndexOf("|");
+    out.push({ learnerRef: key.slice(0, cut), skill: key.slice(cut + 1), pre: arr[0].theta, post: arr[arr.length - 1].theta });
+  }
+  return out;
+}
+
+/**
+ * Gain Score 산출 — (학습자,스킬)별 사전↔사후 θ 상승·효과크기(Cohen's d).
+ * 결정적·순수(규칙 5). 인과 아님(규칙 17) — 관측 효과크기일 뿐.
+ */
+export function computeGainScore(events: readonly LearningEvent[]): GainScore {
   const bySkillPre = new Map<string, number[]>();
   const bySkillPost = new Map<string, number[]>();
   const allPre: number[] = [];
   const allPost: number[] = [];
-  for (const [key, arrRaw] of seq) {
-    if (arrRaw.length < 2) continue; // 사전·사후(재평가) 둘 다 필요
-    const arr = [...arrRaw].sort((a, b) => a.ts - b.ts);
-    const skill = key.split("|")[1];
-    const pre = arr[0].theta;
-    const post = arr[arr.length - 1].theta;
-    (bySkillPre.get(skill) ?? bySkillPre.set(skill, []).get(skill)!).push(pre);
-    (bySkillPost.get(skill) ?? bySkillPost.set(skill, []).get(skill)!).push(post);
-    allPre.push(pre);
-    allPost.push(post);
+  for (const p of gainPairs(events)) {
+    (bySkillPre.get(p.skill) ?? bySkillPre.set(p.skill, []).get(p.skill)!).push(p.pre);
+    (bySkillPost.get(p.skill) ?? bySkillPost.set(p.skill, []).get(p.skill)!).push(p.post);
+    allPre.push(p.pre);
+    allPost.push(p.post);
   }
   const bySkill: GainScore["bySkill"] = {};
   for (const skill of bySkillPre.keys()) {

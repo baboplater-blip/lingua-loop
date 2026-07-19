@@ -61,6 +61,7 @@ export type EventType =
   | "content.published"
   | "reading.published"
   | "efficacy.snapshot"
+  | "experiment.registered"
   | "session.start"
   | "session.end";
 

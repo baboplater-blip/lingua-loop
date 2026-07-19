@@ -172,6 +172,28 @@ LANG_PACK=es npm run efficacy    # 언어별
 - **추이(Loop Velocity)**: `evolve:publish`가 사이클마다 효능 **스냅샷**을 append-only로 기록합니다. `GET /efficacy/history?lang=`(또는 `POST /efficacy/snapshot`로 수동 기록)로 첫↔최신 델타(정확도↑·TTM↓·숙달 KC↑)를 봅니다. 웹 대시보드·`npm run efficacy`에도 추이가 표시됩니다.
 - ⚠️ **세션수·스트릭은 노출하지 않습니다**(북스타 아님, rules.md C 다크패턴 금지).
 
+### 사전등록 통제 실험 (관측 → 인과) — `npm run experiment`
+
+Gain Score의 d는 *관측값*입니다(성숙·평균회귀·자기선택이 섞임). "이 개선이 **정말** 학습을 올렸다"를 주장하려면 **데이터를 보기 전에** 프로토콜을 고정하고(사전등록), 학습자를 통제군/실험군에 **무작위·결정적**으로 배정한 뒤, 두 집단의 Gain을 비교해야 합니다(규칙 17).
+
+```bash
+# 1) 데이터 수집 전에 사전등록 — 1차 결과는 학습성과(gainScore)로 고정(참여도 실험 금지·규칙 1)
+curl -X POST localhost:8787/experiment -H 'content-type: application/json' \
+  -d '{"experimentId":"exp-cloze-2026q3","hypothesis":"확장 클로즈가 reading θ 상승을 키운다","treatmentShare":0.5,"minSamplePerArm":30}'
+
+# 2) 앱이 학습자마다 배정 팔을 조회해 그 팔의 개입(다른 콘텐츠/스케줄)을 제공 — 배정은 결정적(재현 가능)
+curl 'localhost:8787/experiment/assign?exp=exp-cloze-2026q3&learner=<ref>'   # → {"variant":"treatment"|"control"}
+
+# 3) 충분히 쌓인 뒤 결과 — 집단 간 효과크기·95% CI·판정(운영자·실험 설계자용)
+curl 'localhost:8787/experiment/result?exp=exp-cloze-2026q3'
+npm run experiment exp-cloze-2026q3        # CLI 요약(한글)
+```
+
+- **판정 규율**: **사전 확정 표본(`minSamplePerArm`)을 두 팔 모두 채웠고** 평균차의 95% CI가 0을 배제할 때만 방향(`treatment_better`/`control_better`)을 주장합니다. 그 외에는 `no_difference`·`underpowered` — 소표본에서 섣부른 인과 결론을 막습니다.
+- **가드레일(규칙 1)**: 1차 결과는 학습성과만. 참여도(세션·스트릭)를 결과로 두는 실험은 등록 자체가 거부됩니다. 실험군 개입이 리텐션을 떨어뜨리면(가드레일 위반) 채택하지 마세요.
+- **사전등록 무효 감지**: 등록 시각이 학습 데이터보다 늦으면 결과에 `retroactive: true`가 붙습니다(사후 분석일 뿐 — 인과 주장 불가).
+- ⚠️ 실험군에 **실제로 다른 개입을 배선**하는 것(다른 생성기·스케줄 파라미터·콘텐츠)은 실험 설계자의 몫입니다. 이 프레임워크는 사전등록·배정·측정을 제공하는 **측정 기구**입니다. 95% CI는 정규 근사이므로 소표본에서는 근사임에 유의하세요.
+
 ### 진화·데이터·건강
 
 - **진화 로그**: `자동 발행` 줄. 며칠째 계속 큰 수면 격차가 잘 안 좁혀지는 것 → 시드/생성기 점검. 계속 `⏳`(0) → 정상(포화).

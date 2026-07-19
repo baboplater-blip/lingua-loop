@@ -29,7 +29,8 @@
     "dataset:export": "node scripts/export-dataset.mjs",
     "evolve:publish": "node scripts/evolve-publish.mjs",
     "evolve:all": "node scripts/evolve-all.mjs",
-    "efficacy": "node scripts/efficacy.mjs"
+    "efficacy": "node scripts/efficacy.mjs",
+    "experiment": "node scripts/experiment.mjs"
   },
   "engines": {
     "node": ">=24"

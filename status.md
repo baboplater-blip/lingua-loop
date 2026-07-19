@@ -5,7 +5,11 @@
 
 ## 한 줄 요약
 
-**🚀 v1.0.0 공개 배포 완료 (2026-07-19, 오너 '배포해' 승인·규칙 18).** M1~M5 로드맵 완결 후 배포 직전 안전검사(유출 스캔 0·워킹트리 클린·게이트 **338 pass/57파일** 그린) → `git push origin main`(15커밋, `0f5b0b2..f0b9aff`) → annotated 태그 **v1.0.0** push → `gh release create v1.0.0`(한/영 노트) → GitHub Actions 게이트 CI **success**. 검증: 원격 0 ahead·릴리스 공개(draft/prerelease 아님)·<https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0>. CHANGELOG `[1.0.0]` 릴리스 확정, RELEASE_NOTES 배포됨 표기. **다음: Phase 6 운영·효능 연구(상시 진화 루프·코호트 비교).**
+**🔬 Phase 6 착수: 사전등록 통제 실험(관측 Gain Score → 인과 증거).** M3 Gain Score는 *관측값*이라 인과 증거가 아님 — 규칙 17이 요구하는 통제 실험 파이프라인을 배선. **코어** `efficacy-experiment.ts`: `PreRegistration`(1차 결과=학습성과 강제·참여도 실험 거부)·`assignVariant`(결정적·무상태·균형 배정, FNV-1a+murmur3)·`compareCohorts`(집단 간 Cohen's d·Welch 95% CI·`powered`·`retroactive` → **powered이고 CI가 0 배제할 때만** treatment/control_better). **서버** `experiment.registered` 시스템 이벤트+`experiment` 예약 ref(위조 차단)·`registerExperiment`(멱등)·`experimentResult`+`POST /experiment`·`GET /experiment/assign|result`. **CLI** `npm run experiment <id>`(인과 주의 병기). 코어 합성 코호트+서버 E2E(팔별 gain→treatment_better 검출)+라이브 HTTP **15/15**. 게이트 **338→350 pass(59파일)**. ⚠️실험군 실제 개입 배선은 실험 설계자 몫(측정 기구). **다음: 코호트 효능 연구 정례화·상시 진화 루프.**
+
+<details><summary>이전 요약 — 🚀 v1.0.0 공개 배포 완료</summary>
+
+**🚀 v1.0.0 공개 배포 완료 (2026-07-19, 오너 '배포해' 승인·규칙 18).** M1~M5 로드맵 완결 후 배포 직전 안전검사(유출 스캔 0·워킹트리 클린·게이트 **338 pass/57파일** 그린) → `git push origin main`(15커밋, `0f5b0b2..f0b9aff`) → annotated 태그 **v1.0.0** push → `gh release create v1.0.0`(한/영 노트) → GitHub Actions 게이트 CI **success**. 검증: 원격 0 ahead·릴리스 공개(draft/prerelease 아님)·<https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0>. CHANGELOG `[1.0.0]` 릴리스 확정, RELEASE_NOTES 배포됨 표기. 다음: Phase 6 운영·효능 연구(상시 진화 루프·코호트 비교).
 
 <details><summary>이전 요약 — 🏁 M4 운영 정례화 + M5 v1.0.0 컷 준비</summary>
 
@@ -55,8 +59,12 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **🔬 Phase 6: 사전등록 통제 실험(관측 Gain → 인과, 규칙 17·1·5)**: 🟢 `core/efficacy-experiment.ts` — `PreRegistration`+`validatePreRegistration`(1차 결과=`gainScore` 강제, 참여도 실험 거부), `assignVariant`(FNV-1a+murmur3 finalizer=결정적·무상태·균형 배정 ~50%, 실험 id 혼합으로 실험별 독립), `compareCohorts`(집단 간 평균차·pooled-SD Cohen's d·Welch 95% CI·`powered`[사전 확정 표본]·`retroactive`[등록<데이터면 사전등록 무효] → **powered이고 CI가 0 배제할 때만** treatment/control_better, 그 외 no_difference/underpowered). `efficacy.gainPairs` 추출 분리(computeGainScore 동작 보존). 서버 `experiment.registered` 시스템 이벤트+`experiment` 예약 ref(공개 ingest 위조 차단)·`registerExperiment`(멱등 append-only)·`assignForLearner`·`experimentResult`+`POST /experiment`·`GET /experiment/assign|result`. CLI `npm run experiment <id>`(인과 주의 병기). `core/efficacy-experiment.test`(합성 코호트 4판정·배정 균형)·`server/experiment.test`(멱등·위조 차단·E2E treatment_better). 라이브 HTTP 15/15. OPERATING §6·`ab-experiment-framework` 스킬 구현 SSOT 반영. 게이트 **338→350 pass(59파일)**. ⚠️실험군 실제 개입 배선은 실험 설계자 몫(측정 기구·합성으로 파이프라인 검증)
+- **🚀 v1.0.0 공개 배포(규칙 18)**: 🟢 오너 '배포해' 승인. 안전검사(유출 0·게이트 338)→push 15커밋→태그 v1.0.0→`gh release`(한/영)→CI success. 원격 0 ahead·릴리스 공개. CHANGELOG `[1.0.0]` 릴리스 확정·RELEASE_NOTES 배포됨. <https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0>
 - **🏁 M4 운영 정례화 + M5 v1.0.0 컷 준비(규칙 18)**: 🟢 **M4** 무인 폐루프 라이브 리허설(`evolve:publish` 1회 문항13·지문7 발행·2회 재발행 0 멱등·사이클마다 스냅샷) + 롤백 리허설 4/4(발행 문항에 나쁜 학습효과 25응답→`publishedBank` 자동 제외, 발행 이벤트는 append-only 보존). OPERATING §7 리허설 결과 기록. **M5** CHANGELOG 재구성(`[0.1.0] 릴리스됨`+`[1.0.0] 승인 대기`: Security·Added·Changed·Fixed), `package.json` 1.0.0(코어 API 변경=estimateAbility se nullable·EfficacySnapshot gain 필드=semver 메이저), `docs/RELEASE_NOTES_v1.0.0.md` 한/영, `npm run release -- 1.0.0` dry-run 그린(게이트·카드8·라이선스·시크릿·self-host). 게이트 338 pass. **태그·push·공개는 '배포해' 승인 시에만** — 준비만 완료. v1.0.0 로드맵 M1~M5 완결
 - **📈 M3 Gain Score 효능 파이프라인(규칙 1·17)**: 🟢 `core/efficacy.computeGainScore` — `assessment.item` θ에서 학습자·스킬별 첫(사전/배치)↔최신(사후/재평가) θ → 평균 상승·관측 Cohen's d(pooled SD). 재평가(2회↑) 없으면 표본 0(단일 배치로 가짜 개선 방지). `EfficacyReport.gain`(computeEfficacy 통합)·`EfficacySnapshot.gainEffectSize/gainN`·`trendSummary` 델타. `/efficacy`·ops "Gain Score" 카드·CLI 노출, 전부 **인과 주의 병기**(관측값·인과는 A/B·통제군 필요·규칙 17·n 표시). 합성 코호트 검증(학습군 d≥0.4·통제군 ~0·학습>통제). `core/efficacy.test`·`ops.test`. 라이브 스모크 8/8. OPERATING.md §6 채우는 법(배치 재평가)·인과 주의. 게이트 338 pass. 실학습자 효능은 커뮤니티 영역(goal §5-5)
 - **📚 M2 백로그 소진 — good first issue 3건(규칙 4·11)**: 🟢 **#2 상위 문법 정직 태깅**: `upperGrammarKcs(lang,text,level)`가 B1/B2에서 본문 마커 있는 상위 문법만 크레딧(zh 了→aspect_le·得 독립토큰만/ja て형·가능형/ar 과거/hi 후치사, sw 미태깅). 근거 마커 검증 테스트. **#3 주제 다양화**: `topics(kc,level)`+`generate(spec.topic)`+엔진 `generateGradedReadings(...,{includeTopics})` 옵트인(기본 4등급 개수 불변→기존 테스트 안전). zh A2 车站·B1 旅行 대체 주제(고유 id·클릭사전·마지막 주관식 산출·멱등, B1 trip 玩得→de_complement 근거). **#1 가이드**: `docs/ADD_LANGUAGE.md`(최소 3파일 복붙 예시·검증 루프·규칙 체크). CONTRIBUTING·README 링크. 게이트 335 pass. 이슈 #2·#3 close, #1 help wanted 유지

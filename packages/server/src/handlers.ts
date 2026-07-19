@@ -1,7 +1,7 @@
 // 최소 데이터 백엔드 핸들러(순수 함수). 코어 위의 얇은 배선.
 // 규칙 4(verified 만 서빙)·5(append-only)·6(소유권) 집행.
-import { EventLog, makeEvent, deriveState, nextKCs, makeGraph, selectGradedReading, makeSubmission, evaluateCommunity, servableCommunityItems, rankContributions, rankByEffect, itemEffects, isDemoted, checkItem, validateReading, scoreComprehension, redactReadingAnswers, computeEfficacy, trendSummary, estimateAbility, pickNextItem, cefrFromAbility, deriveCertifications, buildCertificate, deriveBadges, authoredStats, buildProfile } from "../../core/src/index.ts";
-import type { CertificationReport, MasteryCertificate, BadgeReport, ProfileCard, EfficacyReport, EfficacySnapshot, TrendSummary } from "../../core/src/index.ts";
+import { EventLog, makeEvent, deriveState, nextKCs, makeGraph, selectGradedReading, makeSubmission, evaluateCommunity, servableCommunityItems, rankContributions, rankByEffect, itemEffects, isDemoted, checkItem, validateReading, scoreComprehension, redactReadingAnswers, computeEfficacy, trendSummary, estimateAbility, pickNextItem, cefrFromAbility, deriveCertifications, buildCertificate, deriveBadges, authoredStats, buildProfile, validatePreRegistration, assignVariant, compareCohorts } from "../../core/src/index.ts";
+import type { CertificationReport, MasteryCertificate, BadgeReport, ProfileCard, EfficacyReport, EfficacySnapshot, TrendSummary, PreRegistration, ExperimentResult } from "../../core/src/index.ts";
 import type { LearningEvent, LearnerState, ContentItem, KCNode, KCGraph, Grade, ReadingPassage, ContributionState, ReviewVerdict, ReviewFlag, Response, RankedContribution, ItemEffect, ResponseObs } from "../../core/src/index.ts";
 import type { MakeEventInput } from "../../core/src/events.ts";
 import type { TutorModel, TutorTurn, TutorResponse, PronunciationScorer, PronunciationResult } from "../../adapters/src/index.ts";
@@ -22,11 +22,11 @@ export function newStore(): Store {
   return { logs: new Map() };
 }
 
-// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷). 공개 진입점으로 위조 쓰기 금지.
-// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
-const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy"]);
-// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 4(게이트) 우회.
-const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "efficacy.snapshot"]);
+// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷·실험 등록). 공개 진입점으로 위조 쓰기 금지.
+// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF/EXPERIMENT_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
+const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy", "experiment"]);
+// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷/실험등록 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 4(게이트)·규칙 17(사전등록) 우회.
+const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "efficacy.snapshot", "experiment.registered"]);
 
 function logFor(store: Store, learnerRef: string): EventLog {
   let log = store.logs.get(learnerRef);
@@ -185,12 +185,25 @@ export function answerReading(store: Store, lang: string, sourcePassages: Readin
 /** 효능 스냅샷 로그 ref(공용) — 학습자 데이터 아님. 집계에서 제외. */
 export const EFFICACY_REF = "efficacy";
 
-/** 모든 학습자 이벤트(공용 로그=기여·발행·효능스냅샷 제외). 효능 집계용. */
+/** 실험 등록 로그 ref(공용) — 사전등록 프로토콜만. 학습자 데이터 아님·집계에서 제외. */
+export const EXPERIMENT_REF = "experiment";
+
+/** 모든 학습자 이벤트(공용 로그=기여·발행·효능스냅샷·실험등록 제외). 효능 집계용. */
 export function allLearnerEvents(store: Store): LearningEvent[] {
   const out: LearningEvent[] = [];
   for (const [ref, log] of store.logs) {
-    if (ref === COMMUNITY_REF || ref === PUBLISHED_REF || ref === EFFICACY_REF) continue;
+    if (ref === COMMUNITY_REF || ref === PUBLISHED_REF || ref === EFFICACY_REF || ref === EXPERIMENT_REF) continue;
     out.push(...log.all());
+  }
+  return out;
+}
+
+/** 개별 학습자 ref 목록(공용 로그 제외) — 실험 코호트 배정 대상. */
+function learnerRefs(store: Store): string[] {
+  const out: string[] = [];
+  for (const ref of store.logs.keys()) {
+    if (ref === COMMUNITY_REF || ref === PUBLISHED_REF || ref === EFFICACY_REF || ref === EXPERIMENT_REF) continue;
+    out.push(ref);
   }
   return out;
 }
@@ -268,6 +281,84 @@ export function efficacyHistory(store: Store, lang: string): { snapshots: Effica
     ? [...log.all()].filter((e) => e.payload["lang"] === lang).map((e) => e.payload["snapshot"] as EfficacySnapshot)
     : [];
   return { snapshots, trend: trendSummary(snapshots) };
+}
+
+// ── 사전등록 통제 실험(규칙 17: 관측 Gain Score → 인과 증거) ──
+
+export interface RegisterExperimentInput {
+  experimentId: string;
+  hypothesis: string;
+  treatmentShare?: number; // 기본 0.5
+  minSamplePerArm?: number; // 기본 12
+  guardrail?: string;
+}
+
+/**
+ * 실험 사전등록 — **데이터 수집 전에** 프로토콜을 append-only 로 고정한다(규칙 17, p-해킹 방지).
+ * primaryOutcome 은 서버가 gainScore 로 못박아(참여도 실험 금지·규칙 1) validatePreRegistration 로 검사.
+ * experimentId 로 멱등 — 이미 등록됐으면 기존 등록을 그대로 반환(등록은 이력이므로 덮어쓰지 않음).
+ * 시스템 전용 이벤트/ref 라 공개 ingest 로는 위조 불가(EXPERIMENT_REF·experiment.registered).
+ */
+export function registerExperiment(store: Store, input: RegisterExperimentInput, tsISO?: string): { registration: PreRegistration; created: boolean } {
+  const existing = getRegistration(store, input.experimentId);
+  if (existing) return { registration: existing, created: false };
+  const reg: PreRegistration = {
+    experimentId: input.experimentId,
+    hypothesis: input.hypothesis ?? "",
+    primaryOutcome: "gainScore",
+    treatmentShare: input.treatmentShare ?? 0.5,
+    minSamplePerArm: input.minSamplePerArm ?? 12,
+    guardrail: input.guardrail ?? "통제군 대비 리텐션 비열등(규칙 1)",
+    registeredTs: tsISO ?? new Date().toISOString(),
+  };
+  const v = validatePreRegistration(reg);
+  if (!v.ok) throw new Error("invalid pre-registration: " + v.reason);
+  const ev = makeEvent({ learnerRef: EXPERIMENT_REF, type: "experiment.registered", payload: { registration: reg }, consent: "learn+improve" });
+  logFor(store, EXPERIMENT_REF).append(ev);
+  store.sink?.(EXPERIMENT_REF, ev);
+  return { registration: reg, created: true };
+}
+
+/** 사전등록 조회(가장 최근 experimentId 매칭). 없으면 null. */
+export function getRegistration(store: Store, experimentId: string): PreRegistration | null {
+  const log = store.logs.get(EXPERIMENT_REF);
+  if (!log) return null;
+  let found: PreRegistration | null = null;
+  for (const e of log.all()) {
+    const reg = e.payload["registration"] as PreRegistration | undefined;
+    if (reg && reg.experimentId === experimentId) found = reg; // 마지막(가장 최근) 우선 — 실질 멱등이라 하나뿐
+  }
+  return found;
+}
+
+/** 학습자의 실험 배정(결정적). 등록이 없으면 null. 앱이 어떤 팔의 개입을 줄지 결정할 때 사용. */
+export function assignForLearner(store: Store, experimentId: string, learnerRef: string): "control" | "treatment" | null {
+  const reg = getRegistration(store, experimentId);
+  if (!reg) return null;
+  return assignVariant(experimentId, learnerRef, reg.treatmentShare);
+}
+
+/**
+ * 실험 결과 — 등록된 실험의 통제군/실험군 Gain 을 집단 간 비교한다.
+ * 학습자를 결정적으로 배정(assignVariant)해 각자의 이벤트를 두 팔로 나누고 compareCohorts 로 판정.
+ * earliestDataTs(배정 학습자 이벤트 최소 ts)가 등록보다 앞서면 retroactive 로 표시(사전등록 무효 경고). 없으면 null.
+ */
+export function experimentResult(store: Store, experimentId: string): ExperimentResult | null {
+  const reg = getRegistration(store, experimentId);
+  if (!reg) return null;
+  const controlEvents: LearningEvent[] = [];
+  const treatmentEvents: LearningEvent[] = [];
+  let earliestDataTs: number | undefined;
+  for (const ref of learnerRefs(store)) {
+    const arm = assignVariant(experimentId, ref, reg.treatmentShare);
+    const evs = store.logs.get(ref)!.all();
+    (arm === "treatment" ? treatmentEvents : controlEvents).push(...evs);
+    for (const e of evs) {
+      const t = Date.parse(e.ts);
+      if (!Number.isNaN(t) && (earliestDataTs === undefined || t < earliestDataTs)) earliestDataTs = t;
+    }
+  }
+  return compareCohorts(reg, controlEvents, treatmentEvents, { earliestDataTs });
 }
 
 /** 학습자 데이터 내보내기(규칙 6 — 소유권). */
