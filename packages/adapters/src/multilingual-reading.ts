@@ -186,7 +186,6 @@ function shortKc(kc: string): string {
 }
 
 // 생성 지문이 확실히 담는 기초 문법 KC(언어별 A2 현재/기본문장) — 모든 등급 템플릿이 현재·기본문장을 포함하므로 정직하게 크레딧(규칙 4).
-// 상위 문법(了·과거 등)은 템플릿마다 유무가 달라 여기서 붙이지 않는다(시드 지문은 등급별로 이미 태깅됨).
 const GRAMMAR_KC: Record<string, string> = {
   zh: "kc.zh.basic_sentence",
   ar: "kc.ar.present_tense",
@@ -194,6 +193,36 @@ const GRAMMAR_KC: Record<string, string> = {
   ja: "kc.ja.masu_form",
   hi: "kc.hi.present_habitual",
 };
+
+// 상위 문법(B1/B2) — **본문에 실제 마커가 있을 때만** 태깅한다(규칙 4: 없는 문법 태깅 금지). 마커는 검증 가능한 표층 근거.
+//   zh 了(완료상)·得(정도보어) · ja て형·가능형(できる/られる) · ar 과거(غيّر) · hi 후치사(में/से/को/के/पर).
+//   sw 는 B1/B2 템플릿에 -li- 과거가 실제로 없어 상위 문법을 붙이지 않는다(정직).
+const UPPER_GRAMMAR: Record<string, { kc: string; marker: RegExp }[]> = {
+  zh: [
+    { kc: "kc.zh.aspect_le", marker: /了/ },
+    // 得(정도보어)는 **독립 토큰**(V 得 描述)일 때만 — 觉得·记得 같은 어휘 내부 得 오탐 방지(규칙 4).
+    { kc: "kc.zh.de_complement", marker: /(^|\s)得(\s|$)/ },
+  ],
+  ja: [
+    { kc: "kc.ja.te_form", marker: /て[\s、。]/ },
+    { kc: "kc.ja.potential", marker: /でき|られ/ },
+  ],
+  ar: [
+    { kc: "kc.ar.past_tense", marker: /غيّر/ },
+  ],
+  hi: [
+    { kc: "kc.hi.postpositions", marker: /(^|\s)(में|से|को|के|पर)(\s|$)/ },
+  ],
+};
+
+/**
+ * 본문에서 실제로 근거가 있는 상위 문법 KC를 뽑는다. **B1/B2 등급에서만** 적용(이슈 스코프).
+ * 마커가 본문에 있는 KC만 반환 → 읽기 채점이 상급 문법 숙달에도 정직하게 기여(규칙 4).
+ */
+export function upperGrammarKcs(lang: string, text: string, level: string): string[] {
+  if (level !== "B1" && level !== "B2") return [];
+  return (UPPER_GRAMMAR[lang] ?? []).filter((r) => r.marker.test(text)).map((r) => r.kc);
+}
 
 /** 지원 언어인지(지문 템플릿 보유). */
 export function supportsMultilingualReading(lang: string): boolean {
@@ -230,10 +259,12 @@ export class MultilingualReadingGenerator implements ReadingGenerator {
     const tpl = byLevel[level];
     if (!tpl) return null;
     const grammarKc = GRAMMAR_KC[this.lang];
+    const upper = upperGrammarKcs(this.lang, tpl.text, level); // B1/B2에서 본문 근거 있는 상위 문법(규칙 4)
+    const kcs = [spec.kc, ...(grammarKc ? [grammarKc] : []), ...upper]; // 어휘 + 기초 문법 + (있으면) 상위 문법
     return {
       id: `gen.${spec.lang}.read.${level.toLowerCase()}.${shortKc(spec.kc)}`,
       level: tpl.level as ReadingPassage["level"],
-      kc: grammarKc ? [spec.kc, grammarKc] : [spec.kc], // 어휘 + 기초 문법 → 읽기가 문법 숙달에도 크레딧
+      kc: [...new Set(kcs)], // 중복 제거 → 읽기가 어휘·기초·상위 문법 숙달에 정직하게 크레딧
       title: tpl.title,
       text: tpl.text,
       glossary: { ...tpl.glossary },
