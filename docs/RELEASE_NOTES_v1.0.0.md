@@ -1,6 +1,6 @@
 # LinguaLoop v1.0.0 — 릴리스 노트
 
-> ⚠️ **배포 승인 대기.** 이 노트는 `gh release create v1.0.0`에 사용할 초안입니다. 태그·push·공개는 오너의 '배포해' 명시 승인 시에만 진행됩니다(규칙 18).
+> ✅ **2026-07-19 배포됨.** 오너 '배포해' 승인으로 태그 `v1.0.0`·GitHub 릴리스 공개 완료(규칙 18): <https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0>
 
 ---
 

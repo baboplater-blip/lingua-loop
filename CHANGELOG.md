@@ -3,9 +3,9 @@
 이 프로젝트는 [Keep a Changelog](https://keepachangelog.com/) 형식과 [Semantic Versioning](https://semver.org/)을 따릅니다.
 스키마 변경은 마이그레이션 + 하위호환을 동반합니다(규칙 16). 상세 개발 로그는 [`status.md`](status.md).
 
-## [1.0.0] - Unreleased (배포 승인 대기)
+## [1.0.0] - 2026-07-19
 
-0.1.0 공개 이후 **적대적 디버깅 스윕 + 효능 파이프라인**으로 안정화한 첫 메이저. 태그·push·공개는 오너의 '배포해' 명시 승인 시(규칙 18). 코어 API 일부 변경(아래 Changed)이 있어 semver 상 메이저.
+0.1.0 공개 이후 **적대적 디버깅 스윕 + 효능 파이프라인**으로 안정화한 첫 메이저. 오너 '배포해' 승인으로 <https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0> 에 공개(규칙 18). 코어 API 일부 변경(아래 Changed)이 있어 semver 상 메이저.
 
 ### Security
 

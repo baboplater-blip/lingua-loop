@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**🚀 v1.0.0 공개 배포 완료 (2026-07-19, 오너 '배포해' 승인·규칙 18).** M1~M5 로드맵 완결 후 배포 직전 안전검사(유출 스캔 0·워킹트리 클린·게이트 **338 pass/57파일** 그린) → `git push origin main`(15커밋, `0f5b0b2..f0b9aff`) → annotated 태그 **v1.0.0** push → `gh release create v1.0.0`(한/영 노트) → GitHub Actions 게이트 CI **success**. 검증: 원격 0 ahead·릴리스 공개(draft/prerelease 아님)·<https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0>. CHANGELOG `[1.0.0]` 릴리스 확정, RELEASE_NOTES 배포됨 표기. **다음: Phase 6 운영·효능 연구(상시 진화 루프·코호트 비교).**
+
+<details><summary>이전 요약 — 🏁 M4 운영 정례화 + M5 v1.0.0 컷 준비</summary>
+
 **🏁 M4 운영 정례화 + M5 v1.0.0 컷 준비 — v1.0.0 로드맵 M1~M5 전부 완결.** **M4**: 무인 폐루프 라이브 리허설(`evolve:publish` 1회 문항13·지문7, 2회 멱등 0, 사이클마다 스냅샷) + 롤백 리허설(강등된 발행 콘텐츠 자동 미서빙·발행 이력 보존) 4/4·OPERATING §7 기록. **M5**: CHANGELOG 재구성(`[0.1.0] 릴리스됨`+`[1.0.0] 승인 대기`), version 0.1.0→**1.0.0**(코어 API 변경=semver 메이저), `docs/RELEASE_NOTES_v1.0.0.md` 한/영, `npm run release -- 1.0.0` **dry-run 그린**. 게이트 **338 pass(57파일)**. ⚠️**태그·push·공개는 '배포해' 승인 시에만**(규칙 18) — 준비만 완료. 다음: 오너 배포 승인 → Phase 6 운영·효능 연구.
 
 <details><summary>이전 요약 — 📈 M3 Gain Score 효능 파이프라인</summary>
@@ -34,6 +38,8 @@
 <details><summary>이전 요약 — 생성기 주관식 산출 + 효능 시계열 추이(2건 일괄)</summary>
 
 **생성기 주관식 산출 + 효능 시계열 추이(2건 일괄).** ①읽기 생성기(다국어·en·es)가 복수 문항 등급에서 **마지막 문항을 주관식(산출)**으로 변환(`withProductionQuestion` 공용 헬퍼) — 인식(객관식)+산출(주관식) 균형을 무인 콘텐츠에 편입, 생성물도 서버 채점. ②**효능 추이(Loop Velocity)** — `computeEfficacy` 스냅샷을 append-only로 누적: 코어 `EfficacySnapshot`·`trendSummary`(첫↔최신 델타, 정확도↑/TTM↓/숙달KC↑), 서버 `recordEfficacy`(EFFICACY_REF 로그, 집계서 제외)·`efficacyHistory`, `GET /efficacy/history`·`POST /efficacy/snapshot`, **진화 잡이 사이클마다 스냅샷 기록**, ops 대시보드·CLI에 추이 표시. **게이트 그린 309 테스트(57파일)** + 라이브 HTTP 8/8·진화 잡 2회 스냅샷 축적. 다음: 공개 배포(승인 대기)·추이 시각화 심화.
+
+</details>
 
 </details>
 
