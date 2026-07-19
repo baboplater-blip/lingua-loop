@@ -139,6 +139,64 @@
         "kind": "generated",
         "license": "CC-BY-4.0"
       }
+    },
+    {
+      "id": "en.read.boredom",
+      "level": "C1",
+      "kc": [
+        "kc.en.vocab.core",
+        "kc.en.inversion",
+        "kc.en.cleft"
+      ],
+      "title": "In Praise of Boredom",
+      "text": "We live in an age that treats boredom as a problem to be solved. The moment a queue forms or a conversation pauses, we reach for our phones, eager to fill the silence. Yet something valuable may be slipping away in this restless habit. Never before have we had so many ways to distract ourselves, and rarely do we allow the mind to wander without a screen to guide it. Researchers who study creativity argue that idle moments are far from wasted. It is precisely when we are bored that the brain begins to make unexpected connections, drifting across memories and half-formed ideas until something original surfaces. What many great thinkers shared was not constant stimulation but long stretches of unstructured time, during which their most ambitious work quietly took shape. This is not to romanticise doing nothing, for boredom can be deeply uncomfortable. The point, rather, is that a mind never left alone is a mind never given the chance to think deeply. Those who fill every spare second with content may find, in time, that their attention has grown shallow and their patience thin. Perhaps what we truly need is not more entertainment but the courage to sit with our own thoughts. Only then can genuine reflection begin.",
+      "glossary": {
+        "restless": "가만있지 못하는",
+        "slipping away": "사라져 가다",
+        "idle": "한가한·놀고 있는",
+        "unexpected": "예상치 못한",
+        "drifting": "떠도는",
+        "half-formed": "채 여물지 않은",
+        "surfaces": "떠오르다",
+        "stimulation": "자극",
+        "unstructured": "짜여 있지 않은",
+        "ambitious": "야심 찬",
+        "romanticise": "미화하다",
+        "shallow": "얕은",
+        "genuine": "진정한",
+        "reflection": "성찰"
+      },
+      "questions": [
+        {
+          "q": "According to the writer, when does the brain make unexpected connections?",
+          "answer": "when we are bored",
+          "options": [
+            "when we are busy",
+            "when we are bored",
+            "when we are asleep"
+          ]
+        },
+        {
+          "q": "What does the writer say we truly need?",
+          "answer": "the courage to sit with our own thoughts",
+          "options": [
+            "more entertainment",
+            "the courage to sit with our own thoughts",
+            "faster devices"
+          ]
+        },
+        {
+          "q": "What single thing does the title praise? (type the word)",
+          "answer": "boredom",
+          "accept": [
+            "boredom"
+          ]
+        }
+      ],
+      "source": {
+        "kind": "generated",
+        "license": "CC-BY-4.0"
+      }
     }
   ]
 }

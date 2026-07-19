@@ -30,5 +30,23 @@
       "kc.en.present_perfect"
     ],
     "canDo": "관계대명사 who/which/that를 구별한다"
+  },
+  {
+    "id": "kc.en.inversion",
+    "skill": "writing",
+    "level": "C1",
+    "prereq": [
+      "kc.en.relative"
+    ],
+    "canDo": "부정어 전치 도치(Never have I…, Rarely do we…)로 강조한다"
+  },
+  {
+    "id": "kc.en.cleft",
+    "skill": "writing",
+    "level": "C1",
+    "prereq": [
+      "kc.en.relative"
+    ],
+    "canDo": "분열문(It was X that…, What … is…)으로 초점을 준다"
   }
 ]

@@ -281,5 +281,137 @@
         "hint": "사물의 관계대명사 = which(또는 that)"
       }
     }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.inv.concept",
+    "lang": "en",
+    "type": "flashcard",
+    "kc": [
+      "kc.en.inversion"
+    ],
+    "level": "C1",
+    "prompt": "부정어 도치: \"Never ___ I seen such a view.\" (강조)",
+    "answer": {
+      "value": "have"
+    },
+    "i18n": {
+      "ko": {
+        "hint": "Never/Rarely/Seldom로 시작하면 조동사+주어 도치 (Never have I…)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.inv.fill",
+    "lang": "en",
+    "type": "mcq",
+    "kc": [
+      "kc.en.inversion"
+    ],
+    "level": "C1",
+    "prompt": "\"Not only ___ he apologize, but he also paid.\"",
+    "answer": {
+      "value": "did"
+    },
+    "distractors": [
+      {
+        "value": "does",
+        "errorTag": "inversion"
+      },
+      {
+        "value": "he did",
+        "errorTag": "inversion"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "Not only + 도치: 과거는 did + 동사원형 (Not only did he apologize)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.cleft.concept",
+    "lang": "en",
+    "type": "flashcard",
+    "kc": [
+      "kc.en.cleft"
+    ],
+    "level": "C1",
+    "prompt": "분열문(강조): \"___ I need is more time.\" (내가 필요한 건 시간이다)",
+    "answer": {
+      "value": "What"
+    },
+    "i18n": {
+      "ko": {
+        "hint": "강조 대상을 앞으로: What + 절 + is/was … (What I need is time)"
+      }
+    }
+  },
+  {
+    "difficulty": null,
+    "discrimination": null,
+    "quality": "draft",
+    "source": {
+      "kind": "contributed",
+      "license": "CC-BY-4.0"
+    },
+    "meta": {
+      "schemaVersion": 1
+    },
+    "id": "en.cleft.fill",
+    "lang": "en",
+    "type": "mcq",
+    "kc": [
+      "kc.en.cleft"
+    ],
+    "level": "C1",
+    "prompt": "\"It was her courage ___ inspired everyone.\"",
+    "answer": {
+      "value": "that"
+    },
+    "distractors": [
+      {
+        "value": "what",
+        "errorTag": "cleft"
+      },
+      {
+        "value": "which",
+        "errorTag": "cleft"
+      }
+    ],
+    "i18n": {
+      "ko": {
+        "hint": "It-분열문의 연결어는 that (It was X that …)"
+      }
+    }
   }
 ]

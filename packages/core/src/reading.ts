@@ -8,6 +8,7 @@ const CEFR_ORDER: readonly CEFR[] = ["A1", "A2", "B1", "B2", "C1", "C2", "Native
 /** 능력 추정치(θ)에서 대략적 CEFR 레벨. 데이터 없으면 A1. */
 export function cefrFromAbility(ability: number | undefined): CEFR {
   if (typeof ability !== "number") return "A1";
+  if (ability > 3) return "C1"; // 상급(원어민 경로) — B2 상한을 넘어선 학습자 인식(θ 클램프 3.5 내)
   if (ability > 2) return "B2";
   if (ability > 1) return "B1";
   if (ability > 0) return "A2";

@@ -9,11 +9,12 @@ const passage = (id, level, over = {}) => ({
   glossary: { valid: "유효한" }, source: { kind: "generated", license: "CC-BY-4.0" }, ...over,
 });
 
-test("능력→CEFR: 데이터 없으면 A1, 능력 오르면 상향", () => {
+test("능력→CEFR: 데이터 없으면 A1, 능력 오르면 상향(C1까지)", () => {
   assert.equal(cefrFromAbility(undefined), "A1");
   assert.equal(cefrFromAbility(0.5), "A2");
   assert.equal(cefrFromAbility(1.5), "B1");
   assert.equal(cefrFromAbility(2.5), "B2");
+  assert.equal(cefrFromAbility(3.5), "C1", "B2 상한 넘으면 C1(원어민 경로)");
 });
 
 test("지문 검증(규칙 4·6): 라이선스·정답유효·본문 없으면 탈락", () => {
