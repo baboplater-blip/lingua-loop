@@ -61,7 +61,7 @@
 ## Phase 6 — 운영·그로스 (공개 후, 지속)
 
 - [~] 효능 연구 정례화(코호트 비교, 사전등록 실험). — **파이프라인+개입 배선 완료(2026-07-19)**: `core/efficacy-experiment.ts`(사전등록·결정적 배정·집단 간 Cohen's d·95% CI·판정 규율)+`core/practice-order.ts`(내장 개입=연습 순서 인터리빙/블록)+서버 `/experiment`·`serveItems` 차등 서빙+CLI. 등록→배정→차등 서빙→측정 폐루프 완성. 합성 코호트·서버 E2E·라이브 검증. **남은 것**: 새 개입 레버 추가·실학습자 코호트 축적(커뮤니티, 규칙 19).
-- [ ] 진화 루프 상시 가동(캘리브레이션·최적화 스케줄). — 운영자 스케줄러 영역(OPERATING §5 crontab/schtasks).
+- [~] 진화 루프 상시 가동(캘리브레이션·최적화 스케줄). — **무인 캘리브레이션 잡 완료(2026-07-19)**: `scripts/calibrate.mjs`+`npm run calibrate`(IRT/ELO 난이도 데이터 추정·이상 문항 제외), `content.calibrated` append-only 영속+서빙/대시보드 오버레이 반영, `evolve-publish`에 편입(생성→발행→캘리브레이션→스냅샷=완전한 플라이휠). **남은 것**: 스케줄러 실설치는 운영자 환경(OPERATING §5 crontab/schtasks)·FSRS 온라인 재적합 정례화.
 - [ ] 신규 언어팩·교수법 스킬 확장, 저자원 언어 지원.
 
 ## 최종 완결 스프린트 — 디버깅 스윕 → v1.0.0 (설계: [docs/design/final-completion.md](docs/design/final-completion.md))

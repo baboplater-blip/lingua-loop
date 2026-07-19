@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**⚙️ 무인 캘리브레이션 잡 — 진화 루프 상시 가동 완결(Phase 6).** 캘리브레이션 축(`runCalibration`)이 있었으나 **무인 잡·영속이 없어** 데이터로 난이도를 보정해도 사라지던 격차를 닫음. `content.calibrated` 시스템 이벤트+`calibration` 예약 ref(공개 위조 차단=임의 난이도 주입 방지·규칙 3), `recordCalibration`(캘리브레이션분만 append-only·**멱등**)·`calibrationOverlay`·`applyCalibrationOverlay` → `efficacyReport`·`serveItems`가 오버레이 적용(Content Health 비율·서빙 난이도 반영). `scripts/calibrate.mjs`+`npm run calibrate`(IRT/ELO·이상 문항 제외), **evolve-publish에 편입**(생성→발행→캘리브레이션→스냅샷=완전한 플라이휠). `server/calibrate.test`(영속 멱등·오버레이·비율 반영·위조 차단)+라이브(45응답→3문항·Content Health 27.3%·재실행 멱등·evolve 캘리브레이션 라인). 게이트 **357→361 pass(62파일)**. 난이도는 임의값이 아닌 데이터로만(규칙 3). **다음: 신규 언어팩/상급(C1+) 콘텐츠.**
+
+<details><summary>이전 요약 — 🧪 실험군 개입 실배선(통제 실험 폐루프)</summary>
+
 **🧪 실험군 개입 실배선 — 통제 실험 폐루프 완성(Phase 6).** 76이 사전등록·배정·측정을 만들었으나 배정이 서빙에 영향을 안 줘 "측정 기구"에 머물렀음 → 배정 팔에 따라 **실제로 다르게 서빙**해 등록→배정→**차등 서빙**→측정 폐루프를 닫음. 개입 레버=**연습 순서**(SLA 근거: 인터리빙 교차연습이 리텐션·전이에 유리). 코어 `practice-order.orderByPractice`(라운드로빈=인터리빙 vs 그룹=블록, **집합 보존·순서만·분량 불변**=참여도 부풀리기 아님·규칙 1), `Intervention` 타입을 `PreRegistration.intervention?`에 추가. 서버 `practiceOrderFor`+`serveItems` 배정 팔 재배열(**미참여=기본 순서 무회귀**), `/experiment/assign`이 `practiceOrder` 반환. `practice-order.test`·`experiment-serving.test`(무회귀·인터리빙/블록·집합 동일)+라이브 HTTP **8/8**. 게이트 **350→357 pass(61파일)**. 효과 자체는 실학습자가 답(규칙 19). **다음: 상시 진화 루프·신규 언어팩/상급 콘텐츠.**
 
 <details><summary>이전 요약 — 🔬 Phase 6 착수: 사전등록 통제 실험</summary>
@@ -67,8 +71,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **⚙️ 무인 캘리브레이션 잡 — 진화 루프 상시 가동(Phase 6, 규칙 3·5·16)**: 🟢 캘리브레이션(`runCalibration`)이 무인 잡·영속 없어 결과가 사라지던 격차를 닫음. `content.calibrated` 시스템 이벤트+`calibration` 예약 ref(공개 위조 차단=임의 난이도 주입 방지), `recordCalibration`(캘리브레이션분만 append-only·멱등)·`calibrationOverlay`(id→최신)·`applyCalibrationOverlay`(뱅크 오버레이). `efficacyReport`·`serveItems`가 오버레이 적용(Content Health 비율·서빙 난이도 반영). `RESERVED_REFS` 단일 소스 통합(공용 로그 5종 일괄 제외). `scripts/calibrate.mjs`+`npm run calibrate`(이상 문항 승격 제외)·**evolve-publish 편입**(생성→발행→캘리브레이션→스냅샷). `server/calibrate.test`(멱등·오버레이·비율 반영·위조 차단·집계 제외)+라이브(45응답→3문항·Content Health 27.3%·재실행 멱등 스킵 3·evolve 캘리브레이션 라인). OPERATING §2·§4 문서화. 게이트 **357→361 pass(62파일)**. 난이도는 데이터로만(규칙 3)
 - **🧪 실험군 개입 실배선 — 통제 실험 폐루프(Phase 6, 규칙 1·5·16)**: 🟢 76의 배정이 서빙에 영향 안 주던 갭을 닫음 — 배정 팔에 따라 실제로 다르게 서빙(등록→배정→차등 서빙→측정). 레버=연습 순서(SLA: 인터리빙>블록, Rohrer & Taylor). 코어 `practice-order.orderByPractice`(kc[0] 라운드로빈=인터리빙 vs 그룹화=블록, **집합 보존·순서만·분량 불변**·결정적), `Intervention`(`{kind:"practice_order"}`)을 `PreRegistration.intervention?`에 추가(선택·없으면 관측만). 서버 `practiceOrderFor`(활성 practice_order 실험 배정→interleaved/blocked·없으면 null)·`serveItems` slice 전 재배열(**미참여=기본 순서 무회귀**)·`registerExperiment` 개입 전달·`/experiment/assign` `practiceOrder` 반환. `core/practice-order.test`·`server/experiment-serving.test`(무회귀·인터리빙/블록·집합 동일·개입없는 실험 기본유지). 라이브 HTTP 8/8(⚠️KC당 아이템 1개면 인터리빙=블록 동일순서 정상). OPERATING §6·스킬 갱신. 게이트 **350→357 pass(61파일)**. 효과 자체는 실학습자가 답(규칙 19)
 - **🔬 Phase 6: 사전등록 통제 실험(관측 Gain → 인과, 규칙 17·1·5)**: 🟢 `core/efficacy-experiment.ts` — `PreRegistration`+`validatePreRegistration`(1차 결과=`gainScore` 강제, 참여도 실험 거부), `assignVariant`(FNV-1a+murmur3 finalizer=결정적·무상태·균형 배정 ~50%, 실험 id 혼합으로 실험별 독립), `compareCohorts`(집단 간 평균차·pooled-SD Cohen's d·Welch 95% CI·`powered`[사전 확정 표본]·`retroactive`[등록<데이터면 사전등록 무효] → **powered이고 CI가 0 배제할 때만** treatment/control_better, 그 외 no_difference/underpowered). `efficacy.gainPairs` 추출 분리(computeGainScore 동작 보존). 서버 `experiment.registered` 시스템 이벤트+`experiment` 예약 ref(공개 ingest 위조 차단)·`registerExperiment`(멱등 append-only)·`assignForLearner`·`experimentResult`+`POST /experiment`·`GET /experiment/assign|result`. CLI `npm run experiment <id>`(인과 주의 병기). `core/efficacy-experiment.test`(합성 코호트 4판정·배정 균형)·`server/experiment.test`(멱등·위조 차단·E2E treatment_better). 라이브 HTTP 15/15. OPERATING §6·`ab-experiment-framework` 스킬 구현 SSOT 반영. 게이트 **338→350 pass(59파일)**. ⚠️실험군 실제 개입 배선은 실험 설계자 몫(측정 기구·합성으로 파이프라인 검증)
 - **🚀 v1.0.0 공개 배포(규칙 18)**: 🟢 오너 '배포해' 승인. 안전검사(유출 0·게이트 338)→push 15커밋→태그 v1.0.0→`gh release`(한/영)→CI success. 원격 0 ahead·릴리스 공개. CHANGELOG `[1.0.0]` 릴리스 확정·RELEASE_NOTES 배포됨. <https://github.com/baboplater-blip/lingua-loop/releases/tag/v1.0.0>

@@ -22,11 +22,11 @@ export function newStore(): Store {
   return { logs: new Map() };
 }
 
-// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷·실험 등록). 공개 진입점으로 위조 쓰기 금지.
-// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF/EXPERIMENT_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
-const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy", "experiment"]);
-// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷/실험등록 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 4(게이트)·규칙 17(사전등록) 우회.
-const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "efficacy.snapshot", "experiment.registered"]);
+// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷·실험 등록·캘리브레이션). 공개 진입점으로 위조 쓰기 금지.
+// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF/EXPERIMENT_REF/CALIBRATION_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
+const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy", "experiment", "calibration"]);
+// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷/실험등록/캘리브레이션 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 3(난이도는 데이터로만)·4·17 우회.
+const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "content.calibrated", "efficacy.snapshot", "experiment.registered"]);
 
 function logFor(store: Store, learnerRef: string): EventLog {
   let log = store.logs.get(learnerRef);
@@ -125,7 +125,9 @@ export function exportCertificate(store: Store, learnerRef: string, lang: string
 export function serveItems(store: Store, learnerRef: string, lang: string, graph: KCGraph, bank: ContentItem[], opts: ServeOptions = {}): ContentItem[] {
   const state = stateOf(store, learnerRef, lang);
   const kcs = new Set(nextKCs(state, graph, { now: opts.now, limit: opts.limit ?? 10 }));
-  const servable = bank.filter(
+  // 캘리브레이션 오버레이 — 서빙 아이템이 데이터 기반 난이도/변별도를 반영(규칙 3). 매칭 없으면 무변경.
+  const calBank = applyCalibrationOverlay(bank, calibrationOverlay(store, lang));
+  const servable = calBank.filter(
     (it) => it.lang === lang && (it.quality === "verified" || it.quality === "calibrated") && it.kc.some((k) => kcs.has(k)),
   );
   // 실험 개입(있으면): 활성 practice_order 실험의 배정 팔에 따라 순서 재배열(집합 불변·slice 전 적용).
@@ -191,12 +193,15 @@ export const EFFICACY_REF = "efficacy";
 
 /** 실험 등록 로그 ref(공용) — 사전등록 프로토콜만. 학습자 데이터 아님·집계에서 제외. */
 export const EXPERIMENT_REF = "experiment";
+/** 캘리브레이션 로그 ref(공용) — 데이터 기반 난이도/변별도 갱신. 학습자 데이터 아님·집계에서 제외. */
+export const CALIBRATION_REF = "calibration";
 
-/** 모든 학습자 이벤트(공용 로그=기여·발행·효능스냅샷·실험등록 제외). 효능 집계용. */
+// 공용(시스템) 로그 = 학습자 데이터가 아닌 것. RESERVED_REFS 와 동일 집합(위조 차단 대상과 정확히 일치).
+/** 모든 학습자 이벤트(공용 로그=기여·발행·효능스냅샷·실험등록·캘리브레이션 제외). 효능 집계용. */
 export function allLearnerEvents(store: Store): LearningEvent[] {
   const out: LearningEvent[] = [];
   for (const [ref, log] of store.logs) {
-    if (ref === COMMUNITY_REF || ref === PUBLISHED_REF || ref === EFFICACY_REF || ref === EXPERIMENT_REF) continue;
+    if (RESERVED_REFS.has(ref)) continue;
     out.push(...log.all());
   }
   return out;
@@ -206,7 +211,7 @@ export function allLearnerEvents(store: Store): LearningEvent[] {
 function learnerRefs(store: Store): string[] {
   const out: string[] = [];
   for (const ref of store.logs.keys()) {
-    if (ref === COMMUNITY_REF || ref === PUBLISHED_REF || ref === EFFICACY_REF || ref === EXPERIMENT_REF) continue;
+    if (RESERVED_REFS.has(ref)) continue;
     out.push(ref);
   }
   return out;
@@ -225,9 +230,11 @@ export interface EfficacyDashboard {
  */
 export function efficacyReport(store: Store, lang: string, graph: KCGraph, bank: ContentItem[]): EfficacyDashboard {
   const efficacy = computeEfficacy(allLearnerEvents(store));
-  const calibrated = bank.filter((i) => i.difficulty !== null).length;
+  // 무인 캘리브레이션이 갱신한 난이도/품질을 반영 → Content Health(캘리브레이션 비율)가 실제 진척을 보인다(규칙 3).
+  const calBank = applyCalibrationOverlay(bank, calibrationOverlay(store, lang));
+  const calibrated = calBank.filter((i) => i.difficulty !== null).length;
   const byKc = new Map<string, number>();
-  for (const i of bank) for (const kc of i.kc) byKc.set(kc, (byKc.get(kc) ?? 0) + 1);
+  for (const i of calBank) for (const kc of i.kc) byKc.set(kc, (byKc.get(kc) ?? 0) + 1);
   const gaps = Object.keys(graph.nodes)
     .filter((kc) => (byKc.get(kc) ?? 0) < 2)
     .map((kc) => ({ kc, items: byKc.get(kc) ?? 0 }));
@@ -285,6 +292,62 @@ export function efficacyHistory(store: Store, lang: string): { snapshots: Effica
     ? [...log.all()].filter((e) => e.payload["lang"] === lang).map((e) => e.payload["snapshot"] as EfficacySnapshot)
     : [];
   return { snapshots, trend: trendSummary(snapshots) };
+}
+
+// ── 캘리브레이션 영속(규칙 3: 난이도는 데이터로만) — 무인 잡이 갱신한 난이도/변별도를 append-only로 남겨 서빙·대시보드에 반영 ──
+
+export interface CalibrationRecord {
+  id: string;
+  difficulty: number | null;
+  discrimination: number | null;
+  quality: string;
+}
+
+/**
+ * 캘리브레이션 결과를 append-only 로 영속(규칙 3·5). 데이터로 갱신된 난이도/변별도/품질을 아이템별로 기록.
+ * **멱등**: 아이템의 마지막 기록과 (difficulty,discrimination,quality) 가 같으면 재기록하지 않는다(로그 무한 성장 방지).
+ * 캘리브레이션된(difficulty≠null·quality=calibrated) 아이템만 대상. 시스템 전용(CALIBRATION_REF·content.calibrated·공개 위조 차단).
+ */
+export function recordCalibration(store: Store, lang: string, items: readonly ContentItem[]): { recorded: number; skipped: number } {
+  const overlay = calibrationOverlay(store, lang);
+  let recorded = 0;
+  let skipped = 0;
+  for (const it of items) {
+    if (it.difficulty === null || it.quality !== "calibrated") continue;
+    const prev = overlay.get(it.id);
+    if (prev && prev.difficulty === it.difficulty && prev.discrimination === it.discrimination && prev.quality === it.quality) {
+      skipped += 1;
+      continue;
+    }
+    const record: CalibrationRecord = { id: it.id, difficulty: it.difficulty, discrimination: it.discrimination, quality: it.quality };
+    const ev = makeEvent({ learnerRef: CALIBRATION_REF, type: "content.calibrated", itemId: it.id, payload: { lang, record }, consent: "learn+improve" });
+    logFor(store, CALIBRATION_REF).append(ev);
+    store.sink?.(CALIBRATION_REF, ev);
+    recorded += 1;
+  }
+  return { recorded, skipped };
+}
+
+/** 언어별 캘리브레이션 오버레이(아이템 id → 최신 난이도/변별도/품질). 기록순이라 마지막이 최신. */
+export function calibrationOverlay(store: Store, lang: string): Map<string, CalibrationRecord> {
+  const log = store.logs.get(CALIBRATION_REF);
+  const m = new Map<string, CalibrationRecord>();
+  if (!log) return m;
+  for (const e of log.all()) {
+    if (e.payload["lang"] !== lang) continue;
+    const rec = e.payload["record"] as CalibrationRecord | undefined;
+    if (rec && typeof rec.id === "string") m.set(rec.id, rec);
+  }
+  return m;
+}
+
+/** 서빙 뱅크에 캘리브레이션 오버레이 적용(난이도/변별도/품질 갱신). 매칭 없으면 원본 유지·오버레이 없으면 무변경. */
+export function applyCalibrationOverlay(bank: readonly ContentItem[], overlay: Map<string, CalibrationRecord>): ContentItem[] {
+  if (overlay.size === 0) return bank as ContentItem[];
+  return bank.map((it) => {
+    const rec = overlay.get(it.id);
+    return rec ? { ...it, difficulty: rec.difficulty, discrimination: rec.discrimination, quality: rec.quality as ContentItem["quality"] } : it;
+  });
 }
 
 // ── 사전등록 통제 실험(규칙 17: 관측 Gain Score → 인과 증거) ──

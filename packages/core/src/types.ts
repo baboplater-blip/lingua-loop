@@ -60,6 +60,7 @@ export type EventType =
   | "contribution.review"
   | "content.published"
   | "reading.published"
+  | "content.calibrated"
   | "efficacy.snapshot"
   | "experiment.registered"
   | "session.start"
