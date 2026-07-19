@@ -51,6 +51,20 @@ test("ops: 추이 스파크라인 — 스냅샷 시퀀스를 SVG 꺾은선으로
   assert.ok(js.includes("medianResponsesToMastery), false"), "TTM 스파크라인은 하락=개선");
 });
 
+test("ops: KC별 효능 카드 — 어디서 막히는가(숙달도달률), XSS 안전 렌더", () => {
+  assert.ok(/KC별 효능/.test(html), "KC별 효능 카드");
+  assert.ok(/id="kc-efficacy-list"/.test(html) && /id="kc-efficacy-empty"/.test(html), "리스트·빈 상태 슬롯");
+  // 커버리지 격차와 다른 축임을 명시
+  assert.ok(/다른 축/.test(html), "커버리지와 다른 축 안내");
+  // js: byKc 를 소비해 도달률 기반으로 렌더
+  assert.ok(/function renderByKc|const renderByKc/.test(js), "renderByKc 함수");
+  assert.ok(js.includes("e.byKc") || js.includes("byKc"), "byKc 소비");
+  assert.ok(/masteryReachRate/.test(js), "숙달도달률 렌더");
+  assert.ok(/learners\s*>=\s*2/.test(js), "학습자 2명 이상만(신뢰도)");
+  // 저장형 XSS 방지 — KC명은 textContent 로 삽입(innerHTML 로 데이터 주입 금지)
+  assert.ok(/\.textContent\s*=\s*k\.kc/.test(js), "KC명은 textContent(XSS 안전)");
+});
+
 test("ops: 참여도(세션·스트릭) 미노출 + 다크패턴 없음(규칙 1·9)", () => {
   const copy = html + "\n" + js;
   // 북스타는 성과 — 세션수/스트릭 지표를 대시보드에 두지 않는다

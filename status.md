@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**📊 KC별 효능 웹 카드 — 운영자 대시보드 시각화(Phase 6).** 82가 `byKc`를 코어·`/efficacy`·CLI에 넣었으나 웹 대시보드(ops.html)엔 없던 격차를 닫음. ops.html에 "KC별 효능 — 어디서 막히는가(도달률 낮은 순)" 카드+ops.js `renderByKc`(학습자 2명↑ 상위 8개, 도달률 바 색 빨강<34%<노랑<67%<초록, 숙달/학습자·노력·정확도 메타). **저장형 XSS 방지**: KC명은 `createElement`+`textContent`(innerHTML로 데이터 주입 안 함·M1 정합). `web/test/ops.test`+라이브(ops.html/ops.js 200·카드/함수 매치·`/efficacy` byKc). 게이트 **375→376 pass(65파일)**. **KC별 효능이 CLI·API·웹 3면 노출.**
+
+<details><summary>이전 요약 — 🔬 KC별 효능 세분("어디서 막히는가")</summary>
+
 **🔬 KC별 효능 세분 — "어디서 막히는가"를 데이터로(Phase 6).** 효능 대시보드가 전역 지표뿐이라 어느 KC가 잘 가르쳐지고 어디서 학습자가 막히는지 못 보던 격차를 닫음. 코어 `efficacy.efficacyByKc`: (학습자,KC)별 숙달 도달 추적 → KC 단위 `masteryReachRate`·`medianResponsesToMastery`(노력)·`accuracy`, **도달률 낮은 순 정렬**(막히는 KC 먼저). `EfficacyReport.byKc` 편입 → `GET /efficacy`·`npm run efficacy`(학습자 2명↑만) 자동 노출. **커버리지 격차(콘텐츠 없음)와 다른 축**: 콘텐츠는 있는데 도달률 낮은 KC=개선 후보. `core/efficacy.test`(합성 쉬운 1.0·막히는 1/3·정렬)+라이브 4/4. ⚠️구현 중 원시 NUL 혼입 사고→안전 이스케이프 치환. 게이트 **374→375 pass(65파일)**. **북스타가 전역→KC 단위로.**
 
 <details><summary>이전 요약 — 🎓 C1 티어 스페인어 확장(en→es)</summary>
@@ -97,8 +101,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **📊 KC별 효능 웹 카드 — 운영자 대시보드(Phase 6, 규칙 1·4)**: 🟢 82의 `byKc`가 웹 대시보드엔 없던 격차를 닫음. ops.html "KC별 효능 — 어디서 막히는가(도달률 낮은 순)" 카드+ops.js `renderByKc`(학습자 2명↑ 상위 8개·도달률 바 색 빨강<34%<노랑<67%<초록·숙달/학습자·노력·정확도 메타). **저장형 XSS 방지**: KC명 `createElement`+`textContent`(M1 정합). `web/test/ops.test`(카드·슬롯·`renderByKc`·`masteryReachRate`·학습자≥2·`textContent=k.kc`)+라이브(ops.html/ops.js 200·`/efficacy` byKc). 게이트 **375→376 pass(65파일)**. KC별 효능 CLI·API·웹 3면 노출
 - **🔬 KC별 효능 세분 — "어디서 막히는가"(Phase 6, 규칙 1·5)**: 🟢 효능 대시보드 전역 지표 격차를 닫음. 코어 `efficacy.efficacyByKc`: (학습자,KC)별 숙달 도달 추적 → `masteryReachRate`·`medianResponsesToMastery`(노력)·`accuracy`, 도달률 낮은 순 정렬(막히는 KC 먼저). `analyze.lowMasteryKCs`(정확도·엔진)와 다른 축(숙달도달률). `EfficacyReport.byKc`→`GET /efficacy`·`npm run efficacy`(학습자 2명↑) 자동 노출. 콘텐츠는 있으나 도달률 낮은 KC=커버리지와 다른 개선 후보. `core/efficacy.test`(쉬운 1.0·막히는 1/3·정확도 4/7·정렬)+라이브 4/4(byKc·CLI 33.3% vs 100%). ⚠️구현 중 원시 NUL 혼입→node로 안전 이스케이프 치환. 게이트 **374→375 pass(65파일)**
 - **🎓 C1 티어 스페인어 확장 — 패턴 일반화 실증(en→es, Phase 6, 규칙 4·6·11)**: 🟢 en C1 티어가 데이터 패턴임을 es로 실증(코어 0줄). es C1 문법 KC 2종(`kc.es.subjunctive_imperfect` 접속법 과거·`kc.es.cleft` 분열문, prereq subjunctive), 각 flashcard+mcq(접속법 과거 tuviera/tuviese accept), C1 논설 지문 `es.read.aburrimiento`(본문에 실제 llenara·분열문 정직 태깅), C1 배치 문항 2개. ⚠️C1은 시드로만(생성기 C1=null). `server/c1-spanish.test`(C1 서빙·B2 무회귀·C1 학습 가능·배치 C1 천장·정직 태깅)+라이브 5/5(LANG_PACK=es·θ=3.3→es.read.aburrimiento·배치 전부 정답→C1 θ=3.50). 게이트 **370→374 pass(65파일)**. en·es C1 완비
 - **🔁 FSRS 재적합 영속·적용 — 자기개선 플라이휠 완결(Phase 6, 규칙 2·1·5·16)**: 🟢 evolve가 A/B 가드레일까지 판정하고도 재적합 FSRS 파라미터를 폐기하던 마지막 축을 닫음. 코어 `deriveState(...,params?)`가 FSRS 파라미터를 `nextState`에 전달(미지정=기본값 무회귀·순수·결정적 유지, 직접 호출자 `stateOf` 하나뿐 contained). 서버 `fsrs.tuned` 시스템 이벤트+`fsrs` 예약 ref(위조 차단=임의 스케줄 파라미터 주입 방지)·`recordFsrsParams`(멱등 append-only)·`tunedFsrsParams`(언어별 최신)·`stateOf`가 튜닝 적용. evolve-publish가 `fsrsRefit.deployed`(A/B 리텐션 통과)면 `recordFsrsParams` 영속→모든 학습자 스케줄 반영. `core/events-model.test`(params 안정성·dueTs 상향·무회귀)·`server/fsrs-tune.test`(멱등·적용·위조 차단·집계 제외)+라이브(FSRS 라인 실행·합성 데이터선 개선 없어 가드레일 올바르게 미배포·재실행 멱등). 게이트 **365→370 pass(64파일)**. evolve 한 사이클이 콘텐츠·난이도·스케줄 3축 모두 영속·적용(성과 개선분만)

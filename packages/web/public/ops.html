@@ -24,6 +24,13 @@
     .ops .spk { flex: none; }
     .ops .spk svg { display: block; }
     .ops .sparkhint { color: var(--muted, #789); font-size: 12px; margin: 2px 0 8px; }
+    .ops .kcbk .kcrow { padding: 6px 0; border-bottom: 1px solid #223; font-variant-numeric: tabular-nums; }
+    .ops .kcbk .kctop { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+    .ops .kcbk .kcname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ops .kcbk .kcrate { flex: none; font-weight: 600; }
+    .ops .kcbk .kctrack { background: #223; border-radius: 5px; height: 10px; overflow: hidden; margin: 4px 0; }
+    .ops .kcbk .kcfill { height: 100%; width: 0; }
+    .ops .kcbk .kcmeta { color: var(--muted, #789); font-size: 12px; }
   </style>
 </head>
 <body>
@@ -88,6 +95,13 @@
       <div class="metric"><span>콘텐츠 보유 KC / 전체</span><b id="ch-kcs">—</b></div>
       <div class="metric"><span>콘텐츠 격차 KC</span><b id="ch-gaps">—</b></div>
       <div class="gaps" id="gaps-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>KC별 효능 — 어디서 막히는가 (숙달도달률 낮은 순)</h2>
+      <p class="sparkhint"><b>콘텐츠는 있는데 도달률이 낮은 KC</b> = 콘텐츠·선행 순서 개선 후보(커버리지 격차와 <b>다른 축</b>). 학습자 2명 이상만 표시.</p>
+      <div id="kc-efficacy-list" class="kcbk"></div>
+      <div class="gaps" id="kc-efficacy-empty"></div>
     </div>
   </div>
   <script src="/ops.js"></script>

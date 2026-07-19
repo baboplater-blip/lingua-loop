@@ -51,10 +51,50 @@ async function load() {
     $("ch-gaps").textContent = num(r.gaps.length);
     setBar("ch-calib-bar", ch.calibratedRatio);
     $("gaps-list").textContent = r.gaps.length ? "격차: " + r.gaps.map((g) => g.kc).join(", ") : "";
+    renderByKc(e.byKc);
     $("status").textContent = e.throughput.responses === 0 ? "아직 학습 이벤트 없음(정상 — 사용이 쌓이면 채워짐)" : "";
     await loadTrend(lang);
   } catch (err) {
     $("status").textContent = "불러오기 실패: " + err.message;
+  }
+}
+
+// KC별 효능 — 도달률 낮은 순(막히는 KC 먼저). 학습자 2명 이상만. KC명은 textContent 로 삽입(저장형 XSS 방지, 규칙 4/M1).
+function renderByKc(byKc) {
+  const list = $("kc-efficacy-list");
+  list.textContent = ""; // 기존 행 제거(정적)
+  const strug = (Array.isArray(byKc) ? byKc : []).filter((k) => k && k.learners >= 2);
+  $("kc-efficacy-empty").textContent = strug.length ? "" : "표본 부족 — KC별 학습자 2명 이상 쌓이면 표시(콘텐츠는 있으나 안 가르쳐지는 KC를 짚음).";
+  for (const k of strug.slice(0, 8)) {
+    const rr = k.masteryReachRate;
+    const row = document.createElement("div");
+    row.className = "kcrow";
+    const top = document.createElement("div");
+    top.className = "kctop";
+    const name = document.createElement("span");
+    name.className = "kcname";
+    name.textContent = k.kc; // XSS 안전(문자열 그대로)
+    name.title = k.kc;
+    const rate = document.createElement("span");
+    rate.className = "kcrate";
+    rate.textContent = pct(rr);
+    rate.style.color = rr == null ? "#789" : rr < 0.34 ? "#e06c75" : rr < 0.67 ? "#e0b36c" : "#3ad29a";
+    top.appendChild(name);
+    top.appendChild(rate);
+    const track = document.createElement("div");
+    track.className = "kctrack";
+    const fill = document.createElement("div");
+    fill.className = "kcfill";
+    fill.style.width = rr == null ? "0%" : Math.round(rr * 100) + "%";
+    fill.style.background = rr == null ? "#456" : rr < 0.34 ? "#e06c75" : rr < 0.67 ? "#e0b36c" : "#3ad29a";
+    track.appendChild(fill);
+    const meta = document.createElement("div");
+    meta.className = "kcmeta";
+    meta.textContent = `숙달 ${k.mastered}/${k.learners} · 노력 ${num(k.medianResponsesToMastery)}응답 · 정확도 ${pct(k.accuracy)}`;
+    row.appendChild(top);
+    row.appendChild(track);
+    row.appendChild(meta);
+    list.appendChild(row);
   }
 }
 
