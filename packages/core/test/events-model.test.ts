@@ -49,6 +49,20 @@ test("deriveState는 결정적·멱등 (같은 이벤트 → 같은 상태)", ()
   assert.deepEqual(s1, s2);
 });
 
+test("deriveState: 재적합 FSRS 파라미터가 스케줄링(안정성·dueTs)에 반영, 미지정은 기본값(하위호환)", () => {
+  const evs = [
+    makeEvent({ learnerRef: "l", type: "item.response", kc: ["k"], payload: { correct: true }, ts: "2026-01-01T00:00:00Z" }),
+    makeEvent({ learnerRef: "l", type: "item.response", kc: ["k"], payload: { correct: true }, ts: "2026-01-03T00:00:00Z" }),
+  ];
+  const base = deriveState(evs, "l", "en"); // 기본 파라미터
+  // gainFactor 를 크게 → 정답 시 안정성 더 증가 → dueTs 더 멀리
+  const tuned = deriveState(evs, "l", "en", { initS: { again: 0.2, hard: 0.8, good: 2.0, easy: 5.0 }, initScale: 1, lapseFactor: 0.4, gainFactor: 4.0, difficultyStep: 0.1 });
+  assert.ok(tuned.kcState["k"].stability > base.kcState["k"].stability, "튜닝 파라미터가 안정성 상향");
+  assert.ok(tuned.kcState["k"].dueTs! > base.kcState["k"].dueTs!, "→ 다음 복습일도 더 멀리(스케줄 반영)");
+  // 파라미터 미지정 = 기존 동작 불변(하위호환)
+  assert.deepEqual(deriveState(evs, "l", "en"), base, "미지정은 기본값(결정적)");
+});
+
 test("deriveState 리플레이: 학습자별 격리·KC 상태 파생 (양방향)", () => {
   const evs = sampleEvents();
   const s = deriveState(evs, "l1", "en");

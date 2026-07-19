@@ -61,6 +61,7 @@ export type EventType =
   | "content.published"
   | "reading.published"
   | "content.calibrated"
+  | "fsrs.tuned"
   | "efficacy.snapshot"
   | "experiment.registered"
   | "session.start"

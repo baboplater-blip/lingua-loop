@@ -9,7 +9,7 @@ import { runEvolveCycle, runCalibration } from "../packages/engine/src/index.ts"
 import { promoteVerified } from "../packages/core/src/index.ts";
 import { openFileStore } from "../packages/server/src/persist.ts";
 import { openSqliteStore } from "../packages/server/src/sqlite-store.ts";
-import { loadGraph, publishFromEvolve, communityBank, publishedBank, publishedReadings, recordEfficacy, allLearnerEvents, calibrationOverlay, applyCalibrationOverlay, recordCalibration } from "../packages/server/src/handlers.ts";
+import { loadGraph, publishFromEvolve, communityBank, publishedBank, publishedReadings, recordEfficacy, allLearnerEvents, calibrationOverlay, applyCalibrationOverlay, recordCalibration, recordFsrsParams } from "../packages/server/src/handlers.ts";
 import { createContentGeneratorFor, createReadingGeneratorFor } from "../packages/adapters/src/index.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -44,6 +44,8 @@ const report = runEvolveCycle({
   lang, communityEvents,
 });
 const pub = publishFromEvolve(store, report, lang, existing);
+// A/B 리텐션 가드레일 통과한 FSRS 재적합 파라미터를 영속(규칙 2) → stateOf 가 스케줄링에 적용(멱등)
+const fsrsPersist = report.fsrsRefit?.deployed ? recordFsrsParams(store, lang, report.fsrsRefit.params) : { recorded: false };
 // 발행 후 뱅크(시드+커뮤니티+발행)를 데이터로 캘리브레이션(규칙 3)하고 append-only 영속 → 난이도가 서빙·대시보드에 반영
 const bankNow = applyCalibrationOverlay([...verified, ...communityBank(store, lang), ...publishedBank(store, lang)], calibrationOverlay(store, lang));
 const cal = runCalibration(allLearnerEvents(store), bankNow);
@@ -59,6 +61,7 @@ console.log(`  콘텐츠 격차           ${report.signals.contentGaps.length}KC
 console.log(`  생성                 문항 ${report.contentGeneration?.generatedCount ?? 0} · 지문 ${report.readingGeneration?.generatedCount ?? 0}`);
 console.log(`  자동 발행             문항 ${pub.publishedItems} · 지문 ${pub.publishedReadings} · 배제(중복) ${pub.skipped}`);
 console.log(`  캘리브레이션(규칙 3)    승격 ${cal.calibratedCount} · 이상 제외 ${cal.anomalous.length} · 영속 기록 ${calPersist.recorded}/멱등 ${calPersist.skipped}`);
+console.log(`  FSRS 재적합(규칙 2)    ${report.fsrsRefit ? `예측오차 ${report.fsrsRefit.errorBefore.toFixed(3)}→${report.fsrsRefit.errorAfter.toFixed(3)} · ${report.fsrsRefit.deployed ? (fsrsPersist.recorded ? "가드레일 통과·영속" : "통과·멱등(변화없음)") : "미배포(성과개선 없음)"}` : "표본 부족(복습<5)"}`);
 if (report.community) console.log(`  커뮤니티 재평가        승격 재검토 · 강등 ${report.community.demoted.length}`);
 console.log(`  효능 스냅샷 기록        정확도 ${snap.overallAccuracy === null ? "—" : (snap.overallAccuracy * 100).toFixed(1) + "%"} · 숙달KC ${snap.kcsMastered} (추이 축적)`);
 console.log(`\n${pub.publishedItems + pub.publishedReadings > 0 ? "✅ 새 콘텐츠가 자동으로 서빙에 편입됐습니다." : "⏳ 이번 사이클엔 새로 발행할 격차가 없습니다(정상)."}\n`);

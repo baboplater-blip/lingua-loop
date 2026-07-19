@@ -1,7 +1,7 @@
 // 최소 데이터 백엔드 핸들러(순수 함수). 코어 위의 얇은 배선.
 // 규칙 4(verified 만 서빙)·5(append-only)·6(소유권) 집행.
 import { EventLog, makeEvent, deriveState, nextKCs, makeGraph, selectGradedReading, makeSubmission, evaluateCommunity, servableCommunityItems, rankContributions, rankByEffect, itemEffects, isDemoted, checkItem, validateReading, scoreComprehension, redactReadingAnswers, computeEfficacy, trendSummary, estimateAbility, pickNextItem, cefrFromAbility, deriveCertifications, buildCertificate, deriveBadges, authoredStats, buildProfile, validatePreRegistration, assignVariant, compareCohorts, orderByPractice } from "../../core/src/index.ts";
-import type { CertificationReport, MasteryCertificate, BadgeReport, ProfileCard, EfficacyReport, EfficacySnapshot, TrendSummary, PreRegistration, Intervention, ExperimentResult, PracticeOrder } from "../../core/src/index.ts";
+import type { CertificationReport, MasteryCertificate, BadgeReport, ProfileCard, EfficacyReport, EfficacySnapshot, TrendSummary, PreRegistration, Intervention, ExperimentResult, PracticeOrder, FsrsParams } from "../../core/src/index.ts";
 import type { LearningEvent, LearnerState, ContentItem, KCNode, KCGraph, Grade, ReadingPassage, ContributionState, ReviewVerdict, ReviewFlag, Response, RankedContribution, ItemEffect, ResponseObs } from "../../core/src/index.ts";
 import type { MakeEventInput } from "../../core/src/events.ts";
 import type { TutorModel, TutorTurn, TutorResponse, PronunciationScorer, PronunciationResult } from "../../adapters/src/index.ts";
@@ -22,11 +22,11 @@ export function newStore(): Store {
   return { logs: new Map() };
 }
 
-// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷·실험 등록·캘리브레이션). 공개 진입점으로 위조 쓰기 금지.
-// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF/EXPERIMENT_REF/CALIBRATION_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
-const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy", "experiment", "calibration"]);
-// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷/실험등록/캘리브레이션 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 3(난이도는 데이터로만)·4·17 우회.
-const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "content.calibrated", "efficacy.snapshot", "experiment.registered"]);
+// 예약 시스템 로그 ref — 학습자 데이터가 아닌 공용 로그(기여·발행·효능 스냅샷·실험 등록·캘리브레이션·FSRS 튜닝). 공개 진입점으로 위조 쓰기 금지.
+// (아래 COMMUNITY_REF/PUBLISHED_REF/EFFICACY_REF/EXPERIMENT_REF/CALIBRATION_REF/FSRS_REF 상수와 동일 문자열 — 순환 없이 여기서 선언)
+const RESERVED_REFS: ReadonlySet<string> = new Set(["community", "published", "efficacy", "experiment", "calibration", "fsrs"]);
+// 시스템 전용 이벤트 타입 — 발행/기여/스냅샷/실험등록/캘리브레이션/FSRS튜닝 전용 함수에서만 생성. 공개 ingest 로 위조 시 규칙 2·3·4·17 우회.
+const SYSTEM_EVENT_TYPES: ReadonlySet<string> = new Set(["contribution.submitted", "contribution.review", "content.published", "reading.published", "content.calibrated", "fsrs.tuned", "efficacy.snapshot", "experiment.registered"]);
 
 function logFor(store: Store, learnerRef: string): EventLog {
   let log = store.logs.get(learnerRef);
@@ -56,10 +56,10 @@ export function ingest(store: Store, input: MakeEventInput): LearningEvent {
   return ev;
 }
 
-/** 학습자 상태 — 이벤트 리플레이로 파생(규칙 5). */
+/** 학습자 상태 — 이벤트 리플레이로 파생(규칙 5). 진화 루프가 재적합한 FSRS 파라미터(있으면)를 스케줄링에 적용. */
 export function stateOf(store: Store, learnerRef: string, lang: string): LearnerState {
   const log = store.logs.get(learnerRef);
-  return deriveState(log ? log.all() : [], learnerRef, lang);
+  return deriveState(log ? log.all() : [], learnerRef, lang, tunedFsrsParams(store, lang));
 }
 
 export interface ServeOptions {
@@ -348,6 +348,37 @@ export function applyCalibrationOverlay(bank: readonly ContentItem[], overlay: M
     const rec = overlay.get(it.id);
     return rec ? { ...it, difficulty: rec.difficulty, discrimination: rec.discrimination, quality: rec.quality as ContentItem["quality"] } : it;
   });
+}
+
+// ── FSRS 재적합 영속(규칙 2: 스케줄은 기억과학으로) — 진화 루프가 A/B 가드레일 통과한 파라미터를 append-only로 남겨 스케줄링에 적용 ──
+
+/** FSRS 튜닝 로그 ref(공용) — 데이터 재적합한 스케줄러 파라미터. 학습자 데이터 아님·집계에서 제외. */
+export const FSRS_REF = "fsrs";
+
+/**
+ * 재적합한 FSRS 파라미터를 append-only 로 영속(규칙 2·5). **가드레일 통과분만** 호출자가 넘긴다(evolve 의 A/B 리텐션 판정).
+ * 멱등: 마지막 기록과 동일하면 재기록하지 않는다. 시스템 전용(FSRS_REF·fsrs.tuned·공개 위조 차단).
+ */
+export function recordFsrsParams(store: Store, lang: string, params: FsrsParams): { recorded: boolean } {
+  const prev = tunedFsrsParams(store, lang);
+  if (prev && JSON.stringify(prev) === JSON.stringify(params)) return { recorded: false };
+  const ev = makeEvent({ learnerRef: FSRS_REF, type: "fsrs.tuned", payload: { lang, params }, consent: "learn+improve" });
+  logFor(store, FSRS_REF).append(ev);
+  store.sink?.(FSRS_REF, ev);
+  return { recorded: true };
+}
+
+/** 언어별 최신 재적합 FSRS 파라미터(없으면 undefined → deriveState 가 기본값 사용). 기록순이라 마지막이 최신. */
+export function tunedFsrsParams(store: Store, lang: string): FsrsParams | undefined {
+  const log = store.logs.get(FSRS_REF);
+  if (!log) return undefined;
+  let latest: FsrsParams | undefined;
+  for (const e of log.all()) {
+    if (e.payload["lang"] !== lang) continue;
+    const p = e.payload["params"] as FsrsParams | undefined;
+    if (p) latest = p;
+  }
+  return latest;
 }
 
 // ── 사전등록 통제 실험(규칙 17: 관측 Gain Score → 인과 증거) ──

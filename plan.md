@@ -61,7 +61,7 @@
 ## Phase 6 — 운영·그로스 (공개 후, 지속)
 
 - [~] 효능 연구 정례화(코호트 비교, 사전등록 실험). — **파이프라인+개입 배선 완료(2026-07-19)**: `core/efficacy-experiment.ts`(사전등록·결정적 배정·집단 간 Cohen's d·95% CI·판정 규율)+`core/practice-order.ts`(내장 개입=연습 순서 인터리빙/블록)+서버 `/experiment`·`serveItems` 차등 서빙+CLI. 등록→배정→차등 서빙→측정 폐루프 완성. 합성 코호트·서버 E2E·라이브 검증. **남은 것**: 새 개입 레버 추가·실학습자 코호트 축적(커뮤니티, 규칙 19).
-- [~] 진화 루프 상시 가동(캘리브레이션·최적화 스케줄). — **무인 캘리브레이션 잡 완료(2026-07-19)**: `scripts/calibrate.mjs`+`npm run calibrate`(IRT/ELO 난이도 데이터 추정·이상 문항 제외), `content.calibrated` append-only 영속+서빙/대시보드 오버레이 반영, `evolve-publish`에 편입(생성→발행→캘리브레이션→스냅샷=완전한 플라이휠). **남은 것**: 스케줄러 실설치는 운영자 환경(OPERATING §5 crontab/schtasks)·FSRS 온라인 재적합 정례화.
+- [x] 진화 루프 상시 가동(캘리브레이션·최적화 스케줄). — **자기개선 3축 영속·적용 완료(2026-07-19~20)**: ①콘텐츠 생성·발행(`publishFromEvolve`), ②난이도 캘리브레이션(`recordCalibration`·서빙 오버레이·규칙 3), ③FSRS 스케줄러 재적합(`recordFsrsParams`·`stateOf` 적용·A/B 리텐션 가드레일·규칙 2). 전부 `evolve-publish` 한 사이클에 편입(성과 개선분만). **남은 것**: 스케줄러 실설치는 운영자 환경(OPERATING §5 crontab/schtasks).
 - [~] 신규 언어팩·교수법 스킬 확장, 저자원 언어 지원. — **C1 상급 티어 착수(2026-07-20, en 기준)**: `cefrFromAbility` B2→C1 확장, en C1 문법 KC(도치·분열문)+C1 읽기+C1 배치. 난이도 상한을 원어민 경로로 확장. **남은 것**: 다른 6개 언어 C1(같은 패턴)·C2/Native+·신규 언어팩(8번째)·저자원 언어.
 
 ## 최종 완결 스프린트 — 디버깅 스윕 → v1.0.0 (설계: [docs/design/final-completion.md](docs/design/final-completion.md))

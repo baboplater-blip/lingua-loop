@@ -5,6 +5,10 @@
 
 ## 한 줄 요약
 
+**🔁 FSRS 재적합 영속·적용 — 자기개선 플라이휠 완결(Phase 6).** 진화 3축 중 콘텐츠 ✓·캘리브레이션 ✓는 영속됐으나 **FSRS 스케줄러 재적합은 evolve가 A/B 가드레일까지 판정하고도 파라미터를 폐기**하던 마지막 축을 닫음. 코어 `deriveState(...,params?)`가 FSRS 파라미터를 `nextState`에 전달(미지정=기본값 무회귀·순수 유지, 직접 호출자는 `stateOf` 하나뿐이라 contained). 서버 `fsrs.tuned` 시스템 이벤트+`fsrs` 예약 ref(위조 차단)·`recordFsrsParams`(멱등)·`tunedFsrsParams`·**`stateOf`가 튜닝을 스케줄링에 적용**. evolve-publish가 `fsrsRefit.deployed`(A/B 리텐션 통과)면 영속→모든 학습자 스케줄 반영. `core/events-model.test`·`server/fsrs-tune.test`(멱등·적용·위조 차단)+라이브(FSRS 라인 실행·개선 없어 가드레일 미배포=규칙 1 안전). 게이트 **365→370 pass(64파일)**. **evolve 한 사이클이 콘텐츠·난이도·스케줄 3축 모두 영속·적용(성과 개선분만).**
+
+<details><summary>이전 요약 — 🎓 C1 상급 티어 착수(en 기준)</summary>
+
 **🎓 C1 상급 티어 착수(en 기준) — 난이도 상한 B2→C1(Phase 6).** 북스타 "0→원어민"인데 콘텐츠가 B2에서 멈춰 있던 상한을 올림. 정확도(규칙 6) 위해 영어를 기준 티어로(ja·hi 파일럿처럼). 코어 `cefrFromAbility` 확장(능력>3→C1, 2.5→B2 불변). 데이터: en C1 문법 KC 2종(`kc.en.inversion` 도치·`kc.en.cleft` 분열문)+각 flashcard+mcq+C1 논설 지문 `en.read.boredom`(본문에 실제 도치·분열문 → 정직 태깅·규칙 4)+C1 배치 문항 2개(CAT 천장 B2→C1). ⚠️C1은 시드로만(생성 C1=null 유지). `core/reading.test`(C1 매핑)·`server/c1-english.test`(서빙·무회귀·학습 가능·배치 천장)+라이브 6/6(θ=3.3→C1 지문·정답 미유출·배치 전부 정답→C1 θ=3.50). 게이트 **361→365 pass(63파일)**. **다른 언어는 이 패턴 따라 확장.**
 
 <details><summary>이전 요약 — ⚙️ 무인 캘리브레이션 잡(진화 루프 상시 가동)</summary>
@@ -79,8 +83,11 @@
 
 </details>
 
+</details>
+
 ## 게이트 상태
 
+- **🔁 FSRS 재적합 영속·적용 — 자기개선 플라이휠 완결(Phase 6, 규칙 2·1·5·16)**: 🟢 evolve가 A/B 가드레일까지 판정하고도 재적합 FSRS 파라미터를 폐기하던 마지막 축을 닫음. 코어 `deriveState(...,params?)`가 FSRS 파라미터를 `nextState`에 전달(미지정=기본값 무회귀·순수·결정적 유지, 직접 호출자 `stateOf` 하나뿐 contained). 서버 `fsrs.tuned` 시스템 이벤트+`fsrs` 예약 ref(위조 차단=임의 스케줄 파라미터 주입 방지)·`recordFsrsParams`(멱등 append-only)·`tunedFsrsParams`(언어별 최신)·`stateOf`가 튜닝 적용. evolve-publish가 `fsrsRefit.deployed`(A/B 리텐션 통과)면 `recordFsrsParams` 영속→모든 학습자 스케줄 반영. `core/events-model.test`(params 안정성·dueTs 상향·무회귀)·`server/fsrs-tune.test`(멱등·적용·위조 차단·집계 제외)+라이브(FSRS 라인 실행·합성 데이터선 개선 없어 가드레일 올바르게 미배포·재실행 멱등). 게이트 **365→370 pass(64파일)**. evolve 한 사이클이 콘텐츠·난이도·스케줄 3축 모두 영속·적용(성과 개선분만)
 - **🎓 C1 상급 티어 착수(en 기준, Phase 6, 규칙 4·6·11)**: 🟢 난이도 상한 B2→C1(북스타 "0→원어민"). 코어 `cefrFromAbility` 확장(능력>3→C1, 2.5→B2 불변 — reading 서빙·placement 레벨 라벨 인식). en C1 문법 KC 2종(`kc.en.inversion` 부정어 도치·`kc.en.cleft` 분열문, prereq relative)+각 flashcard+mcq+C1 논설 지문 `en.read.boredom`(≥200자·본문에 실제 도치/분열문 정직 태깅)+C1 배치 문항 2개(b 2.6·2.9). ⚠️C1은 생성기가 안 만듦→시드로만(생성 C1=null 유지). `core/reading.test`(cefrFromAbility C1)·`server/c1-english.test`(C1 서빙·B2 무회귀·C1 학습 가능·배치 C1 천장·정직 태깅)+라이브 6/6(θ=3.3→en.read.boredom·정답 미유출·배치 전부 정답→C1 θ=3.50). 게이트 **361→365 pass(63파일)**. 다른 언어는 이 패턴 따라 확장
 - **⚙️ 무인 캘리브레이션 잡 — 진화 루프 상시 가동(Phase 6, 규칙 3·5·16)**: 🟢 캘리브레이션(`runCalibration`)이 무인 잡·영속 없어 결과가 사라지던 격차를 닫음. `content.calibrated` 시스템 이벤트+`calibration` 예약 ref(공개 위조 차단=임의 난이도 주입 방지), `recordCalibration`(캘리브레이션분만 append-only·멱등)·`calibrationOverlay`(id→최신)·`applyCalibrationOverlay`(뱅크 오버레이). `efficacyReport`·`serveItems`가 오버레이 적용(Content Health 비율·서빙 난이도 반영). `RESERVED_REFS` 단일 소스 통합(공용 로그 5종 일괄 제외). `scripts/calibrate.mjs`+`npm run calibrate`(이상 문항 승격 제외)·**evolve-publish 편입**(생성→발행→캘리브레이션→스냅샷). `server/calibrate.test`(멱등·오버레이·비율 반영·위조 차단·집계 제외)+라이브(45응답→3문항·Content Health 27.3%·재실행 멱등 스킵 3·evolve 캘리브레이션 라인). OPERATING §2·§4 문서화. 게이트 **357→361 pass(62파일)**. 난이도는 데이터로만(규칙 3)
 - **🧪 실험군 개입 실배선 — 통제 실험 폐루프(Phase 6, 규칙 1·5·16)**: 🟢 76의 배정이 서빙에 영향 안 주던 갭을 닫음 — 배정 팔에 따라 실제로 다르게 서빙(등록→배정→차등 서빙→측정). 레버=연습 순서(SLA: 인터리빙>블록, Rohrer & Taylor). 코어 `practice-order.orderByPractice`(kc[0] 라운드로빈=인터리빙 vs 그룹화=블록, **집합 보존·순서만·분량 불변**·결정적), `Intervention`(`{kind:"practice_order"}`)을 `PreRegistration.intervention?`에 추가(선택·없으면 관측만). 서버 `practiceOrderFor`(활성 practice_order 실험 배정→interleaved/blocked·없으면 null)·`serveItems` slice 전 재배열(**미참여=기본 순서 무회귀**)·`registerExperiment` 개입 전달·`/experiment/assign` `practiceOrder` 반환. `core/practice-order.test`·`server/experiment-serving.test`(무회귀·인터리빙/블록·집합 동일·개입없는 실험 기본유지). 라이브 HTTP 8/8(⚠️KC당 아이템 1개면 인터리빙=블록 동일순서 정상). OPERATING §6·스킬 갱신. 게이트 **350→357 pass(61파일)**. 효과 자체는 실학습자가 답(규칙 19)
